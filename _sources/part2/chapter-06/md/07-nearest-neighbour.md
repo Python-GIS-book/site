@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -232,7 +232,6 @@ Now we have the `geometry_x` column representing the building geometries and the
 
 ```python editable=true slideshow={"slide_type": ""}
 from shapely import shortest_line
-
 
 # Generate LineString between nearest points of two geometries
 connectors = nearest_roads.apply(

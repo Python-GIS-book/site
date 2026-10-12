@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -219,7 +219,7 @@ We can also use the `and` and `or` operators to combine multiple conditions that
 | `not`    | False if comparison is true and vice versa | `not 2 > 1`        | `False` |
 <!-- #endregion -->
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 \begin{longtable}[]{@{}clcc@{}}
 \caption{\emph{\textbf{Table 2.4}. Logic for the \texttt{and},
 \texttt{or}, and \texttt{not} operators in Python.}}\tabularnewline

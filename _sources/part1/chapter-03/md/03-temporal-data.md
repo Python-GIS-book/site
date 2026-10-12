@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -77,7 +77,7 @@ As a result we get a `datetime` object in which the date has been converted into
 |`%w`      |Weekday as a number where 0 is Sunday and 6 is Saturday |0, ..., 6              |
 <!-- #endregion -->
 
-<!-- #raw editable=true slideshow={"slide_type": ""} tags=["hide-cell"] raw_mimetype="" -->
+<!-- #raw editable=true raw_mimetype="" slideshow={"slide_type": ""} tags=["hide-cell"] -->
 \begin{longtable}[]{@{}lll@{}}
 \caption{\emph{\textbf{Table 3.1}. Most commonly used \texttt{datetime}
 directives and their meaning.}}\tabularnewline
@@ -186,7 +186,7 @@ print(dt.weekday())
 print(dt.date())
 ```
 
-<!-- #region editable=true slideshow={"slide_type": ""} raw_mimetype="" -->
+<!-- #region editable=true raw_mimetype="" slideshow={"slide_type": ""} -->
 By using the `.strftime()` function, you can use the same directives from Table 3.1 to construct and convert the `datetime` object to any text representation of the date and time. Below you can see how this function can be used to create an easily understandable date and time text string based on our date and time information.
 <!-- #endregion -->
 

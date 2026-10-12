@@ -1,0 +1,1418 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Spatial accessibility modelling based on travel times</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part3/chapter-11/md/01-spatial-accessibility-modelling';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part1/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">2.1 Getting started with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/01-lists-and-indices.html">2.2 Lists and indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/02-text-and-numbers.html">2.3 Working with text and numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/03-for-loops.html">2.4 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/04-conditional-statements.html">2.5 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/05-functions.html">2.6 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/06-writing-scripts.html">2.7 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/07-modules.html">2.8 Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/08-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-03/index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part2/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in vector format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/01-data-structures-xarray.html">7.2 Introduction to data structures in xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-08/index.html">8. Spatial network analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/00-representing-spatial-networks.html">8.1 Representing geographic data as networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/01-spatial-network-analysis.html">8.2 Spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/02-common-network-operations.html">8.3 Common network operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-08/nb/03-multimodal-network-analysis.html">8.4 Multimodal network analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-09/index.html">9. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/00-introduction-to-geographic-visualization.html">9.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/01-static-maps.html">9.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-09/nb/02-interactive-maps.html">9.4 Interactive maps</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part2/chapter-10/index.html">10. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-10/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-10/nb/00-retrieving-osm-data.html">10.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-10/nb/01-retrieving-data-from-wfs.html">10.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-10/nb/02-retrieving-data-from-wcs.html">10.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-10/nb/03-read-data-from-spatial-databases.html">10.4 Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part2/chapter-10/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">11. Spatial accessibility modelling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/00-accessibility-as-a-concept.html">11.1 Introduction to spatial accessibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/01-spatial-accessibility-modelling.html">11.2 Spatial accessibility modelling based on travel times</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-12/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-question-solutions.html">B.1 Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-exercise-solutions.html">B.2 Exercise solutions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Data overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/source/part3/chapter-11/md/01-spatial-accessibility-modelling.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part3/chapter-11/md/01-spatial-accessibility-modelling.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Spatial accessibility modelling based on travel times</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-requirements">Data requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-for-creating-a-routable-network">Data for creating a routable network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-for-origin-and-destination-locations">Data for origin and destination locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-get-these-datasets">Where to get these datasets?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-datasets">Sample datasets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-r5py">Getting started with <code class="docutils literal notranslate"><span class="pre">r5py</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-prepare-the-origin-and-destination-data">Load and prepare the origin and destination data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-polygon-layer-to-points">Convert polygon layer to points</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieve-the-origin-location-by-geocoding-an-address">Retrieve the origin location by geocoding an address</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-transport-network">Load transport network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-travel-time-matrix-from-one-to-all-locations">Compute travel time matrix from one to all locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-travel-time-matrix-from-all-to-all-locations">Compute travel time matrix from all to all locations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-usage">Advanced usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-travel-times-with-a-detailed-information-about-the-routing-results">Compute travel times with a detailed information about the routing results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-routes-on-a-map">Visualize the routes on a map</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#large-scale-analyses-travel-time-matrices-covering-massive-number-of-connections">Large-scale analyses - Travel time matrices covering massive number of connections</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-optional-download-if-you-work-on-own-computer">Download the data (optional: download if you work on own computer)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Sample datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-origin-and-destination-data">Load the origin and destination data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-travel-times-by-bike">Calculate travel times by bike</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-catchment-areas">Calculate catchment areas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-accessibility">Analyze accessibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cumulative-opportunities">Cumulative opportunities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-next">Where to go next?</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="spatial-accessibility-modelling-based-on-travel-times">
+<h1>Spatial accessibility modelling based on travel times<a class="headerlink" href="#spatial-accessibility-modelling-based-on-travel-times" title="Link to this heading">#</a></h1>
+<p>One of the handy Python libraries that can be used to calculate travel time matrices needed for spatial accessibility modelling is <code class="docutils literal notranslate"><span class="pre">r5py</span></code>. This library can be used for routing and calculating travel time matrices on multimodal transport networks (walk, bike, public transport and car). It provides a simple and friendly interface to R<sup>5</sup> (<em>the Rapid Realistic Routing on Real-world and Reimagined networks</em>) which is a <a class="reference external" href="https://github.com/conveyal/r5">routing engine</a> developed by <a class="reference external" href="https://conveyal.com/">Conveyal</a>. <code class="docutils literal notranslate"><span class="pre">R5py</span></code> is designed to interact with <a class="reference external" href="https://geopandas.org">GeoPandas</a> GeoDataFrames, and it is inspired by <a class="reference external" href="https://ipeagit.github.io/r5r">r5r</a> which is a similar wrapper developed for R. <code class="docutils literal notranslate"><span class="pre">R5py</span></code> exposes some of R5’s functionality via its Python API, in a syntax similar to r5r’s.</p>
+<!-- #region -->
+<section id="data-requirements">
+<h2>Data requirements<a class="headerlink" href="#data-requirements" title="Link to this heading">#</a></h2>
+<section id="data-for-creating-a-routable-network">
+<h3>Data for creating a routable network<a class="headerlink" href="#data-for-creating-a-routable-network" title="Link to this heading">#</a></h3>
+<p>When calculating travel times with <code class="docutils literal notranslate"><span class="pre">r5py</span></code>, you typically need a couple of datasets:</p>
+<ul class="simple">
+<li><p><strong>A road network dataset from OpenStreetMap</strong> (OSM) in Protocolbuffer Binary (<code class="docutils literal notranslate"><span class="pre">.pbf</span></code>) -format:</p>
+<ul>
+<li><p>This data is used for finding the fastest routes and calculating the travel times based on walking, cycling and driving. In addition, this data is used for walking/cycling legs between stops when routing with transit.</p></li>
+<li><p><em>Hint</em>: Sometimes you might need modify the OSM data beforehand, e.g. by cropping the data or adding special costs for travelling (e.g. for considering slope when cycling/walking). When doing this, you should follow the instructions at <a class="reference external" href="https://docs.conveyal.com/prepare-inputs#preparing-the-osm-data">Conveyal website</a>. For adding customized costs for pedestrian and cycling analyses, see <a class="reference external" href="https://github.com/RSGInc/ladot_analysis_dataprep">this repository</a>.</p></li>
+</ul>
+</li>
+<li><p><strong>A transit schedule dataset</strong> in General Transit Feed Specification (GTFS.zip) -format (optional):</p>
+<ul>
+<li><p>This data contains all the necessary information for calculating travel times based on public transport, such as stops, routes, trips and the schedules when the vehicles are passing a specific stop. You can read about <a class="reference external" href="https://developers.google.com/transit/gtfs/reference">GTFS standard from here</a>.</p></li>
+<li><p><em>Hint</em>: <code class="docutils literal notranslate"><span class="pre">r5py</span></code> can also combine multiple GTFS files, as sometimes you might have different GTFS feeds representing e.g. the bus and metro connections.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="data-for-origin-and-destination-locations">
+<h3>Data for origin and destination locations<a class="headerlink" href="#data-for-origin-and-destination-locations" title="Link to this heading">#</a></h3>
+<p>In addition to OSM and GTFS datasets, you need data that represents the origin and destination locations (OD-data) for routings. This data is typically stored in one of the geospatial data formats, such as Shapefile, GeoJSON or GeoPackage. As <code class="docutils literal notranslate"><span class="pre">r5py</span></code> is build on top of <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, it is easy to read OD-data from various different data formats.</p>
+</section>
+<section id="where-to-get-these-datasets">
+<h3>Where to get these datasets?<a class="headerlink" href="#where-to-get-these-datasets" title="Link to this heading">#</a></h3>
+<p>Here are a few places from where you can download the datasets for creating the routable network:</p>
+<ul class="simple">
+<li><p><strong>OpenStreetMap data in PBF-format</strong>:</p>
+<ul>
+<li><p><a class="reference external" href="https://protomaps.com/downloads/osm">Protomaps</a> -website. Allows to download the data with custom extent by specifying your own area of interest.</p></li>
+<li><p><a class="reference external" href="https://pyrosm.readthedocs.io/en/latest/basics.html#protobuf-file-what-is-it-and-how-to-get-one">pyrosm</a>  -library. Allows downloading data directly from Python (based on GeoFabrik and BBBike).</p></li>
+<li><p><a class="reference external" href="https://pydriosm.readthedocs.io/en/latest/quick-start.html#download-data">pydriosm</a> -library. Allows downloading data directly from Python (based on GeoFabrik and BBBike).</p></li>
+<li><p><a class="reference external" href="http://download.geofabrik.de/">GeoFabrik</a> -website. Has data extracts for many pre-defined areas (countries, regions, etc).</p></li>
+<li><p><a class="reference external" href="https://download.bbbike.org/osm/bbbike/">BBBike</a> -website. Has data extracts readily available for many cities across the world. Also supports downloading data by <a class="reference external" href="https://extract.bbbike.org/">specifying your own area or interest</a>.</p></li>
+</ul>
+</li>
+<li><p><strong>GTFS data</strong>:</p>
+<ul>
+<li><p><a class="reference external" href="https://transitfeeds.com/">Transitfeeds</a> -website. Easy to navigate and find GTFS data for different countries and cities. Includes current and historical GTFS data. Notice: The site will be depracated in the future.</p></li>
+<li><p><a class="reference external" href="https://mobilitydatabase.org">Mobility Database</a> -website. Will eventually replace TransitFeeds -website.</p></li>
+<li><p><a class="reference external" href="https://www.transit.land/operators">Transitland</a> -website. Find data based on country, operator or feed name. Includes current and historical GTFS data.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sample-datasets">
+<h3>Sample datasets<a class="headerlink" href="#sample-datasets" title="Link to this heading">#</a></h3>
+<p>In the following tutorial, we use various open source datasets:</p>
+<ul class="simple">
+<li><p>The point dataset for Helsinki has been obtained from <a class="reference external" href="https://www.hsy.fi/en/environmental-information/open-data/avoin-data---sivut/population-grid-of-helsinki-metropolitan-area/">Helsinki Region Environmental Services</a> (HSY) licensed under a Creative Commons By Attribution 4.0.</p></li>
+<li><p>The street network for Helsinki is a cropped and filtered extract of OpenStreetMap (© OpenStreetMap contributors, <a class="reference external" href="https://www.openstreetmap.org/copyright">ODbL license</a>)</p></li>
+<li><p>The GTFS transport schedule dataset for Helsinki is a cropped and minimised copy of Helsingin seudun liikenne’s (HSL) open dataset <a class="reference external" href="https://www.hsl.fi/hsl/avoin-data#aineistojen-kayttoehdot">Creative Commons BY 4.0</a>.</p></li>
+</ul>
+<!-- #endregion -->
+</section>
+</section>
+<section id="getting-started-with-r5py">
+<h2>Getting started with <code class="docutils literal notranslate"><span class="pre">r5py</span></code><a class="headerlink" href="#getting-started-with-r5py" title="Link to this heading">#</a></h2>
+<p>In this tutorial, we will learn how to calculate travel times with <code class="docutils literal notranslate"><span class="pre">r5py</span></code> between locations spread around the city center area of Helsinki, Finland.</p>
+<section id="load-and-prepare-the-origin-and-destination-data">
+<h3>Load and prepare the origin and destination data<a class="headerlink" href="#load-and-prepare-the-origin-and-destination-data" title="Link to this heading">#</a></h3>
+<p>Let’s start by downloading a sample dataset into a geopandas <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> that we can use as our destination locations. To make testing the library easier, we have prepared a helper <code class="docutils literal notranslate"><span class="pre">r5py.sampledata.helsinki</span></code> which can be used to easily download the sample data sets for Helsinki (including population grid, GTFS data and OSM data). The population grid data covers the city center area of Helsinki and contains information about residents of each 250 meter cell:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">r5py.sampledata.helsinki</span>
+
+<span class="n">pop_grid_fp</span> <span class="o">=</span> <span class="n">r5py</span><span class="o">.</span><span class="n">sampledata</span><span class="o">.</span><span class="n">helsinki</span><span class="o">.</span><span class="n">population_grid</span>
+<span class="n">pop_grid</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">pop_grid_fp</span><span class="p">)</span>
+<span class="n">pop_grid</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> GeoDataFrame contains a few columns, namely <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">population</span></code> and <code class="docutils literal notranslate"><span class="pre">geometry</span></code>. The <code class="docutils literal notranslate"><span class="pre">id</span></code> column with unique values and <code class="docutils literal notranslate"><span class="pre">geometry</span></code> columns are required for <code class="docutils literal notranslate"><span class="pre">r5py</span></code> to work. If your input dataset does not have an <code class="docutils literal notranslate"><span class="pre">id</span></code> column with unique values, <code class="docutils literal notranslate"><span class="pre">r5py</span></code> will throw an error.</p>
+<p>To get a better sense of the data, let’s create a map that shows the locations of the polygons and visualise the number of people living in each cell:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pop_grid</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="s2">"population"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Reds"</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="convert-polygon-layer-to-points">
+<h4>Convert polygon layer to points<a class="headerlink" href="#convert-polygon-layer-to-points" title="Link to this heading">#</a></h4>
+<p>Lastly, we need to convert the Polygons into points because <strong>r5py expects that the input data is represented as points</strong>. We can do this by making a copy of our grid and calculating the centroid of the Polygons.</p>
+<p><em>Note: You can ignore the UserWarning raised by geopandas about the geographic CRS. The location of the centroid is accurate enough for most purposes.</em></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert polygons into points</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">points</span><span class="p">[</span><span class="s2">"geometry"</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">centroid</span>
+<span class="n">points</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">max_zoom</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="retrieve-the-origin-location-by-geocoding-an-address">
+<h4>Retrieve the origin location by geocoding an address<a class="headerlink" href="#retrieve-the-origin-location-by-geocoding-an-address" title="Link to this heading">#</a></h4>
+<p>Let’s geocode an address for Helsinki Railway Station into a GeoDataFrame using <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> and use that as our <strong>origin</strong> location:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
+
+<span class="n">address</span> <span class="o">=</span> <span class="s2">"Central Railway station, Helsinki, Finland"</span>
+<span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+
+<span class="c1"># Create a GeoDataFrame out of the coordinates</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">"geometry"</span><span class="p">:</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)],</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Helsinki Railway station"</span><span class="p">,</span> <span class="s2">"id"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]},</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">crs</span><span class="o">=</span><span class="s2">"epsg:4326"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">origin</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">max_zoom</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">marker_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"radius"</span><span class="p">:</span> <span class="mi">12</span><span class="p">})</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="load-transport-network">
+<h3>Load transport network<a class="headerlink" href="#load-transport-network" title="Link to this heading">#</a></h3>
+<p>Virtually all operations of <code class="docutils literal notranslate"><span class="pre">r5py</span></code> require a transport network. In this example, we use data from Helsinki metropolitan area, which you can easily obtain from the <code class="docutils literal notranslate"><span class="pre">r5py.sampledata.helsinki</span></code> library. The files will be downloaded automatically to a temporary folder on your computer when you call the variables <code class="docutils literal notranslate"><span class="pre">*.osm_pbf</span></code> and <code class="docutils literal notranslate"><span class="pre">*.gtfs</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download OSM data</span>
+<span class="n">r5py</span><span class="o">.</span><span class="n">sampledata</span><span class="o">.</span><span class="n">helsinki</span><span class="o">.</span><span class="n">osm_pbf</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download GTFS data</span>
+<span class="n">r5py</span><span class="o">.</span><span class="n">sampledata</span><span class="o">.</span><span class="n">helsinki</span><span class="o">.</span><span class="n">gtfs</span>
+</pre></div>
+</div>
+<p>To import the street and public transport networks, instantiate an <code class="docutils literal notranslate"><span class="pre">r5py.TransportNetwork</span></code> with the file paths to the OSM extract and the GTFS files:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">r5py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TransportNetwork</span>
+
+<span class="c1"># Get the filepaths to sample data (OSM and GTFS)</span>
+<span class="n">helsinki_osm</span> <span class="o">=</span> <span class="n">r5py</span><span class="o">.</span><span class="n">sampledata</span><span class="o">.</span><span class="n">helsinki</span><span class="o">.</span><span class="n">osm_pbf</span>
+<span class="n">helsinki_gtfs</span> <span class="o">=</span> <span class="n">r5py</span><span class="o">.</span><span class="n">sampledata</span><span class="o">.</span><span class="n">helsinki</span><span class="o">.</span><span class="n">gtfs</span>
+
+<span class="n">transport_network</span> <span class="o">=</span> <span class="n">TransportNetwork</span><span class="p">(</span>
+    <span class="c1"># OSM data</span>
+    <span class="n">helsinki_osm</span><span class="p">,</span>
+    <span class="c1"># A list of GTFS file(s)</span>
+    <span class="p">[</span>
+        <span class="n">helsinki_gtfs</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">transport_network</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can explore various attributes of the transit layer such as routes</span>
+<span class="n">transport_network</span><span class="o">.</span><span class="n">transit_layer</span><span class="o">.</span><span class="n">routes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">agency_id</span>
+</pre></div>
+</div>
+<p>At this stage, <code class="docutils literal notranslate"><span class="pre">r5py</span></code> has created the routable transport network and it is stored in the <code class="docutils literal notranslate"><span class="pre">transport_network</span></code> variable. We can now start using this network for doing the travel time calculations.</p>
+</section>
+<section id="compute-travel-time-matrix-from-one-to-all-locations">
+<h3>Compute travel time matrix from one to all locations<a class="headerlink" href="#compute-travel-time-matrix-from-one-to-all-locations" title="Link to this heading">#</a></h3>
+<p>A travel time matrix is a dataset detailing the travel costs (e.g., time) between given locations (origins and destinations) in a study area. To compute a travel time matrix with <code class="docutils literal notranslate"><span class="pre">r5py</span></code> based on public transportation, we initialize an <code class="docutils literal notranslate"><span class="pre">r5py.TravelTimeMatrix</span></code> -object. As inputs, we pass following arguments for the <code class="docutils literal notranslate"><span class="pre">TravelTimeMatrix</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">transport_network</span></code>, which we created in the previous step representing the routable transport network.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origins</span></code>, which is a GeoDataFrame with one location that we created earlier (however, you can also use multiple locations as origins).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destinations</span></code>, which is a GeoDataFrame representing the destinations (in our case, the <code class="docutils literal notranslate"><span class="pre">points</span></code> GeoDataFrame).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">departure</span></code>, which should be Python’s <code class="docutils literal notranslate"><span class="pre">datetime</span></code> -object (in our case standing for “22nd of February 2022 at 08:30”) to tell <code class="docutils literal notranslate"><span class="pre">r5py</span></code> that the schedules of this specific time and day should be used for doing the calculations.</p>
+<ul>
+<li><p><em>Note</em>: By default, <code class="docutils literal notranslate"><span class="pre">r5py</span></code> summarizes and calculates a median travel time from all possible connections within 10 minutes from given depature time (with 1 minute frequency). It is possible to adjust this time window using <code class="docutils literal notranslate"><span class="pre">departure_time_window</span></code> -parameter (<a class="reference internal" href="#(https://r5py.readthedocs.io/en/latest/reference/reference.html#r5py.RegionalTask)"><span class="xref myst">see details here</span></a>). For robust spatial accessibility assessment (e.g. in scientific works), we recommend to use 60 minutes <code class="docutils literal notranslate"><span class="pre">departure_time_window</span></code>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">transport_modes</span></code>, which determines the travel modes that will be used in the calculations. These can be passed using the options from the <code class="docutils literal notranslate"><span class="pre">r5py.TransportMode</span></code> -class.</p>
+<ul>
+<li><p><em>Hint</em>: To see all available options, run <code class="docutils literal notranslate"><span class="pre">help(r5py.TransportMode)</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In addition to these ones, the constructor also accepts many other parameters <a class="reference external" href="https://r5py.readthedocs.io/en/latest/reference/reference.html#r5py.RegionalTask">listed here</a>, such as walking and cycling speed, maximum trip duration, maximum number of transit connections used during the trip, etc.</p>
+</div>
+<p>Now, we will create a <code class="docutils literal notranslate"><span class="pre">travel_time_matrix</span></code> instance as described above which will compute as the travel times between the given origins and destinations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">r5py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TravelTimeMatrix</span><span class="p">,</span> <span class="n">TransportMode</span>
+
+<span class="c1"># Initialize the tool</span>
+<span class="n">travel_time_matrix</span> <span class="o">=</span> <span class="n">TravelTimeMatrix</span><span class="p">(</span>
+    <span class="n">transport_network</span><span class="p">,</span>
+    <span class="n">origins</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span>
+    <span class="n">destinations</span><span class="o">=</span><span class="n">points</span><span class="p">,</span>
+    <span class="n">departure</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="n">transport_modes</span><span class="o">=</span><span class="p">[</span><span class="n">TransportMode</span><span class="o">.</span><span class="n">TRANSIT</span><span class="p">,</span> <span class="n">TransportMode</span><span class="o">.</span><span class="n">WALK</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># To see all available transport modes, uncomment following</span>
+<span class="c1"># help(TransportMode)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">travel_time_matrix</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As a result, this returns a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> which we stored in the <code class="docutils literal notranslate"><span class="pre">travel_time_matrix</span></code> -variable. The values in the <code class="docutils literal notranslate"><span class="pre">travel_time</span></code> column are travel times in minutes between the points identified by <code class="docutils literal notranslate"><span class="pre">from_id</span></code> and <code class="docutils literal notranslate"><span class="pre">to_id</span></code>. As you can see, the <code class="docutils literal notranslate"><span class="pre">id</span></code> value in the <code class="docutils literal notranslate"><span class="pre">from_id</span></code> column is the same for all rows because we only used one origin location as input.</p>
+<p>To get a better sense of the results, let’s create a travel time map based on our results. We can do this easily by making a table join between the <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> GeoDataFrame and the <code class="docutils literal notranslate"><span class="pre">travel_time_matrix</span></code>. The key in the <code class="docutils literal notranslate"><span class="pre">travel_time_matrix</span></code> table is the column <code class="docutils literal notranslate"><span class="pre">to_id</span></code> and the corresponding key in <code class="docutils literal notranslate"><span class="pre">pop_grid</span></code> GeoDataFrame is the column <code class="docutils literal notranslate"><span class="pre">id</span></code>. Notice that here we do the table join with the original the Polygons layer (for visualization purposes). However, the join could also be done in a similar manner with the <code class="docutils literal notranslate"><span class="pre">points</span></code> GeoDataFrame.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">join</span> <span class="o">=</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">travel_time_matrix</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"to_id"</span><span class="p">)</span>
+<span class="n">join</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now we have the travel times attached to each point, and we can easily visualize them on a map:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">join</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="s2">"travel_time"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Greens"</span><span class="p">,</span> <span class="n">max_zoom</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">marker_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"radius"</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+<span class="n">m</span>
+</pre></div>
+</div>
+</section>
+<section id="compute-travel-time-matrix-from-all-to-all-locations">
+<h3>Compute travel time matrix from all to all locations<a class="headerlink" href="#compute-travel-time-matrix-from-all-to-all-locations" title="Link to this heading">#</a></h3>
+<p>Running the calculations between all points in our sample dataset can be done in a similar manner as calculating the travel times from one origin to all destinations.
+Since, calculating these kind of all-to-all travel time matrices is quite typical when doing accessibility analyses, it is actually possible to calculate a cross-product between all points just by using the <code class="docutils literal notranslate"><span class="pre">origins</span></code> parameter (i.e. without needing to specify a separate set for destinations). <code class="docutils literal notranslate"><span class="pre">r5py</span></code> will use the same points as destinations and produce a full set of origins and destinations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">travel_time_matrix_all</span> <span class="o">=</span> <span class="n">TravelTimeMatrix</span><span class="p">(</span>
+    <span class="n">transport_network</span><span class="p">,</span>
+    <span class="n">origins</span><span class="o">=</span><span class="n">points</span><span class="p">,</span>
+    <span class="n">departure</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="n">transport_modes</span><span class="o">=</span><span class="p">[</span><span class="n">TransportMode</span><span class="o">.</span><span class="n">TRANSIT</span><span class="p">,</span> <span class="n">TransportMode</span><span class="o">.</span><span class="n">WALK</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">travel_time_matrix_all</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">travel_time_matrix_all</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">travel_time_matrix_all</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we can see from the outputs above, now we have calculated travel times between all points (n=92) in the study area. Hence, the resulting DataFrame has almost 8500 rows (92x92=8464). Based on these results, we can for example calculate the median travel time to or from a certain point, which gives a good estimate of the overall accessibility of the location in relation to other points:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">median_times</span> <span class="o">=</span> <span class="n">travel_time_matrix_all</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"from_id"</span><span class="p">)[</span><span class="s2">"travel_time"</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">median_times</span>
+</pre></div>
+</div>
+<p>To estimate, how long does it take in general to travel between locations in our study area (i.e. what is the baseline accessibility in the area), we can calculate the mean (or median) of the median travel times showing that it is approximately 22 minutes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">median_times</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Naturally, we can also visualize these values on a map:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">overall_access</span> <span class="o">=</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">median_times</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"from_id"</span>
+<span class="p">)</span>
+<span class="n">overall_access</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">overall_access</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="s2">"travel_time"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Blues"</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s2">"natural_breaks"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In out study area, there seems to be a bit poorer accessibility in the Southern areas and on the edges of the region (i.e. we wittness a classic edge-effect here).</p>
+</section>
+</section>
+<section id="advanced-usage">
+<h2>Advanced usage<a class="headerlink" href="#advanced-usage" title="Link to this heading">#</a></h2>
+<section id="compute-travel-times-with-a-detailed-information-about-the-routing-results">
+<h3>Compute travel times with a detailed information about the routing results<a class="headerlink" href="#compute-travel-times-with-a-detailed-information-about-the-routing-results" title="Link to this heading">#</a></h3>
+<p>In case you are interested in more detailed routing results, it is possible to use <code class="docutils literal notranslate"><span class="pre">DetailedItineraries</span></code> class. This will provide not only the same information as in the previous examples, but it also brings much more detailed information about the routings. When using this functionality, <code class="docutils literal notranslate"><span class="pre">r5py</span></code> produces information about the used routes for each origin-destination pair (with possibly multiple alternative routes), as well as individual trip segments and information about the used modes, public transport route-id information (e.g. bus-line number), distanes, waiting times and the actual geometry used.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Computing detailed itineraries is significantly more time-consuming than calculating simple travel times. As such, think twice whether you actually need the detailed information output from this function, and how you might be able to limit the number of origins and destinations you need to compute.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">r5py</span><span class="w"> </span><span class="kn">import</span> <span class="n">DetailedItineraries</span>
+
+<span class="c1"># Take a small sample of destinations for demo purposes</span>
+<span class="n">points_sample</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">travel_details</span> <span class="o">=</span> <span class="n">DetailedItineraries</span><span class="p">(</span>
+    <span class="n">transport_network</span><span class="p">,</span>
+    <span class="n">origins</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span>
+    <span class="n">destinations</span><span class="o">=</span><span class="n">points_sample</span><span class="p">,</span>
+    <span class="n">departure</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="n">transport_modes</span><span class="o">=</span><span class="p">[</span><span class="n">TransportMode</span><span class="o">.</span><span class="n">TRANSIT</span><span class="p">,</span> <span class="n">TransportMode</span><span class="o">.</span><span class="n">WALK</span><span class="p">],</span>
+    <span class="c1"># With following attempts to snap all origin and destination points to the transport network before routing</span>
+    <span class="n">snap_to_network</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">travel_details</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see, the result contains much more information than earlier, see the following table for explanations:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Data type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>from_id</strong></p></td>
+<td><p>the origin of the trip this segment belongs to</p></td>
+<td><p>any, user defined</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>to_id</strong></p></td>
+<td><p>the destination of the trip this segment belongs to</p></td>
+<td><p>any, user defined</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>option</strong></p></td>
+<td><p>sequential number for different trip options found</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>segment</strong></p></td>
+<td><p>sequential number for segments of the current trip options</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>transport_mode</strong></p></td>
+<td><p>the transport mode used on the current segment</p></td>
+<td><p>r5py.TransportMode</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>departure_time</strong></p></td>
+<td><p>the transit departure date and time used for current segment</p></td>
+<td><p>datetime.datetime</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>distance</strong></p></td>
+<td><p>the travel distance in metres for the current segment</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>travel_time</strong></p></td>
+<td><p>The travel time for the current segment</p></td>
+<td><p>datetime.timedelta</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>wait_time</strong></p></td>
+<td><p>The wait time between connections when using public transport</p></td>
+<td><p>datetime.timedelta</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>feed</strong></p></td>
+<td><p>The identifier for the GTFS feed used</p></td>
+<td><p>str</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>agency_id</strong></p></td>
+<td><p>The identifier for the transit Agency operator</p></td>
+<td><p>str</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>route_id</strong></p></td>
+<td><p>The route number or id for public transport route used on a segment</p></td>
+<td><p>str</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>start_stop_id</strong></p></td>
+<td><p>The stop id of the first stop on a given trip segment</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>end_stop_id</strong></p></td>
+<td><p>The stop id of the last stop on a given trip segment</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>geometry</strong></p></td>
+<td><p>The path travelled on a current segment</p></td>
+<td><p>shapely.LineString</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="visualize-the-routes-on-a-map">
+<h3>Visualize the routes on a map<a class="headerlink" href="#visualize-the-routes-on-a-map" title="Link to this heading">#</a></h3>
+<p>In the following, we will make a nice interactive visualization out of the results, that shows the fastest routes and the mode of transport between the given origin-destination pairs (with multiple alternative trips/routes):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">folium</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">folium.plugins</span>
+
+<span class="c1"># Convert travel mode to string (from r5py.TransportMode object)</span>
+<span class="n">travel_details</span><span class="p">[</span><span class="s2">"mode"</span><span class="p">]</span> <span class="o">=</span> <span class="n">travel_details</span><span class="p">[</span><span class="s2">"transport_mode"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+<span class="c1"># Calculate travel time in minutes (from timedelta)</span>
+<span class="n">travel_details</span><span class="p">[</span><span class="s2">"travel time (min)"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">travel_details</span><span class="p">[</span><span class="s2">"travel_time"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">60</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Generate text for given trip ("origin" to "destination")</span>
+<span class="n">travel_details</span><span class="p">[</span><span class="s2">"trip"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">travel_details</span><span class="p">[</span><span class="s2">"from_id"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" to "</span> <span class="o">+</span> <span class="n">travel_details</span><span class="p">[</span><span class="s2">"to_id"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Choose columns for visualization</span>
+<span class="n">selected_cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"geometry"</span><span class="p">,</span>
+    <span class="s2">"distance"</span><span class="p">,</span>
+    <span class="s2">"mode"</span><span class="p">,</span>
+    <span class="s2">"route_id"</span><span class="p">,</span>
+    <span class="s2">"travel time (min)"</span><span class="p">,</span>
+    <span class="s2">"trip"</span><span class="p">,</span>
+    <span class="s2">"from_id"</span><span class="p">,</span>
+    <span class="s2">"to_id"</span><span class="p">,</span>
+    <span class="s2">"option"</span><span class="p">,</span>
+    <span class="s2">"segment"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Generate the map</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">travel_details</span><span class="p">[</span><span class="n">selected_cols</span><span class="p">]</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">"trip"</span><span class="p">,</span>
+        <span class="s2">"option"</span><span class="p">,</span>
+        <span class="s2">"segment"</span><span class="p">,</span>
+        <span class="s2">"mode"</span><span class="p">,</span>
+        <span class="s2">"route_id"</span><span class="p">,</span>
+        <span class="s2">"travel time (min)"</span><span class="p">,</span>
+        <span class="s2">"distance"</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">"mode"</span><span class="p">,</span>
+    <span class="n">tiles</span><span class="o">=</span><span class="s2">"CartoDB.Positron"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Add marker for the origin</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span>
+    <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+    <span class="n">marker_type</span><span class="o">=</span><span class="s2">"marker"</span><span class="p">,</span>
+    <span class="n">marker_kwds</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">folium</span><span class="o">.</span><span class="n">Icon</span><span class="p">(</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span>
+            <span class="n">icon</span><span class="o">=</span><span class="s2">"train"</span><span class="p">,</span>
+            <span class="n">prefix</span><span class="o">=</span><span class="s2">"fa"</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Add customized markers for destinations</span>
+<span class="n">points_sample</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="p">(</span>
+        <span class="c1"># Marker with destination ID number attached to the icon</span>
+        <span class="n">folium</span><span class="o">.</span><span class="n">Marker</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">"geometry"</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s2">"geometry"</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
+            <span class="n">icon</span><span class="o">=</span><span class="n">folium</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">BeautifyIcon</span><span class="p">(</span>
+                <span class="n">icon_shape</span><span class="o">=</span><span class="s2">"marker"</span><span class="p">,</span>
+                <span class="n">number</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">"id"</span><span class="p">],</span>
+                <span class="n">border_color</span><span class="o">=</span><span class="s2">"#728224"</span><span class="p">,</span>
+                <span class="n">text_color</span><span class="o">=</span><span class="s2">"#728224"</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># Add the marker to existing map</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">add_to</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">m</span>
+</pre></div>
+</div>
+<p>As a result, now we have a nice map that shows alternative routes between Railway station and the given destinations in the study area.
+If you hover over the lines, you can see details about the selected routes with useful information about the travel time, distance, route id (line number) etc.
+Hence, as such, if you’re feeling nerdy (and happen to have Python installed to your phone 😛), you could replace your Google Maps navigator or other journey planners with <code class="docutils literal notranslate"><span class="pre">r5py</span></code>! 🤓😉</p>
+<!-- #region -->
+</section>
+</section>
+<section id="large-scale-analyses-travel-time-matrices-covering-massive-number-of-connections">
+<h2>Large-scale analyses - Travel time matrices covering massive number of connections<a class="headerlink" href="#large-scale-analyses-travel-time-matrices-covering-massive-number-of-connections" title="Link to this heading">#</a></h2>
+<p>When trying to understand the accessibility of a specific location, you typically want to look at travel times between multiple locations (one-to-many). Next, we will learn how to calculate travel time matrices using <code class="docutils literal notranslate"><span class="pre">r5py</span></code> Python library.</p>
+<p>When calculating travel times with <code class="docutils literal notranslate"><span class="pre">r5py</span></code>, you typically need a couple of datasets:</p>
+<ul class="simple">
+<li><p><strong>A road network dataset from OpenStreetMap</strong> (OSM) in Protocolbuffer Binary (<code class="docutils literal notranslate"><span class="pre">.pbf</span></code>) format:</p>
+<ul>
+<li><p>This data is used for finding the fastest routes and calculating the travel times based on walking, cycling and driving. In addition, this data is used for walking/cycling legs between stops when routing with transit.</p></li>
+<li><p><em>Hint</em>: Sometimes you might need modify the OSM data beforehand, e.g., by cropping the data or adding special costs for travelling (e.g., for considering slope when cycling/walking). When doing this, you should follow the instructions on the <a class="reference external" href="https://docs.conveyal.com/prepare-inputs#preparing-the-osm-data">Conveyal website</a>. For adding customized costs for pedestrian and cycling analyses, see <a class="reference external" href="https://github.com/RSGInc/ladot_analysis_dataprep">this repository</a>.</p></li>
+</ul>
+</li>
+<li><p><strong>A transit schedule dataset</strong> in General Transit Feed Specification (GTFS.zip) format (optional):</p>
+<ul>
+<li><p>This data contains all the necessary information for calculating travel times based on public transport, such as stops, routes, trips and the schedules when the vehicles are passing a specific stop. You can read about the <a class="reference external" href="https://developers.google.com/transit/gtfs/reference">GTFS standard here</a>.</p></li>
+<li><p><em>Hint</em>: <code class="docutils literal notranslate"><span class="pre">r5py</span></code> can also combine multiple GTFS files, as sometimes you might have different GTFS feeds representing, e.g., the bus and metro connections.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="download-the-data-optional-download-if-you-work-on-own-computer">
+<h2>Download the data (optional: download if you work on own computer)<a class="headerlink" href="#download-the-data-optional-download-if-you-work-on-own-computer" title="Link to this heading">#</a></h2>
+<p>If you have installed the <code class="docutils literal notranslate"><span class="pre">r5py</span></code> and other relevant Python libraries and run the analysis using your own computer, you can download the tutorial data from this link:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://drive.google.com/file/d/1LxV5z9ho2LGAsHniIOufUKlWx3qUxE0x/view?usp=sharing">CLICK and Download the data covering Helsinki Metropolitan Area</a> (90 MB). The ZIP file contains two files:</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Helsinki.osm.pbf - Covers the OSM data for Helsinki Region (cities of Helsinki, Espoo, Vantaa, Kauniainen)</p></li>
+<li><p>GTFS_Helsinki.zip - Covers the GTFS data for Helsinki Region.</p></li>
+</ol>
+<section id="id1">
+<h3>Sample datasets<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>In the following tutorial, we use open source datasets from Helsinki Region:</p>
+<ul class="simple">
+<li><p>The point dataset for Helsinki has been obtained from <a class="reference external" href="https://www.hsy.fi/en/environmental-information/open-data/avoin-data---sivut/population-grid-of-helsinki-metropolitan-area/">Helsinki Region Environmental Services</a> (HSY) licensed under a Creative Commons By Attribution 4.0.</p></li>
+<li><p>The street network for Helsinki is a cropped and filtered extract of OpenStreetMap (© OpenStreetMap contributors, <a class="reference external" href="https://www.openstreetmap.org/copyright">ODbL license</a>)</p></li>
+<li><p>The GTFS transport schedule dataset for Helsinki is an extract of Helsingin seudun liikenne’s (HSL) open dataset (<a class="reference external" href="https://www.hsl.fi/hsl/avoin-data#aineistojen-kayttoehdot">Creative Commons BY 4.0</a>).</p></li>
+</ul>
+<!-- #endregion -->
+<!-- #endregion -->
+</section>
+<section id="load-the-origin-and-destination-data">
+<h3>Load the origin and destination data<a class="headerlink" href="#load-the-origin-and-destination-data" title="Link to this heading">#</a></h3>
+<p>Let’s start by downloading a sample point dataset into a geopandas <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> that we can use as our origin and destination locations. For the sake of this exercise, we have prepared a grid of points covering parts of Helsinki. The point data also contains the number of residents of each 250 meter cell:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ssl</span>
+
+<span class="c1"># Without the following you might get certificate error (at least on Linux)</span>
+<span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
+
+<span class="c1"># Calculate travel times to railway station from all grid cells</span>
+<span class="n">pop_grid_wfs</span> <span class="o">=</span> <span class="s2">"https://kartta.hsy.fi/geoserver/wfs?request=GetFeature&amp;typename=asuminen_ja_maankaytto:Vaestotietoruudukko_2021&amp;outputformat=JSON"</span>
+<span class="n">pop_grid</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">pop_grid_wfs</span><span class="p">)</span>
+
+<span class="c1"># Get centroids</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">points</span><span class="p">[</span><span class="s2">"geometry"</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">centroid</span>
+
+<span class="c1"># Reproject</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+<span class="n">points</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="s2">"asukkaita"</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">"natural_breaks"</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"Reds"</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, we will geocode the address for Helsinki Railway station. For doing this, we can use <code class="docutils literal notranslate"><span class="pre">oxmnx</span></code> library and its handy <code class="docutils literal notranslate"><span class="pre">.geocode()</span></code> -function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
+
+<span class="c1"># Find coordinates of the central railway station of Helsinki</span>
+<span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span><span class="s2">"Rautatieasema, Helsinki"</span><span class="p">)</span>
+
+<span class="c1"># Create a GeoDataFrame out of the coordinates</span>
+<span class="n">station</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">"geometry"</span><span class="p">:</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)],</span> <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Helsinki Railway station"</span><span class="p">,</span> <span class="s2">"id"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]},</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">crs</span><span class="o">=</span><span class="s2">"epsg:4326"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">station</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">max_zoom</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">marker_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"radius"</span><span class="p">:</span> <span class="mi">12</span><span class="p">})</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Next, we will prepare the routable network in a similar fashion as before, but now we use the larger data files which we downloaded earlier.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># UPDATE MAX MEMORY</span>
+<span class="c1"># -----------------</span>
+
+<span class="c1"># If you run the tutorial on CSC Noppe, run this cell before continuing the tutorial.</span>
+
+<span class="c1"># Note: This cell is hidden from the website.</span>
+<span class="c1"># This cell does not have an effect on local computer.</span>
+<span class="c1"># It’s used to set a stricter memory limit if the Notebook is running on CSC Noppe or Binder,</span>
+<span class="c1"># otherwise, the examples would fail</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="k">if</span> <span class="s2">"MEM_LIMIT"</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>  <span class="c1"># binder/kubernetes!</span>
+    <span class="n">max_memory</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"MEM_LIMIT"</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">"--max-memory"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">max_memory</span><span class="si">}</span><span class="s2">"</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">r5py</span><span class="w"> </span><span class="kn">import</span> <span class="n">TransportNetwork</span><span class="p">,</span> <span class="n">TravelTimeMatrix</span><span class="p">,</span> <span class="n">TransportMode</span>
+
+<span class="c1"># Filepath to OSM data</span>
+<span class="n">osm_fp</span> <span class="o">=</span> <span class="s2">"shared/data/Helsinki/Helsinki.osm.pbf"</span>
+
+<span class="n">transport_network</span> <span class="o">=</span> <span class="n">TransportNetwork</span><span class="p">(</span><span class="n">osm_fp</span><span class="p">,</span> <span class="p">[</span><span class="s2">"shared/data/Helsinki/GTFS_Helsinki.zip"</span><span class="p">])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>After this step, we can do the routing</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">travel_time_matrix</span> <span class="o">=</span> <span class="n">TravelTimeMatrix</span><span class="p">(</span>
+    <span class="n">transport_network</span><span class="p">,</span>
+    <span class="n">origins</span><span class="o">=</span><span class="n">station</span><span class="p">,</span>
+    <span class="n">destinations</span><span class="o">=</span><span class="n">points</span><span class="p">,</span>
+    <span class="n">departure</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="n">transport_modes</span><span class="o">=</span><span class="p">[</span><span class="n">TransportMode</span><span class="o">.</span><span class="n">TRANSIT</span><span class="p">,</span> <span class="n">TransportMode</span><span class="o">.</span><span class="n">WALK</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">travel_time_matrix</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Now we can join the travel time information back to the population grid</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">geo</span> <span class="o">=</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">travel_time_matrix</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"to_id"</span><span class="p">)</span>
+<span class="n">geo</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Finally, we can visualize the travel time map and investigate how the railway station in Helsinki can be accessed from different parts of the region, by public transport.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">"travel_time"</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlBu"</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">"equal_interval"</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">station</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs</span><span class="o">=</span><span class="n">geo</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="calculate-travel-times-by-bike">
+<h2>Calculate travel times by bike<a class="headerlink" href="#calculate-travel-times-by-bike" title="Link to this heading">#</a></h2>
+<p>In a very similar manner, we can calculate travel times by cycling. We only need to modify our <code class="docutils literal notranslate"><span class="pre">TravelTimeMatrix</span></code> object a little bit. We specify the cycling speed by using the parameter <code class="docutils literal notranslate"><span class="pre">speed_cycling</span></code> and we change the <code class="docutils literal notranslate"><span class="pre">transport_modes</span></code> parameter to correspond to <code class="docutils literal notranslate"><span class="pre">[TransportMode.WALK,</span> <span class="pre">TransportMode.BICYCLE]</span></code>. This will initialize the object for cycling analyses:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ttm_bike</span> <span class="o">=</span> <span class="n">TravelTimeMatrix</span><span class="p">(</span>
+    <span class="n">transport_network</span><span class="p">,</span>
+    <span class="n">origins</span><span class="o">=</span><span class="n">station</span><span class="p">,</span>
+    <span class="n">destinations</span><span class="o">=</span><span class="n">points</span><span class="p">,</span>
+    <span class="n">speed_cycling</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">transport_modes</span><span class="o">=</span><span class="p">[</span><span class="n">TransportMode</span><span class="o">.</span><span class="n">WALK</span><span class="p">,</span> <span class="n">TransportMode</span><span class="o">.</span><span class="n">BICYCLE</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Let’s again make a table join with the population grid and plot the data:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">geo</span> <span class="o">=</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">ttm_bike</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"to_id"</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">"travel_time"</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlBu"</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">"equal_interval"</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">station</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs</span><span class="o">=</span><span class="n">geo</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="calculate-catchment-areas">
+<h2>Calculate catchment areas<a class="headerlink" href="#calculate-catchment-areas" title="Link to this heading">#</a></h2>
+<p>One quite typical accessibility analysis is to find out catchment areas for multiple locations, such as libraries. In the below, we will extract all libraries in Helsinki region and calculate travel times from all grid cells to the closest one. As a result, we have catchment areas for each library.</p>
+<ul class="simple">
+<li><p>Let’s start by parsing the libraries in Helsinki region (covering four cities in the region), using <code class="docutils literal notranslate"><span class="pre">osmnx</span></code>:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+
+<span class="c1"># Fetch libraries from multiple cities simultaneously</span>
+<span class="n">query</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Helsinki, Finland"</span><span class="p">,</span>
+    <span class="s2">"Espoo, Finland"</span><span class="p">,</span>
+    <span class="s2">"Vantaa, Finland"</span><span class="p">,</span>
+    <span class="s2">"Kauniainen, Finland"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">libraries</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">features_from_place</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">"amenity"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"library"</span><span class="p">]})</span>
+
+<span class="c1"># Show first rows</span>
+<span class="n">libraries</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Some of the libraries might be in Polygon format, so we need to convert them into points by calculating their centroid:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the geometries to points</span>
+<span class="n">libraries</span><span class="p">[</span><span class="s2">"geometry"</span><span class="p">]</span> <span class="o">=</span> <span class="n">libraries</span><span class="o">.</span><span class="n">centroid</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Let’s see how the distribution of libraries looks on a map:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">libraries</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">marker_kwds</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ensure that every row have an unique id</span>
+<span class="n">libraries</span> <span class="o">=</span> <span class="n">libraries</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">libraries</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">libraries</span><span class="o">.</span><span class="n">index</span>
+<span class="n">libraries</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Next, we can initialize our travel time matrix calculator using the libraries as the origins:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">travel_time_matrix</span> <span class="o">=</span> <span class="n">TravelTimeMatrix</span><span class="p">(</span>
+    <span class="n">transport_network</span><span class="p">,</span>
+    <span class="n">origins</span><span class="o">=</span><span class="n">libraries</span><span class="p">,</span>
+    <span class="n">destinations</span><span class="o">=</span><span class="n">points</span><span class="p">,</span>
+    <span class="n">departure</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="n">transport_modes</span><span class="o">=</span><span class="p">[</span><span class="n">TransportMode</span><span class="o">.</span><span class="n">TRANSIT</span><span class="p">,</span> <span class="n">TransportMode</span><span class="o">.</span><span class="n">WALK</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">travel_time_matrix</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>As we can see, there are almost 540 thousand rows of data, which comes as a result of all connections between origins and destinations. Next, we want aggregate the data and keep only travel time information to the closest library:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find out the travel time to closest library</span>
+<span class="n">closest_library</span> <span class="o">=</span> <span class="n">travel_time_matrix</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"to_id"</span><span class="p">)[</span><span class="s2">"travel_time"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">closest_library</span>
+</pre></div>
+</div>
+<p>Then we can make a table join with the grid in a similar manner as previously and visualize the data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a table join</span>
+<span class="n">geo</span> <span class="o">=</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">closest_library</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"to_id"</span><span class="p">)</span>
+
+<span class="c1"># Visualize the data</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">"travel_time"</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlBu"</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">"natural_breaks"</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">station</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">crs</span><span class="o">=</span><span class="n">geo</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That’s it! As you can, see now we have a nice map showing the catchment areas for each library.</p>
+</section>
+<section id="analyze-accessibility">
+<h2>Analyze accessibility<a class="headerlink" href="#analyze-accessibility" title="Link to this heading">#</a></h2>
+<p>After we have calculated the travel times to the closest services, we can start analyzing accessibility. There are various ways to analyze how accessible services are. Here, for the sake of simplicity, we calculate the number of inhabitants that can reach the services within given travel time thershold (e.g. 15 minutes) by PT (or walking).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the grid cells within given travel time threshold</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">access</span> <span class="o">=</span> <span class="n">geo</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">geo</span><span class="p">[</span><span class="s2">"travel_time"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">access</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">"asukkaita"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"The number of people living within </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2"> minutes travel time threshold."</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>Now we can easily calculate how many people or what is the proportion of people that can access the given service within the given travel time threshold:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pop_within_threshold</span> <span class="o">=</span> <span class="n">access</span><span class="p">[</span><span class="s2">"asukkaita"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">pop_share</span> <span class="o">=</span> <span class="n">pop_within_threshold</span> <span class="o">/</span> <span class="n">geo</span><span class="p">[</span><span class="s2">"asukkaita"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"Population within accessibility thresholds: </span><span class="si">{</span><span class="n">pop_within_threshold</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">pop_share</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> %)"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>We can see that approximately 55 % of the population in the region can access a library within given time threshold.
+With this information we can start evaluating whether the level of access for the population in the region can be considered as “sufficient” or equitable. Naturally, with more detailed data, we could start evaluating whether e.g. certain population groups have lower access than on average in the region, which enables us to start studying the questions of justice and equity. Often the interesting question is to understand “who does not have access”? I.e. who is left out.</p>
+<p>There are many important questions relating to equity of access that require careful consideration when doing these kind of analyses is for example what is seen as “reasonable” level of access. I.e. what should be specify as the travel time threshold in our analysis. Answering to these kind of questions is not straightforward as the accessibility thresholds (i.e. travel time budget) are very context dependent and normative (value based) by nature.</p>
+</section>
+<section id="cumulative-opportunities">
+<h2>Cumulative opportunities<a class="headerlink" href="#cumulative-opportunities" title="Link to this heading">#</a></h2>
+<p>Another commonly used approach to analyze accessibility is to analyze how many services can a given individual (or group of individuals) access within given travel time budget. This is called cumulative opportunities measure.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># How many services can be reached from each grid cell within given travel time threshold?</span>
+<span class="n">travel_time_matrix</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="c1"># Count the number of opportunities from each grid cell</span>
+<span class="n">opportunities</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">travel_time_matrix</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">travel_time_matrix</span><span class="p">[</span><span class="s2">"travel_time"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"to_id"</span><span class="p">)[</span><span class="s2">"from_id"</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Rename the column for more intuitive one</span>
+<span class="n">opportunities</span> <span class="o">=</span> <span class="n">opportunities</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"from_id"</span><span class="p">:</span> <span class="s2">"num_opportunities"</span><span class="p">})</span>
+<span class="n">opportunities</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge with population grid</span>
+<span class="n">opportunities</span> <span class="o">=</span> <span class="n">pop_grid</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">opportunities</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"to_id"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the results</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">opportunities</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">"num_opportunities"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Number of opportunities within </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2"> minutes."</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now we can clearly see the areas with highest level of accessibility to given service. This is called cumulative opportunities measure or “Hansen’s Accessibility” measure after its developer.</p>
+<p>At times one could still want apply a distance decay function to give more weight to the closer services and less to the services that are further away, and hence less likely to be visited by citizens who seek to use the service. This is called as time-weighted cumulative opportunities measure. There are also many other approaches to measure accessibility which are out of scope of this tutorial. In case you are interested in understanding more, I recommend reading following papers:</p>
+<ul class="simple">
+<li><p>Levinson, D. &amp; H. Wu (2020). <a class="reference external" href="https://www.jtlu.org/index.php/jtlu/article/view/1660">Towards a general theory of access.</a></p></li>
+<li><p>Wu, H. &amp; D. Levinson (2020). <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S1361920920305423">Unifying access.</a></p></li>
+</ul>
+</section>
+<section id="where-to-go-next">
+<h2>Where to go next?<a class="headerlink" href="#where-to-go-next" title="Link to this heading">#</a></h2>
+<p>In case you want to learn more, we recommend reading:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://r5py.readthedocs.io/latest">r5py documentation</a> that provides much more details on how to use <code class="docutils literal notranslate"><span class="pre">r5py</span></code>.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Python-GIS-book/site",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./part3/chapter-11/md"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-requirements">Data requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-for-creating-a-routable-network">Data for creating a routable network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-for-origin-and-destination-locations">Data for origin and destination locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-get-these-datasets">Where to get these datasets?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-datasets">Sample datasets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-r5py">Getting started with <code class="docutils literal notranslate"><span class="pre">r5py</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-prepare-the-origin-and-destination-data">Load and prepare the origin and destination data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-polygon-layer-to-points">Convert polygon layer to points</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieve-the-origin-location-by-geocoding-an-address">Retrieve the origin location by geocoding an address</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-transport-network">Load transport network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-travel-time-matrix-from-one-to-all-locations">Compute travel time matrix from one to all locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-travel-time-matrix-from-all-to-all-locations">Compute travel time matrix from all to all locations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-usage">Advanced usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-travel-times-with-a-detailed-information-about-the-routing-results">Compute travel times with a detailed information about the routing results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-routes-on-a-map">Visualize the routes on a map</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#large-scale-analyses-travel-time-matrices-covering-massive-number-of-connections">Large-scale analyses - Travel time matrices covering massive number of connections</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-optional-download-if-you-work-on-own-computer">Download the data (optional: download if you work on own computer)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Sample datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-origin-and-destination-data">Load the origin and destination data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-travel-times-by-bike">Calculate travel times by bike</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-catchment-areas">Calculate catchment areas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-accessibility">Analyze accessibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cumulative-opportunities">Cumulative opportunities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-next">Where to go next?</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2026, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

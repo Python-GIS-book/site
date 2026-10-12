@@ -1,0 +1,2154 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Spatial network analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-08/nb/01-spatial-network-analysis';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Common network operations" href="02-common-network-operations.html" />
+    <link rel="prev" title="Representing geographic data as networks" href="00-representing-spatial-networks.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part1/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">2.1 Getting started with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/01-lists-and-indices.html">2.2 Lists and indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/02-text-and-numbers.html">2.3 Working with text and numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/03-for-loops.html">2.4 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/04-conditional-statements.html">2.5 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/05-functions.html">2.6 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/06-writing-scripts.html">2.7 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/07-modules.html">2.8 Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/08-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-03/index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in vector format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/01-data-structures-xarray.html">7.2 Introduction to data structures in xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">8. Spatial network analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="00-representing-spatial-networks.html">8.1 Representing geographic data as networks</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">8.2 Spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-common-network-operations.html">8.3 Common network operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-multimodal-network-analysis.html">8.4 Multimodal network analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-09/index.html">9. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/00-introduction-to-geographic-visualization.html">9.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/01-static-maps.html">9.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/02-interactive-maps.html">9.4 Interactive maps</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-10/index.html">10. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/00-retrieving-osm-data.html">10.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/01-retrieving-data-from-wfs.html">10.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/02-retrieving-data-from-wcs.html">10.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/03-read-data-from-spatial-databases.html">10.4 Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11. Spatial accessibility modelling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-accessibility-as-a-concept.html">11.1 Introduction to spatial accessibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/01-spatial-accessibility-modelling.html">11.2 Spatial accessibility modelling based on travel times</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-question-solutions.html">B.1 Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-exercise-solutions.html">B.2 Exercise solutions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Data overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/source/part2/chapter-08/nb/01-spatial-network-analysis.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/source/part2/chapter-08/nb/01-spatial-network-analysis.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part2/chapter-08/nb/01-spatial-network-analysis.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Spatial network analysis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-workflow-for-routing">Typical workflow for routing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieving-network-data">Retrieving network data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-the-network">Modifying the network</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-routable-graph-from-modified-edges">Building a routable graph from modified edges</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shortest-path-analysis">Shortest path analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-optimal-route-between-two-locations">Find the optimal route between two locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-nearest-nodes">Find the nearest nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-fastest-route-by-distance-time">Find the fastest route by distance / time</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarizing-the-route">Summarizing the route</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-way-streets-and-the-direction-of-travel">One-way streets and the direction of travel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shortest-paths-from-one-origin-to-many-destinations">Shortest paths from one origin to many destinations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="spatial-network-analysis">
+<h1>Spatial network analysis<a class="headerlink" href="#spatial-network-analysis" title="Link to this heading">#</a></h1>
+<p>Contents:</p>
+<ul class="simple">
+<li><p>Why do spatial network analysis?</p></li>
+<li><p>Retrieving a street network from OpenStreetMap</p></li>
+<li><p>Preparing the network for routing (adding travel time)</p></li>
+<li><p>Building a routable graph</p></li>
+<li><p>Finding the shortest path:</p>
+<ul>
+<li><p>From A to B (by distance and by travel time)</p></li>
+<li><p>One-way streets and the direction of travel</p></li>
+<li><p>From one origin to many destinations (a first look at accessibility; see Chapter 11)</p></li>
+</ul>
+</li>
+<li><p>Other uses of networks (brief pointer) — common network operations such as connected components and centrality are covered in Chapter 8.3</p></li>
+</ul>
+<p>This section focuses on spatial networks and learning how to construct a routable directed graph for <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library that can be used to find a shortest paths along the given street network based on travel times or distance by given transport mode (e.g. car or cycling). Finding a shortest path from A to B using a specific street network is a very common problem in GIS that has many practical applications. For example, navigation services use shortest path analysis to guide drivers, cyclists and pedestrians to their destination, emergency services use it to estimate how quickly an ambulance can reach a given address, and delivery companies use it to plan their routes. Network analysis is also commonly used in urban planning, for instance to study how easily people can reach services such as schools, health care or grocery stores (a topic that we return to in Chapter 11).</p>
+<p>Python provides easy to use tools for conducting spatial network analysis. One of the easiest ways to start is to use a library called <code class="docutils literal notranslate"><span class="pre">networkx</span></code><a class="footnote-reference brackets" href="#networkx" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
+which is a Python module that provides a lot tools that can be used to analyze networks on various different ways. It also contains algorithms such as Dijkstra’s algorithm<a class="footnote-reference brackets" href="#dijkstra" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> or A*<a class="footnote-reference brackets" href="#astar" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>
+algorithm that are commonly used to find shortest paths along transportation network that can help e.g. in wayfinding.</p>
+<section id="typical-workflow-for-routing">
+<h2>Typical workflow for routing<a class="headerlink" href="#typical-workflow-for-routing" title="Link to this heading">#</a></h2>
+<p>If you want to conduct network analysis (in any programming language) there are a few basic steps that typically needs to be done before you can start routing. These steps are:</p>
+<ol class="arabic simple">
+<li><p><strong>Retrieve data</strong> (such as street network from OSM or Digiroad + possibly transit data if routing with PT).</p></li>
+<li><p><strong>Modify the network</strong> by adding/calculating edge weights (such as travel times based on speed limit and length of the road segment).</p></li>
+<li><p><strong>Build a routable graph</strong> for the routing tool that you are using (e.g. for NetworkX, igraph or OpenTripPlanner).</p></li>
+<li><p><strong>Conduct network analysis</strong> (such as shortest path analysis) with the routing tool of your choice.</p></li>
+</ol>
+</section>
+<section id="retrieving-network-data">
+<h2>Retrieving network data<a class="headerlink" href="#retrieving-network-data" title="Link to this heading">#</a></h2>
+<p>As a first step, we need to obtain data for routing. <code class="docutils literal notranslate"><span class="pre">osmnx</span></code><a class="footnote-reference brackets" href="#osmnx" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> library makes it really easy to retrieve routable networks from OpenStreetMap (OSM) with different transport modes (walking, cycling and driving).</p>
+<p>Let’s first extract OSM data for Helsinki city centre that are drivable by car. In <code class="docutils literal notranslate"><span class="pre">osmnx</span></code>, we can use a function called <code class="docutils literal notranslate"><span class="pre">ox.graph_from_point()</span></code> which retrieves data from OpenStreetMap around a given center point. We define the center point as a <code class="docutils literal notranslate"><span class="pre">(latitude,</span> <span class="pre">longitude)</span></code> pair and set how far around it to fetch data with the <code class="docutils literal notranslate"><span class="pre">dist</span></code> parameter (in meters). It is possible to specify what kind of roads should be retrieved from OSM with <code class="docutils literal notranslate"><span class="pre">network_type</span></code> -parameter (supports e.g. <code class="docutils literal notranslate"><span class="pre">walk</span></code>, <code class="docutils literal notranslate"><span class="pre">drive</span></code>, <code class="docutils literal notranslate"><span class="pre">bike</span></code>, <code class="docutils literal notranslate"><span class="pre">all</span></code>). In the following, we fetch all the drivable roads around the Helsinki city centre:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+
+<span class="c1"># The area of interest</span>
+<span class="n">center_point</span> <span class="o">=</span> <span class="p">(</span><span class="mf">60.162</span><span class="p">,</span> <span class="mf">24.937</span><span class="p">)</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_from_point</span><span class="p">(</span><span class="n">center_point</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="mi">2500</span><span class="p">,</span> <span class="n">network_type</span><span class="o">=</span><span class="s2">"drive"</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">type</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>networkx.classes.multidigraph.MultiDiGraph
+</pre></div>
+</div>
+</div>
+</div>
+<p>Okay, as we can see we have now fetched a routable graph out of OpenStreetMap data of ours which is something called <code class="docutils literal notranslate"><span class="pre">MultiDiGraph</span></code> object of <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library.</p>
+<p>So basically this graph <code class="docutils literal notranslate"><span class="pre">G</span></code> is made out of <strong>nodes</strong> and <strong>edges</strong>. We can easily extract the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> and <code class="docutils literal notranslate"><span class="pre">edges</span></code> out of this graph by using <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the nodes and edges</span>
+<span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">edges</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>osmid</th>
+      <th>highway</th>
+      <th>lanes</th>
+      <th>maxspeed</th>
+      <th>name</th>
+      <th>oneway</th>
+      <th>reversed</th>
+      <th>length</th>
+      <th>ref</th>
+      <th>bridge</th>
+      <th>width</th>
+      <th>junction</th>
+      <th>access</th>
+      <th>tunnel</th>
+      <th>est_width</th>
+      <th>geometry</th>
+    </tr>
+    <tr>
+      <th>u</th>
+      <th>v</th>
+      <th>key</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>24556474</th>
+      <th>575256449</th>
+      <th>0</th>
+      <td>22963794</td>
+      <td>residential</td>
+      <td>2</td>
+      <td>30</td>
+      <td>Merikannontie</td>
+      <td>False</td>
+      <td>True</td>
+      <td>63.929759</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.90963 60.18386, 24.91014 60.18335)</td>
+    </tr>
+    <tr>
+      <th>25198796</th>
+      <th>1647834607</th>
+      <th>0</th>
+      <td>17482188</td>
+      <td>motorway</td>
+      <td>3</td>
+      <td>80</td>
+      <td>Länsiväylä</td>
+      <td>True</td>
+      <td>False</td>
+      <td>37.660749</td>
+      <td>51</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.90065 60.16698, 24.90133 60.16702)</td>
+    </tr>
+    <tr>
+      <th>25198805</th>
+      <th>1519479211</th>
+      <th>0</th>
+      <td>331102263</td>
+      <td>motorway</td>
+      <td>4</td>
+      <td>80</td>
+      <td>Länsiväylä</td>
+      <td>True</td>
+      <td>False</td>
+      <td>37.724304</td>
+      <td>51</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.9032 60.16705, 24.90388 60.16703)</td>
+    </tr>
+    <tr>
+      <th>25198815</th>
+      <th>1004300273</th>
+      <th>0</th>
+      <td>78710031</td>
+      <td>motorway</td>
+      <td>2</td>
+      <td>80</td>
+      <td>Länsiväylä</td>
+      <td>True</td>
+      <td>False</td>
+      <td>34.566048</td>
+      <td>51</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.90869 60.16657, 24.90811 60.16668)</td>
+    </tr>
+    <tr>
+      <th>25198820</th>
+      <th>1004300316</th>
+      <th>0</th>
+      <td>78710037</td>
+      <td>motorway</td>
+      <td>4</td>
+      <td>80</td>
+      <td>Länsiväylä</td>
+      <td>True</td>
+      <td>False</td>
+      <td>41.361762</td>
+      <td>51</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.90803 60.16657, 24.90871 60.16642)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/6cd75d68ea24d235eb2a9db45d0967a5cd2a687da1dec015264667011bfc10dc.png" src="../../../_images/6cd75d68ea24d235eb2a9db45d0967a5cd2a687da1dec015264667011bfc10dc.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> Drivable streets (edges) and their nodes (in red) in the Helsinki city centre, retrieved from OpenStreetMap.</em></p>
+<p>Okay, now we have drivable roads as a GeoDataFrame for the Helsinki city centre. If you look at the GeoDataFrame, we can see that <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> has also calculated us the <code class="docutils literal notranslate"><span class="pre">length</span></code> of each road segment (presented in meters). The geometries are presented here as <code class="docutils literal notranslate"><span class="pre">LineString</span></code> objects. Notice that when calculating length yourself, it is important that your input data is in projected coordinate system. In case your data has e.g. <code class="docutils literal notranslate"><span class="pre">WGS84</span></code> as the CRS (like the data we retrieved from OpenStreetMap), you should first reproject your data into an appropriate metric system (see Chapter 6.4). In OSM, the information about the allowed direction of movement is stored in column <code class="docutils literal notranslate"><span class="pre">oneway</span></code>. Let’s take a look what kind of values we have in that column:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span><span class="p">[</span><span class="s2">"oneway"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False,  True])
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see the unique values in that column are <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>. This information can be used to construct a <code class="docutils literal notranslate"><span class="pre">directed</span></code> graph for routing by car. For walking and cycling, you typically want create a <code class="docutils literal notranslate"><span class="pre">bidirectional</span></code> graph, because the travel is typically allowed in both directions at least in Finland. Notice, that the rules vary by country, e.g. in Copenhagen you have oneway rules also for bikes but typically each road have the possibility to travel both directions (you just need to change the side of the road if you want to make a U-turn). Column <code class="docutils literal notranslate"><span class="pre">maxspeed</span></code> contains information about the speed limit for given road:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ArrowStringArray&gt;
+['30', '80', '60', '50', '40', nan, '20', '10']
+Length: 8, dtype: str
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, there are also <code class="docutils literal notranslate"><span class="pre">None</span></code> values in the data, meaning that the speed limit has not been tagged for some roads. This is typical, and often you need to fill the non existing speed limits yourself. This can be done by taking advantage of the road class that is always present in column <code class="docutils literal notranslate"><span class="pre">highway</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span><span class="p">[</span><span class="s2">"highway"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ArrowStringArray&gt;
+[  'residential',      'motorway',     'secondary', 'motorway_link',
+       'primary',      'tertiary',  'unclassified', 'living_street',
+ 'tertiary_link',  'primary_link']
+Length: 10, dtype: str
+</pre></div>
+</div>
+</div>
+</div>
+<p>Based on these values, we can make assumptions that e.g. <code class="docutils literal notranslate"><span class="pre">living_street</span></code> roads in Helsinki have a speed limit of 20 kmph. Hence, this information can be used to fill the missing values in <code class="docutils literal notranslate"><span class="pre">maxspeed</span></code>. The second dataset that we extracted from the graph are <code class="docutils literal notranslate"><span class="pre">nodes</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>y</th>
+      <th>x</th>
+      <th>street_count</th>
+      <th>highway</th>
+      <th>railway</th>
+      <th>junction</th>
+      <th>ref</th>
+      <th>geometry</th>
+    </tr>
+    <tr>
+      <th>osmid</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>24556474</th>
+      <td>60.183861</td>
+      <td>24.909628</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (24.90963 60.18386)</td>
+    </tr>
+    <tr>
+      <th>25198796</th>
+      <td>60.166977</td>
+      <td>24.900650</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (24.90065 60.16698)</td>
+    </tr>
+    <tr>
+      <th>25198805</th>
+      <td>60.167048</td>
+      <td>24.903203</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (24.9032 60.16705)</td>
+    </tr>
+    <tr>
+      <th>25198815</th>
+      <td>60.166565</td>
+      <td>24.908692</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (24.90869 60.16657)</td>
+    </tr>
+    <tr>
+      <th>25198820</th>
+      <td>60.166574</td>
+      <td>24.908026</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (24.90803 60.16657)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>As we can see, the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> GeoDataFrame contains information about the coordinates of each node as well as a unique <code class="docutils literal notranslate"><span class="pre">id</span></code> for each node. These <code class="docutils literal notranslate"><span class="pre">id</span></code> values are used to determine the connectivity in our network. Hence, <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> has also stored the <strong>from</strong> and <strong>to</strong> ids for each edge in the index of the <code class="docutils literal notranslate"><span class="pre">edges</span></code> GeoDataFrame (see the output of <code class="docutils literal notranslate"><span class="pre">edges.head()</span></code> above). Index level <code class="docutils literal notranslate"><span class="pre">u</span></code> contains information about the <strong>from-id</strong> and level <code class="docutils literal notranslate"><span class="pre">v</span></code> about the <strong>to-id</strong> accordingly. The third index level, <code class="docutils literal notranslate"><span class="pre">key</span></code>, is used to separate several edges that connect the same pair of nodes.</p>
+<p>Okay, as we can see now we have both the roads (i.e. <em>edges</em>) and the nodes that connect the street elements together (in red color in the previous figure) that are typically intersections. However, we can see that many of the nodes are in locations that are clearly not intersections. This is intented behavior to ensure that we have full <strong>connectivity</strong> in our network. We can at later stage clean and simplify this network by merging all roads that belong to the same link (i.e. street elements that are between two intersections) which also reduces the size of the network.</p>
+<p>Notice that in OSM, the street topology is typically not directly suitable for graph traversal due to missing nodes at intersections which means that the roads are not splitted at those locations. The consequence of this, is that it is not possible to make a turn if there is no intersection present in the data structure. Hence, <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> will separate all road segments/geometries into individual rows in the data.</p>
+</section>
+<section id="modifying-the-network">
+<h2>Modifying the network<a class="headerlink" href="#modifying-the-network" title="Link to this heading">#</a></h2>
+<p>At this stage, we have the necessary components to build a routable graph (nodes and edges) based on distance. However, in real life the network distance is not the best cost metric to use, because the shortest path (based on distance) is not necessarily always the optimal route in terms of <strong>travel time</strong>. Time is typically the measure that people value more (plus it is easier to comprehend), so at this stage we want to <strong>add a new cost attribute</strong> to our edges GeoDataFrame that converts the metric distance information to travel time (in seconds) based on following formula:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;distance-in-meters&gt;</span> <span class="pre">/</span> <span class="pre">(&lt;speed-limit-kmph&gt;</span> <span class="pre">/</span> <span class="pre">3.6)</span></code></p></li>
+</ul>
+<p>Before we can do this calculation, we need to ensure that all rows in <code class="docutils literal notranslate"><span class="pre">maxspeed</span></code> column have information about the speed limit. Let’s check the value counts of the column and also include information about the <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values with <code class="docutils literal notranslate"><span class="pre">dropna</span></code> parameter:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count values</span>
+<span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>maxspeed
+30     13592
+40      2629
+NaN      740
+50       253
+20       250
+80        56
+60         8
+10         8
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the rows which do not contain information about the speed limit is the second largest group in our data. Hence, we need to apply a criteria to fill these gaps. We can do this based on following “rule of thumb” criteria in Finland (notice that these vary country by country):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Road class</p></th>
+<th class="head"><p>Speed limit within urban region</p></th>
+<th class="head"><p>Speed limit outside urban region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>motorway</p></td>
+<td><p>100</p></td>
+<td><p>120</p></td>
+</tr>
+<tr class="row-odd"><td><p>motorway_link</p></td>
+<td><p>80</p></td>
+<td><p>80</p></td>
+</tr>
+<tr class="row-even"><td><p>trunk</p></td>
+<td><p>60</p></td>
+<td><p>100</p></td>
+</tr>
+<tr class="row-odd"><td><p>trunk_link</p></td>
+<td><p>60</p></td>
+<td><p>60</p></td>
+</tr>
+<tr class="row-even"><td><p>primary</p></td>
+<td><p>50</p></td>
+<td><p>80</p></td>
+</tr>
+<tr class="row-odd"><td><p>primary_link</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-even"><td><p>secondary</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-odd"><td><p>secondary_link</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-even"><td><p>tertiary</p></td>
+<td><p>50</p></td>
+<td><p>60</p></td>
+</tr>
+<tr class="row-odd"><td><p>tertiary_link</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-even"><td><p>unclassified</p></td>
+<td><p>50</p></td>
+<td><p>80</p></td>
+</tr>
+<tr class="row-odd"><td><p>unclassified_link</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-even"><td><p>residential</p></td>
+<td><p>50</p></td>
+<td><p>80</p></td>
+</tr>
+<tr class="row-odd"><td><p>living_street</p></td>
+<td><p>20</p></td>
+<td><p>NA</p></td>
+</tr>
+<tr class="row-even"><td><p>service</p></td>
+<td><p>30</p></td>
+<td><p>NA</p></td>
+</tr>
+<tr class="row-odd"><td><p>other</p></td>
+<td><p>50</p></td>
+<td><p>80</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For simplicity, we can consider that all the roads in Helsinki Region follows the <em>within urban region</em> speed limits, although this is not exactly true (the higher speed limits start somewhere at the outer parts of the city region). For making the speed limit values more robust / correct, you could use data about urban/rural classification which is available in Finland from Finnish Environment Institute<a class="footnote-reference brackets" href="#ykr" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>. Let’s first convert our <code class="docutils literal notranslate"><span class="pre">maxspeed</span></code> values to integers using <code class="docutils literal notranslate"><span class="pre">astype()</span></code> method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Int64Dtype</span><span class="p">())</span>
+<span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;IntegerArray&gt;
+[30, 80, 60, 50, 40, &lt;NA&gt;, 20, 10]
+Length: 8, dtype: Int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, now the maxspeed values are stored in integer format inside an <code class="docutils literal notranslate"><span class="pre">IntegerArray</span></code>, and the <code class="docutils literal notranslate"><span class="pre">None</span></code> values were converted into <code class="docutils literal notranslate"><span class="pre">pandas.NA</span></code> objects that are assigned with <code class="docutils literal notranslate"><span class="pre">&lt;NA&gt;</span></code>. Now we can create a function that returns a numeric value for different road classes based on the criteria in the table above:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">road_class_to_kmph</span><span class="p">(</span><span class="n">road_class</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Returns a speed limit value based on road class,</span>
+<span class="sd">    using typical Finnish speed limit values within urban regions.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">road_class</span> <span class="o">==</span> <span class="s2">"motorway"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">100</span>
+    <span class="k">elif</span> <span class="n">road_class</span> <span class="o">==</span> <span class="s2">"motorway_link"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">80</span>
+    <span class="k">elif</span> <span class="n">road_class</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"trunk"</span><span class="p">,</span> <span class="s2">"trunk_link"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="mi">60</span>
+    <span class="k">elif</span> <span class="n">road_class</span> <span class="o">==</span> <span class="s2">"service"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">30</span>
+    <span class="k">elif</span> <span class="n">road_class</span> <span class="o">==</span> <span class="s2">"living_street"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">20</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">50</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can apply this function to all rows that <strong>do not have speed limit information</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>u            v           key
+24556474     575256449   0      False
+25198796     1647834607  0      False
+25198805     1519479211  0      False
+25198815     1004300273  0      False
+25198820     1004300316  0      False
+                                ...  
+14180584757  7772108692  0      False
+14182283099  1016087546  0      False
+             878495745   0      False
+14203076514  865311358   0      False
+14228197411  1458153326  0      False
+Name: maxspeed, Length: 17536, dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Separate rows with / without speed limit information</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+<span class="n">edges_without_maxspeed</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">edges_with_maxspeed</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Apply the function and update the maxspeed</span>
+<span class="n">edges_without_maxspeed</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span> <span class="o">=</span> <span class="n">edges_without_maxspeed</span><span class="p">[</span><span class="s2">"highway"</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="n">road_class_to_kmph</span>
+<span class="p">)</span>
+<span class="n">edges_without_maxspeed</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">,</span> <span class="s2">"highway"</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>maxspeed</th>
+      <th>highway</th>
+    </tr>
+    <tr>
+      <th>u</th>
+      <th>v</th>
+      <th>key</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>25290826</th>
+      <th>3190376686</th>
+      <th>0</th>
+      <td>20</td>
+      <td>living_street</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">25345643</th>
+      <th>11763801121</th>
+      <th>0</th>
+      <td>50</td>
+      <td>unclassified</td>
+    </tr>
+    <tr>
+      <th>11763765815</th>
+      <th>0</th>
+      <td>50</td>
+      <td>tertiary</td>
+    </tr>
+    <tr>
+      <th>25413456</th>
+      <th>1009801587</th>
+      <th>0</th>
+      <td>50</td>
+      <td>unclassified</td>
+    </tr>
+    <tr>
+      <th>30556091</th>
+      <th>266179861</th>
+      <th>0</th>
+      <td>50</td>
+      <td>unclassified</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Okay, as we can see now the <code class="docutils literal notranslate"><span class="pre">maxspeed</span></code> value have been updated according our criteria, and e.g. the <code class="docutils literal notranslate"><span class="pre">living_street</span></code> road class have been given the speed limit 20 kmph. Now we can recreate the edges GeoDataFrame by combining the two frames:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">edges_with_maxspeed</span><span class="p">,</span> <span class="n">edges_without_maxspeed</span><span class="p">])</span>
+<span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;IntegerArray&gt;
+[30, 80, 60, 50, 40, 20, 10]
+Length: 7, dtype: Int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Great, now all of our edges have information about the speed limit. We can also visualize them:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the value into regular integer Series (the plotting requires having Series instead of IntegerArray)</span>
+<span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">"maxspeed"</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/012196a274e6b4c7207fddb518c3d489ee477f396d3ab2eaca3247520a446e19.png" src="../../../_images/012196a274e6b4c7207fddb518c3d489ee477f396d3ab2eaca3247520a446e19.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> Speed limits (km/h) of the streets after filling in the missing values.</em></p>
+<p>We will calculate the travel time it takes to cross a given street segment assuming that the person would be driving according the speed limits. The <code class="docutils literal notranslate"><span class="pre">maxspeed</span></code> column in our data provides information about the speed limit (km per hour) on a given street element. This is very useful information as we can use this to calculate the “free-flow” travel time which indicates the time it takes to cross a specific street segment assuming that a given person would be able to travel as fast as the speed limit allows.</p>
+<p>Now we have all the information needed to calculate the free-flow travel time. To calculate the travel time in seconds, we can use a following formula that considers the speed limit information in km/h and the distance as meters (which is how our data is constructed):</p>
+<div class="math notranslate nohighlight">
+\[
+t = \frac{3.6 \, d}{v}
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>(t) = travel time in <strong>seconds (s)</strong></p></li>
+<li><p>(d) = distance in <strong>meters (m)</strong></p></li>
+<li><p>(v) = speed limit in <strong>kilometers per hour (km/h)</strong></p></li>
+</ul>
+<p>The multiplication of distance by 3.6 is a conversion factor between meters per second and kilometers per hour:</p>
+<div class="math notranslate nohighlight">
+\[
+1 \ \text{m/s} = \frac{3600}{1000} \ \text{km/h} = 3.6 \ \text{km/h}
+\]</div>
+<p>Finally, we can calculate the travel time in seconds using the formula above and add that as a new cost attribute for our network:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span><span class="p">[</span><span class="s2">"travel_time_seconds"</span><span class="p">]</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="s2">"length"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="s2">"maxspeed"</span><span class="p">]</span> <span class="o">/</span> <span class="mf">3.6</span><span class="p">)</span>
+<span class="n">edges</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>tunnel</th>
+      <th>est_width</th>
+      <th>geometry</th>
+      <th>travel_time_seconds</th>
+    </tr>
+    <tr>
+      <th>u</th>
+      <th>v</th>
+      <th>key</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>24556474</th>
+      <th>575256449</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.90963 60.18386, 24.91014 60.18335)</td>
+      <td>7.671571</td>
+    </tr>
+    <tr>
+      <th>25198796</th>
+      <th>1647834607</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.90065 60.16698, 24.90133 60.16702)</td>
+      <td>1.694734</td>
+    </tr>
+    <tr>
+      <th>25198805</th>
+      <th>1519479211</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.9032 60.16705, 24.90388 60.16703)</td>
+      <td>1.697594</td>
+    </tr>
+    <tr>
+      <th>25198815</th>
+      <th>1004300273</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.90869 60.16657, 24.90811 60.16668)</td>
+      <td>1.555472</td>
+    </tr>
+    <tr>
+      <th>25198820</th>
+      <th>1004300316</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.90803 60.16657, 24.90871 60.16642)</td>
+      <td>1.861279</td>
+    </tr>
+    <tr>
+      <th>25198822</th>
+      <th>1004300397</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.91064 60.16595, 24.91012 60.16616)</td>
+      <td>1.668523</td>
+    </tr>
+    <tr>
+      <th>25198825</th>
+      <th>268724419</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.91032 60.16589, 24.91072 60.16571)</td>
+      <td>1.782035</td>
+    </tr>
+    <tr>
+      <th>25198868</th>
+      <th>25198879</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.91197 60.16485, 24.91223 60.16456)</td>
+      <td>2.504486</td>
+    </tr>
+    <tr>
+      <th>25198879</th>
+      <th>269904875</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.91223 60.16456, 24.91227 60.16452)</td>
+      <td>0.394090</td>
+    </tr>
+    <tr>
+      <th>25198968</th>
+      <th>949884069</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LINESTRING (24.89202 60.16139, 24.89185 60.16137)</td>
+      <td>0.891276</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Excellent! Now our GeoDataFrame has all the information we need for creating a graph that can be used to conduct shortest path analysis based on length or travel time. Notice that here we assume that the cars can drive with the same speed as what the speed limit is. Considering the urban dynamics and traffic congestion, this assumption might not hold, but for simplicity, we assume so in this tutorial.</p>
+<section id="building-a-routable-graph-from-modified-edges">
+<h3>Building a routable graph from modified edges<a class="headerlink" href="#building-a-routable-graph-from-modified-edges" title="Link to this heading">#</a></h3>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> library to easily build a directed graph. Let’s see how we can create a routable NetworkX graph using <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> with one command:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_from_gdfs</span><span class="p">(</span><span class="n">gdf_nodes</span><span class="o">=</span><span class="n">nodes</span><span class="p">,</span> <span class="n">gdf_edges</span><span class="o">=</span><span class="n">edges</span><span class="p">)</span>
+<span class="n">G</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;networkx.classes.multidigraph.MultiDiGraph at 0x168031910&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have a similar routable graph as in the beginning, but now the network edges contain information about the speed limit and the travel time (<code class="docutils literal notranslate"><span class="pre">travel_time_seconds</span></code>) for all edges, which we can use as the cost when finding routes. We can easily visualize the graph with <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+
+<span class="n">ox</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/7c4b9dc743910ab9f139c97516477e391811eda7bea35710b2de907ba406dc05.png" src="../../../_images/7c4b9dc743910ab9f139c97516477e391811eda7bea35710b2de907ba406dc05.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 800x800 with 1 Axes&gt;, &lt;Axes: &gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> The routable street network of the Helsinki city centre plotted with <code class="docutils literal notranslate"><span class="pre">osmnx</span></code>.</em></p>
+</section>
+</section>
+<section id="shortest-path-analysis">
+<h2>Shortest path analysis<a class="headerlink" href="#shortest-path-analysis" title="Link to this heading">#</a></h2>
+<p>Now we have everything we need to start routing with NetworkX (based on driving distance or travel time). One of most widely used real-world use-cases for spatial networks relates to navigation, i.e. how to find a route from a given origin location to a given destination that would be as short (or quick) as possible. There are various approaches and algorithms that allows to find such routes, but the one we introduce here is one of the most famous ones, called Dijkstra’s algorithm, that is widely used to find an optimal least-cost path between given nodes. But first, let’s again go through some basics about routing.</p>
+<p><strong>Basic logic in routing.</strong> Most (if not all) routing algorithms work more or less in a similar manner. The basic steps for finding an optimal route from A to B, is to:</p>
+<ol class="arabic simple">
+<li><p>Find the nearest node for origin location (+ get info about its node-id and distance between origin and node)</p></li>
+<li><p>Find the nearest node for destination location (+ get info about its node-id and distance between destination and node)</p></li>
+<li><p>Use a routing algorithm to find the shortest path between A and B</p></li>
+<li><p>Retrieve edge attributes for the given route(s) and summarize them (can be distance, time, CO2, or whatever)</p></li>
+</ol>
+<p>This same logic should be applied always when searching for an optimal route between a single origin to a single destination, or when calculating one-to-many -type of routing queries (producing e.g. travel time matrices).</p>
+<section id="find-the-optimal-route-between-two-locations">
+<h3>Find the optimal route between two locations<a class="headerlink" href="#find-the-optimal-route-between-two-locations" title="Link to this heading">#</a></h3>
+<p>Next, we will learn how to find the shortest path between two locations using Dijkstra’s<a class="footnote-reference brackets" href="#dijkstra-algorithm" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> algorithm. The idea behind Dijkstra’s algorithm is quite intuitive. The algorithm starts from the origin and explores the network step by step, always continuing from the node that is closest to the origin at that point (in terms of the chosen cost, such as distance or travel time). For every node it reaches, the algorithm keeps track of the shortest known way to get there, and updates it whenever it finds a shorter one. In this way, the search spreads outwards from the origin, a bit like water flowing along the streets, and once it reaches the destination, the route that it has found is the shortest possible one.</p>
+<p>First, let’s find the closest nodes for two locations that are located in the area. OSMnx provides a handly function for geocoding an address <code class="docutils literal notranslate"><span class="pre">ox.geocode()</span></code>. We can use that to retrieve the x and y coordinates of our origin and destination.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># OSM data is in WGS84 so typically we need to use lat/lon coordinates when searching for the closest node</span>
+
+<span class="c1"># Origin</span>
+<span class="n">orig_address</span> <span class="o">=</span> <span class="s2">"Ruoholahdenkatu 24, Helsinki"</span>
+<span class="n">orig_y</span><span class="p">,</span> <span class="n">orig_x</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span><span class="n">orig_address</span><span class="p">)</span>  <span class="c1"># notice the coordinate order (y, x)!</span>
+
+<span class="c1"># Destination</span>
+<span class="n">dest_address</span> <span class="o">=</span> <span class="s2">"Annankatu 18, Helsinki"</span>
+<span class="n">dest_y</span><span class="p">,</span> <span class="n">dest_x</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">geocode</span><span class="p">(</span><span class="n">dest_address</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Origin coords:"</span><span class="p">,</span> <span class="n">orig_x</span><span class="p">,</span> <span class="n">orig_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Destination coords:"</span><span class="p">,</span> <span class="n">dest_x</span><span class="p">,</span> <span class="n">dest_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Origin coords: 24.9241978 60.1642621
+Destination coords: 24.9379961 60.1658562
+</pre></div>
+</div>
+</div>
+</div>
+<p>Okay, now we have coordinates for our origin and destination.</p>
+</section>
+<section id="find-the-nearest-nodes">
+<h3>Find the nearest nodes<a class="headerlink" href="#find-the-nearest-nodes" title="Link to this heading">#</a></h3>
+<p>Next, we need to find the closest nodes from the graph for both of our locations. For calculating the closest point we use <code class="docutils literal notranslate"><span class="pre">ox.distance.nearest_nodes()</span></code> -function and specify <code class="docutils literal notranslate"><span class="pre">return_dist=True</span></code> to get the distance in meters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the closest nodes for origin and destination</span>
+<span class="n">orig_node_id</span><span class="p">,</span> <span class="n">dist_to_orig</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">nearest_nodes</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">orig_x</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">orig_y</span><span class="p">,</span> <span class="n">return_dist</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">dest_node_id</span><span class="p">,</span> <span class="n">dist_to_dest</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">nearest_nodes</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">dest_x</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="n">dest_y</span><span class="p">,</span> <span class="n">return_dist</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Origin node-id:"</span><span class="p">,</span> <span class="n">orig_node_id</span><span class="p">,</span> <span class="s2">"and distance:"</span><span class="p">,</span> <span class="n">dist_to_orig</span><span class="p">,</span> <span class="s2">"meters."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Destination node-id:"</span><span class="p">,</span> <span class="n">dest_node_id</span><span class="p">,</span> <span class="s2">"and distance:"</span><span class="p">,</span> <span class="n">dist_to_dest</span><span class="p">,</span> <span class="s2">"meters."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Origin node-id: 526728813 and distance: 26.834588571685202 meters.
+Destination node-id: 3395239427 and distance: 18.545532694253797 meters.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we are ready to start the actual routing with NetworkX.</p>
+</section>
+<section id="find-the-fastest-route-by-distance-time">
+<h3>Find the fastest route by distance / time<a class="headerlink" href="#find-the-fastest-route-by-distance-time" title="Link to this heading">#</a></h3>
+<p>Now we can do the routing and find the shortest path between the origin and target locations
+by using the <code class="docutils literal notranslate"><span class="pre">dijkstra_path()</span></code> function of NetworkX. For getting only the cumulative cost of the trip, we can directly use a function <code class="docutils literal notranslate"><span class="pre">dijkstra_path_length()</span></code> that returns the total cost of the route (e.g. the distance or the travel time) without the actual path.</p>
+<p>The function takes our graph <code class="docutils literal notranslate"><span class="pre">G</span></code> as input which will be the network used for finding the shortest path. In addition, we need to define the nodes that are used as the origin (i.e. <code class="docutils literal notranslate"><span class="pre">source</span></code>) and destination points (<code class="docutils literal notranslate"><span class="pre">target</span></code>) for the analysis. Lastly, we need to define the <code class="docutils literal notranslate"><span class="pre">weight</span></code> (also called as <code class="docutils literal notranslate"><span class="pre">cost</span></code> or <code class="docutils literal notranslate"><span class="pre">impedance</span></code>) which is needed to find the optimal least-cost path between the given <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">target</span></code> nodes.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">weight</span></code> -parameter we can specify the attribute that we want to use as cost/impedance. We have now two possible weight attributes available: <code class="docutils literal notranslate"><span class="pre">'length'</span></code> and <code class="docutils literal notranslate"><span class="pre">'travel_time_seconds'</span></code>.</p>
+<ul class="simple">
+<li><p>Let’s first calculate the routes between locations by driving, and also retrieve the travel times</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the paths</span>
+<span class="n">metric_path</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">dijkstra_path</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">orig_node_id</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">dest_node_id</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"length"</span>
+<span class="p">)</span>
+<span class="n">time_path</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">dijkstra_path</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">orig_node_id</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">dest_node_id</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"travel_time_seconds"</span>
+<span class="p">)</span>
+
+<span class="c1"># Get also the actual travel times (summarize)</span>
+<span class="n">travel_length</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">dijkstra_path_length</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">orig_node_id</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">dest_node_id</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"length"</span>
+<span class="p">)</span>
+<span class="n">travel_time</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">dijkstra_path_length</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">orig_node_id</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">dest_node_id</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"travel_time_seconds"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metric_path</span> <span class="o">==</span> <span class="n">time_path</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">travel_length</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1071.5393666979592
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">travel_time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>128.5847240037551
+</pre></div>
+</div>
+</div>
+</div>
+<p>Okay, that was it! Let’s now see what we got as results by visualizing the results.</p>
+<p>For visualization purposes, we can use a handy function again from OSMnx called <code class="docutils literal notranslate"><span class="pre">ox.plot_graph_route()</span></code> that plots the route in a simple map:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shortest path based on distance</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">plot_graph_route</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span>
+    <span class="n">metric_path</span><span class="p">,</span>
+    <span class="n">edge_linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">bgcolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Print some useful information as well</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shortest path distance </span><span class="si">{</span><span class="n">travel_length</span><span class="si">:</span><span class="s2"> .1f</span><span class="si">}</span><span class="s2"> meters."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/7679e45293e6c5b5d22a98b789cab44e0b90795492286984807181d309fd8843.png" src="../../../_images/7679e45293e6c5b5d22a98b789cab44e0b90795492286984807181d309fd8843.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shortest path distance  1071.5 meters.
+</pre></div>
+</div>
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> The shortest route between the origin and the destination based on distance.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">plot_graph_route</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span>
+    <span class="n">time_path</span><span class="p">,</span>
+    <span class="n">edge_linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">bgcolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Print some useful information as well</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shortest path time </span><span class="si">{</span><span class="n">travel_time</span><span class="o">/</span><span class="mi">60</span><span class="si">:</span><span class="s2"> .1f</span><span class="si">}</span><span class="s2"> minutes."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/7679e45293e6c5b5d22a98b789cab44e0b90795492286984807181d309fd8843.png" src="../../../_images/7679e45293e6c5b5d22a98b789cab44e0b90795492286984807181d309fd8843.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shortest path time  2.1 minutes.
+</pre></div>
+</div>
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> The fastest route between the origin and the destination based on travel time.</em></p>
+<p>Great! Now we have successfully found the optimal route between our origin and destination and we also have estimates about the travel time that it takes to travel between the locations by driving. As we can see, the route optimized based on travel time and distance were exactly the same which is natural, as the network here is relatively small and there are no big differences in the speed limits. However, with larger networks, you might get alternating routes as travelling e.g. via ring roads is typically faster than driving throught the city (as an example).</p>
+</section>
+<section id="summarizing-the-route">
+<h3>Summarizing the route<a class="headerlink" href="#summarizing-the-route" title="Link to this heading">#</a></h3>
+<p>The last step of the basic routing logic that we went through earlier is to retrieve the edge attributes for the given route and summarize them. The route that we got from the <code class="docutils literal notranslate"><span class="pre">dijkstra_path()</span></code> function is a list of visited nodes of the shortest path. Let’s take a look at the first nodes of our fastest route:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_path</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[526728813, 7614374264, 528450748, 149030036, 6572184754]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the route is stored as a list of node ids. To find out which streets the route uses, we need to construct the path edges from these nodes by using the <code class="docutils literal notranslate"><span class="pre">nx.utils.pairwise()</span></code> function. This function converts the list of visited nodes into a collection of node-tuples that represent the edges of the shortest path:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path_edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(</span><span class="n">time_path</span><span class="p">))</span>
+<span class="n">path_edges</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(526728813, 7614374264),
+ (7614374264, 528450748),
+ (528450748, 149030036),
+ (149030036, 6572184754),
+ (6572184754, 1397071796)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using these node pairs, we could look up the attributes of each street segment along the route from our graph. <code class="docutils literal notranslate"><span class="pre">osmnx</span></code> has a handy function <code class="docutils literal notranslate"><span class="pre">ox.routing.route_to_gdf()</span></code> that does this for us and returns the edges of the route as a GeoDataFrame in the order they are traveled. We also pass the same <code class="docutils literal notranslate"><span class="pre">weight</span></code> that we used for finding the route, so that the function picks the same street segments as the routing algorithm did:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">route_edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">route_to_gdf</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">time_path</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"travel_time_seconds"</span><span class="p">)</span>
+<span class="n">route_edges</span><span class="p">[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"maxspeed"</span><span class="p">,</span> <span class="s2">"length"</span><span class="p">,</span> <span class="s2">"travel_time_seconds"</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>name</th>
+      <th>maxspeed</th>
+      <th>length</th>
+      <th>travel_time_seconds</th>
+    </tr>
+    <tr>
+      <th>u</th>
+      <th>v</th>
+      <th>key</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>526728813</th>
+      <th>7614374264</th>
+      <th>0</th>
+      <td>Ruoholahdenkatu</td>
+      <td>30</td>
+      <td>47.769063</td>
+      <td>5.732288</td>
+    </tr>
+    <tr>
+      <th>7614374264</th>
+      <th>528450748</th>
+      <th>0</th>
+      <td>Ruoholahdenkatu</td>
+      <td>30</td>
+      <td>18.951400</td>
+      <td>2.274168</td>
+    </tr>
+    <tr>
+      <th>528450748</th>
+      <th>149030036</th>
+      <th>0</th>
+      <td>Ruoholahdenkatu</td>
+      <td>30</td>
+      <td>7.201292</td>
+      <td>0.864155</td>
+    </tr>
+    <tr>
+      <th>149030036</th>
+      <th>6572184754</th>
+      <th>0</th>
+      <td>Ruoholahdenkatu</td>
+      <td>30</td>
+      <td>1.482685</td>
+      <td>0.177922</td>
+    </tr>
+    <tr>
+      <th>6572184754</th>
+      <th>1397071796</th>
+      <th>0</th>
+      <td>Ruoholahdenkatu</td>
+      <td>30</td>
+      <td>12.025617</td>
+      <td>1.443074</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>3228733112</th>
+      <th>299968946</th>
+      <th>0</th>
+      <td>Annankatu</td>
+      <td>30</td>
+      <td>2.069238</td>
+      <td>0.248309</td>
+    </tr>
+    <tr>
+      <th>299968946</th>
+      <th>1377211666</th>
+      <th>0</th>
+      <td>Annankatu</td>
+      <td>30</td>
+      <td>6.630076</td>
+      <td>0.795609</td>
+    </tr>
+    <tr>
+      <th>1377211666</th>
+      <th>299968469</th>
+      <th>0</th>
+      <td>Annankatu</td>
+      <td>30</td>
+      <td>6.562326</td>
+      <td>0.787479</td>
+    </tr>
+    <tr>
+      <th>299968469</th>
+      <th>3228733109</th>
+      <th>0</th>
+      <td>Annankatu</td>
+      <td>30</td>
+      <td>4.419425</td>
+      <td>0.530331</td>
+    </tr>
+    <tr>
+      <th>3228733109</th>
+      <th>3395239427</th>
+      <th>0</th>
+      <td>Annankatu</td>
+      <td>30</td>
+      <td>9.020713</td>
+      <td>1.082486</td>
+    </tr>
+  </tbody>
+</table>
+<p>102 rows × 4 columns</p>
+</div></div></div>
+</div>
+<p>Now we can see the names of the streets along the route, together with their speed limits, lengths and travel times. Finally, we can summarize the route by calculating the total length and travel time of the trip:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">route_edges</span><span class="p">[[</span><span class="s2">"length"</span><span class="p">,</span> <span class="s2">"travel_time_seconds"</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>length                 1071.539367
+travel_time_seconds     128.584724
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the total travel time is the same as the one we calculated earlier with the <code class="docutils literal notranslate"><span class="pre">dijkstra_path_length()</span></code> function. In addition, we now know the total length of the fastest route.</p>
+</section>
+</section>
+<section id="one-way-streets-and-the-direction-of-travel">
+<h2>One-way streets and the direction of travel<a class="headerlink" href="#one-way-streets-and-the-direction-of-travel" title="Link to this heading">#</a></h2>
+<p>In the examples thus far, we have searched the route only to one direction, i.e. from the origin to the destination. However, many trips are made to both directions. A real-life example of these kind of two-way trips is when commuting between home and work locations. Because our graph is directed, traveling to both directions using identical paths is not necessarily possible due to one-way streets. Let’s see what happens if we search for the fastest route back from the destination to the origin:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_path_back</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">dijkstra_path</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">dest_node_id</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">orig_node_id</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"travel_time_seconds"</span>
+<span class="p">)</span>
+<span class="n">travel_time_back</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">dijkstra_path_length</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">dest_node_id</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">orig_node_id</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"travel_time_seconds"</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Travel time to the destination </span><span class="si">{</span><span class="n">travel_time</span><span class="o">/</span><span class="mi">60</span><span class="si">:</span><span class="s2"> .1f</span><span class="si">}</span><span class="s2"> minutes."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Travel time back to the origin </span><span class="si">{</span><span class="n">travel_time_back</span><span class="o">/</span><span class="mi">60</span><span class="si">:</span><span class="s2"> .1f</span><span class="si">}</span><span class="s2"> minutes."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Travel time to the destination  2.1 minutes.
+Travel time back to the origin  2.2 minutes.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s compare the two routes by plotting them on the same map. For this, we can use the <code class="docutils literal notranslate"><span class="pre">ox.plot_graph_routes()</span></code> function that works in a similar manner as the <code class="docutils literal notranslate"><span class="pre">ox.plot_graph_route()</span></code> function we used earlier, but takes a list of routes as input. We draw the route to the destination with red and the route back to the origin with blue color:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">plot_graph_routes</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">time_path</span><span class="p">,</span> <span class="n">time_path_back</span><span class="p">],</span>
+    <span class="n">route_colors</span><span class="o">=</span><span class="p">[</span><span class="s2">"r"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span>
+    <span class="n">edge_linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">bgcolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/6ddd7c11f7d9b7716f7112c408374d0fc831b4e5b3c0d3f81e80e5211fc184f3.png" src="../../../_images/6ddd7c11f7d9b7716f7112c408374d0fc831b4e5b3c0d3f81e80e5211fc184f3.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> The fastest route from the origin to the destination (red) and back from the destination to the origin (blue).</em></p>
+<p>Where the red and blue routes do not overlap, the route back uses different streets than the route to the destination, because some of the streets along the way can be driven only to one direction. Depending on how long a detour these one-way streets cause, the travel times to the two directions can also differ. With an undirected graph, we could not capture this: the route back could always use the same streets as the route to the destination, and the travel times to both directions would be identical.</p>
+</section>
+<section id="shortest-paths-from-one-origin-to-many-destinations">
+<h2>Shortest paths from one origin to many destinations<a class="headerlink" href="#shortest-paths-from-one-origin-to-many-destinations" title="Link to this heading">#</a></h2>
+<p>Thus far, we have searched routes between a single origin and a single destination. However, as we mentioned earlier, the same logic can also be used when calculating one-to-many -type of routing queries. For instance, we might want to know how long it takes to drive from our origin to all other locations in the street network. For this purpose, we can use the <code class="docutils literal notranslate"><span class="pre">nx.single_source_dijkstra_path_length()</span></code> function that calculates the shortest path lengths from a given <code class="docutils literal notranslate"><span class="pre">source</span></code> node to all nodes that can be reached from it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">travel_times</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">single_source_dijkstra_path_length</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">orig_node_id</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">"travel_time_seconds"</span>
+<span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">travel_times</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(526728813, 0),
+ (1372376935, 0.9220967105638855),
+ (6572184736, 1.1101962433349235),
+ (6572184737, 1.114981477117969),
+ (526728816, 1.8388548344006517)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a result, we get a dictionary in which the keys are the ids of the nodes and the values are the travel times (in seconds) from the origin to these nodes. The first item is the origin node itself, which is why its travel time is 0. To see the result on a map, let’s add the travel times as a new column to the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> GeoDataFrame that we extracted from the graph earlier. We first convert the dictionary into a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">Series</span></code> that uses the node ids as its index, which makes it possible to match the travel times with the correct nodes. At the same time, we convert the travel times from seconds to minutes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span><span class="p">[</span><span class="s2">"travel_time_min"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">travel_times</span><span class="p">)</span> <span class="o">/</span> <span class="mi">60</span>
+<span class="n">nodes</span><span class="p">[[</span><span class="s2">"travel_time_min"</span><span class="p">,</span> <span class="s2">"geometry"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>travel_time_min</th>
+      <th>geometry</th>
+    </tr>
+    <tr>
+      <th>osmid</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>24556474</th>
+      <td>5.320555</td>
+      <td>POINT (24.90963 60.18386)</td>
+    </tr>
+    <tr>
+      <th>25198796</th>
+      <td>NaN</td>
+      <td>POINT (24.90065 60.16698)</td>
+    </tr>
+    <tr>
+      <th>25198805</th>
+      <td>NaN</td>
+      <td>POINT (24.9032 60.16705)</td>
+    </tr>
+    <tr>
+      <th>25198815</th>
+      <td>1.473700</td>
+      <td>POINT (24.90869 60.16657)</td>
+    </tr>
+    <tr>
+      <th>25198820</th>
+      <td>NaN</td>
+      <td>POINT (24.90803 60.16657)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Nodes that cannot be reached from the origin get a missing value (<code class="docutils literal notranslate"><span class="pre">NaN</span></code>), because they do not have a travel time in the result. Now we can visualize the travel times on a map. Here, we first plot the streets with light gray color as a background and then plot the nodes on top of them, colored by the travel time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"lightgrey"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">"travel_time_min"</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdYlBu"</span><span class="p">,</span>
+    <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="s2">"Travel time by car (minutes)"</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/652ad339becc08236d4c3844c8f0145c6dc88a572dd850f2566b8bd6a5efb960.png" src="../../../_images/652ad339becc08236d4c3844c8f0145c6dc88a572dd850f2566b8bd6a5efb960.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> Travel time by car (in minutes) from the origin to all nodes in the street network.</em></p>
+<p>As we can see, the travel times generally increase the further away the nodes are from the origin. Calculating travel times from one or many origins to all destinations like this is the basis of accessibility analysis, which we will discuss in more detail in Chapter 11.</p>
+<p>In this section, we learned how to retrieve a street network from OpenStreetMap, prepare it for routing by calculating travel times for the streets, and use it for finding the shortest paths between locations. However, routing is only one of the many things that we can do with networks. In the next section, we will look at other common network operations, such as identifying the connected components of a network and measuring the centrality of its nodes and edges.</p>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="networkx" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://networkx.github.io/documentation/stable/">https://networkx.github.io/documentation/stable/</a></p>
+</aside>
+<aside class="footnote brackets" id="dijkstra" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.weighted.single_source_dijkstra.html">https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.weighted.single_source_dijkstra.html</a></p>
+</aside>
+<aside class="footnote brackets" id="astar" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.astar.astar_path.html">https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.astar.astar_path.html</a></p>
+</aside>
+<aside class="footnote brackets" id="osmnx" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://osmnx.readthedocs.io/en/stable/">https://osmnx.readthedocs.io/en/stable/</a></p>
+</aside>
+<aside class="footnote brackets" id="ykr" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.avoindata.fi/data/fi/dataset/kaupunki-maaseutu-luokitus-ykr">https://www.avoindata.fi/data/fi/dataset/kaupunki-maaseutu-luokitus-ykr</a></p>
+</aside>
+<aside class="footnote brackets" id="dijkstra-algorithm" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm">https://en.wikipedia.org/wiki/Dijkstra’s_algorithm</a></p>
+</aside>
+</aside>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Python-GIS-book/site",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./part2/chapter-08/nb"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="00-representing-spatial-networks.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Representing geographic data as networks</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02-common-network-operations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Common network operations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-workflow-for-routing">Typical workflow for routing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieving-network-data">Retrieving network data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-the-network">Modifying the network</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-routable-graph-from-modified-edges">Building a routable graph from modified edges</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shortest-path-analysis">Shortest path analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-optimal-route-between-two-locations">Find the optimal route between two locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-nearest-nodes">Find the nearest nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-fastest-route-by-distance-time">Find the fastest route by distance / time</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarizing-the-route">Summarizing the route</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-way-streets-and-the-direction-of-travel">One-way streets and the direction of travel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shortest-paths-from-one-origin-to-many-destinations">Shortest paths from one origin to many destinations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2026, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

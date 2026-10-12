@@ -1,0 +1,1834 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Representing geographic data as networks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-toggle-button.css?v=14db4526" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom-text-formatting.css?v=4ef71e6f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part2/chapter-08/nb/00-representing-spatial-networks';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Spatial network analysis" href="01-spatial-network-analysis.html" />
+    <link rel="prev" title="Learning objectives" href="0-learning-objectives.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../../_static/pythongis-logo.png" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../../_static/pythongis-logo.png" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part I - Python essentials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../part1/index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-01/index.html">1. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/00-motivation.html">1.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/01-computers-and-programs.html">1.2 Computers and programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/02-why-python.html">1.3 Why Python?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/03-writing-and-running-python-code.html">1.4 Writing and running Python code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/04-using-jupyterlab.html">1.5 Using JupyterLab for writing code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/05-quick-start.html">1.6 Quickly getting started (without installing Python)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-01/nb/06-installation.html">1.7 Installing Python and adding libraries</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-02/index.html">2. Basic programming concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/00-python-basics.html">2.1 Getting started with Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/01-lists-and-indices.html">2.2 Lists and indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/02-text-and-numbers.html">2.3 Working with text and numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/03-for-loops.html">2.4 for loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/04-conditional-statements.html">2.5 Conditional statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/05-functions.html">2.6 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/06-writing-scripts.html">2.7 Writing script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/07-modules.html">2.8 Loading and using modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-02/nb/08-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-03/index.html">3. Introduction to data analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/00-pandas-basics.html">3.1 Getting started with data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/01-data-manipulation.html">3.2 Common tabular operations in pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/02-data-analysis.html">3.3 Data wrangling, grouping and aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/03-temporal-data.html">3.4 Working with temporal data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-03/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part1/chapter-04/index.html">4. Introduction to data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/00-plotting-in-python.html">4.1 Plotting in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/01-basic-plotting.html">4.2 Plotting with pandas and matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/02-subplots.html">4.3 Creating subplots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/03-plot-formatting.html">4.4 Effective plot design: line plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part1/chapter-04/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part II - Introduction to GIS with Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview and learning goals</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-05/index.html">5. Getting started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/00-motivation-to-use-python-for-gis.html">5.1 Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/01-introduction-to-geographic-data-in-python.html">5.2 Geographic data in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-05/nb/02-introduction-to-coordinate-reference-systems.html">5.3 Coordinate reference systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-06/index.html">6. Vector data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/00-introduction-to-geographic-objects.html">6.1 Representing geographic data in vector format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/01-geodataframe.html">6.2 Introduction to geopandas GeoDataFrames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/02-geometric-operations.html">6.3 Common geometric operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/03-coordinate-reference-system.html">6.4 Working with map projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/04-geocoding.html">6.5 Geocoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/05-spatial-queries.html">6.6 Selecting data based on spatial relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/06-spatial-join.html">6.7 Spatial join</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/07-nearest-neighbour.html">6.8 Nearest neighbour analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/08-overlay-analysis-with-vector-data.html">6.9 Vector overlay operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-06/nb/09-data-classification.html">6.10 Data classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-07/index.html">7. Raster data processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/00-introduction-to-raster-data.html">7.1 Representing geographic data in raster format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/01-data-structures-xarray.html">7.2 Introduction to data structures in xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/02-common-raster-operations.html">7.3 Common raster operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/03-coordinate-reference-systems-raster.html">7.4 Coordinate reference system management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-07/nb/04-map-algebra.html">7.5 Map algebra</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">8. Spatial network analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">8.1 Representing geographic data as networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-spatial-network-analysis.html">8.2 Spatial network analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-common-network-operations.html">8.3 Common network operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-multimodal-network-analysis.html">8.4 Multimodal network analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-09/index.html">9. Geographic data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/00-introduction-to-geographic-visualization.html">9.1 Introduction to geographic visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/01-static-maps.html">9.2 Static maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-09/nb/02-interactive-maps.html">9.4 Interactive maps</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapter-10/index.html">10. Using online geographic data sources</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/00-retrieving-osm-data.html">10.1 Retrieving OpenStreetMap data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/01-retrieving-data-from-wfs.html">10.2 Retrieving data from Web Feature Service (WFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/02-retrieving-data-from-wcs.html">10.3 Retrieving data from Web Coverage Service (WCS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/03-read-data-from-spatial-databases.html">10.4 Reading data from spatial databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapter-10/nb/04-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part III - Case studies</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-11/index.html">11. Spatial accessibility modelling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/00-accessibility-as-a-concept.html">11.1 Introduction to spatial accessibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/01-spatial-accessibility-modelling.html">11.2 Spatial accessibility modelling based on travel times</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-11/nb/02-exercises.html">Exercises</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../part3/chapter-12/index.html">12. Watershed analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/0-learning-objectives.html">Learning objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../part3/chapter-12/nb/00-watershed-analysis-with-pysheds.html">Watershed analysis with pysheds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../part3/chapter-13/index.html">13. Conclusions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-a.html">A. Working effectively in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-0-python-environments.html">A.1 Tips for maintaining Python environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-1-best-practices.html">A.2 Python programming best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-2-git-github.html">A.3 Version control with using Git and GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-3-script-files.html">A.4 Using Python script files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-4-testing-and-debugging.html">A.5 Testing and debugging your code</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../back-matter/appendix-b.html">B. Solutions to questions and exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-5-question-solutions.html">B.1 Question solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../back-matter/nb/appendix-6-exercise-solutions.html">B.2 Exercise solutions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Back matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/acknowledgements.html">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../back-matter/nb/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">About the authors</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../data/index.html">Data overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data/noaa-data.html">NOAA Weather data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Python-GIS-book/site/master?urlpath=lab/tree/source/part2/chapter-08/nb/00-representing-spatial-networks.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/Python-GIS-book/site/edit/main/source/part2/chapter-08/nb/00-representing-spatial-networks.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button"
+   title="Suggest edit"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/part2/chapter-08/nb/00-representing-spatial-networks.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Representing geographic data as networks</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-network">What is a network?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-graph-from-scratch">Creating a graph from scratch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#undirected-graph">Undirected graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-node-attributes">Adding node attributes</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-edge-attributes">Adding edge attributes</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-a-spatial-network">Visualizing a spatial network</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directed-graph">Directed graph</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-graph-from-geometries">Creating a graph from geometries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#undirected-graph-using-a-geodataframe">Undirected graph using a GeoDataFrame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directed-graph-using-a-geodataframe">Directed graph using a GeoDataFrame</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-a-graph-to-disk">Saving a graph to disk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="representing-geographic-data-as-networks">
+<h1>Representing geographic data as networks<a class="headerlink" href="#representing-geographic-data-as-networks" title="Link to this heading">#</a></h1>
+<p>As we briefly introduced in Chapter 5.2, networks are data structures that consists of nodes that are connected to other nodes via edges which ultimately construct a network topology (or a graph as it is referred in graph theory). In this section, we will show how you can construct spatial networks using Python based on geographic data. We will show how you can create a simple graph from scratch, as well as how to create a network from a given dataset with <code class="docutils literal notranslate"><span class="pre">LineString</span></code> objects or from OpenStreetMap data that makes it possible to create networks from all over the world that can be used for various network analysis purposes.</p>
+<section id="what-is-a-network">
+<h2>What is a network?<a class="headerlink" href="#what-is-a-network" title="Link to this heading">#</a></h2>
+<p>As networks are widely used in various domains, the terminology related to networks can sometimes be a bit confusing. To clarify some of the ambiguity related to the terminology, we will explain some common network-related terminology along the way to make it clear how we refer to specific concepts in this book emphasizing the linkage to GIS. Most of the terminology is derived from graph theory and network theory.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Graph</span></code> is a collection of <code class="docutils literal notranslate"><span class="pre">nodes</span></code> and <code class="docutils literal notranslate"><span class="pre">edges</span></code> that constitute a graph structure. A <code class="docutils literal notranslate"><span class="pre">graph</span></code> is an abstract concept commonly used e.g. in mathematics and computer science which emphasizes the connections and relationships between entities (nodes) rather than exact geographic positions or distances. This graph structure is also called as <code class="docutils literal notranslate"><span class="pre">network</span> <span class="pre">topology</span></code>. A <code class="docutils literal notranslate"><span class="pre">network</span></code> then again is sometimes defined as <strong>a  graph with attributes</strong>, whereas <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">network</span></code> is a <code class="docutils literal notranslate"><span class="pre">network</span></code> that is used to represent real-world systems on a geographic space. For example, street network is typically not only represented as a collection of <code class="docutils literal notranslate"><span class="pre">nodes</span></code> (intersections) and <code class="docutils literal notranslate"><span class="pre">edges</span></code> (streets) but there are various additional attributes associated with the network, such as length, speed limit, number of lanes, the location of crossroads etc. In practice, the terms <code class="docutils literal notranslate"><span class="pre">graph</span></code>, <code class="docutils literal notranslate"><span class="pre">network</span></code> and <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">network</span></code> are often used in synonymous manner, although there can be subtle differences in terms of how they are defined in different contexts. In this book, we will broadly use the term <code class="docutils literal notranslate"><span class="pre">graph</span></code> when talking about any of these concepts. After all, all of these concepts are graph structures, regardless of whether they have attribute information or not.</p>
+<p>In the following, we will dive deeper to all of these aspects and construct various types of networks which aim to make it easier to understand how all of this works using Python. We recommend to start by reading through the section 8.1.2 because this section introduces fundamental concepts related to graphs and various useful functionalities of the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library.</p>
+</section>
+<section id="creating-a-graph-from-scratch">
+<h2>Creating a graph from scratch<a class="headerlink" href="#creating-a-graph-from-scratch" title="Link to this heading">#</a></h2>
+<p>In the following sections, we will show how you can create a simple 1) undirected and 2) directed graph from scratch without any specific data source and explain the basic concepts, data structures and methods related to <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library.</p>
+<section id="undirected-graph">
+<h3>Undirected graph<a class="headerlink" href="#undirected-graph" title="Link to this heading">#</a></h3>
+<p>We will start our exploration with networks by constructing a simple <code class="docutils literal notranslate"><span class="pre">graph</span></code> with <code class="docutils literal notranslate"><span class="pre">nodes</span></code> and <code class="docutils literal notranslate"><span class="pre">edges</span></code> using the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library. But what is a <code class="docutils literal notranslate"><span class="pre">node</span></code> exactly? A <code class="docutils literal notranslate"><span class="pre">node</span></code> is a point entity that can represent more or less anything in the world, such as a person, computer or location. In GIS context, <code class="docutils literal notranslate"><span class="pre">node</span></code> of a <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">network</span></code> typically refers to a specific location, such as intersection in the street network or a building. In graph theory, <code class="docutils literal notranslate"><span class="pre">node</span></code> is typically called as <code class="docutils literal notranslate"><span class="pre">vertex</span></code>. However, in GIS, we typically differentiate the two: <code class="docutils literal notranslate"><span class="pre">node</span></code> is specific to a point at which a line ends or connects to another line, whereas <code class="docutils literal notranslate"><span class="pre">vertices</span></code> can be in between the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> as intermediate points (Figure 8.1) constructing the shape of a given line geometry (e.g. a curved road). Thus, every <code class="docutils literal notranslate"><span class="pre">node</span></code> of a <code class="docutils literal notranslate"><span class="pre">graph</span></code> can be considered as a <code class="docutils literal notranslate"><span class="pre">vertex</span></code> but not all <code class="docutils literal notranslate"><span class="pre">vertices</span></code> are <code class="docutils literal notranslate"><span class="pre">nodes</span></code>. When working with real-world networks (e.g. street networks), it is typical that the actual geometry of the street segment is simplified when constructing the graph and only the nodes are kept (i.e. the first and last point of LineStrings).</p>
+<p><img alt="Figure 8.1. Nodes (in red) and a vertex (blue) extracted from a simple LineString geometry." src="../../../_images/node_vs_vertex.png" /></p>
+<p><em><strong>Figure 8.1.</strong> Nodes (in red) and a vertex (blue) extracted from a simple LineString geometry.</em></p>
+<p>In Python, we can use the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library and its <code class="docutils literal notranslate"><span class="pre">nx.Graph()</span></code> construct to create an undirected graph. Let’s initialize an “empty” graph and store it into a variable <code class="docutils literal notranslate"><span class="pre">G</span></code> that we can later use to populate it with <code class="docutils literal notranslate"><span class="pre">nodes</span></code> and <code class="docutils literal notranslate"><span class="pre">edges</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">G</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;networkx.classes.graph.Graph at 0x12a2a2720&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NodeView(())
+</pre></div>
+</div>
+</div>
+</div>
+<p>By calling the <code class="docutils literal notranslate"><span class="pre">.nodes</span></code> attribute, it is possible to return all the nodes of a given graph. As we can see, our graph is still empty without any nodes. We can easily add nodes to our graph by using the <code class="docutils literal notranslate"><span class="pre">.add_node()</span></code> method which can be used to add nodes to a given graph one at a time. In the following, we will add five nodes to our graph and give them simple letter ids from <code class="docutils literal notranslate"><span class="pre">a</span></code> to <code class="docutils literal notranslate"><span class="pre">e</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"a"</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"b"</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"c"</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"d"</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"e"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NodeDataView({'a': {}, 'b': {}, 'c': {}, 'd': {}, 'e': {}})
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we see, the graph contains five nodes. By calling the <code class="docutils literal notranslate"><span class="pre">.nodes.data()</span></code> method, we can return not only the nodes of the graph, but also the attributes associated with the nodes. Here, we do not yet have any node attributes associated with our data, which is the reason why we only see empty dictionaries (<code class="docutils literal notranslate"><span class="pre">{}</span></code>) associated with each node. Already at this stage, we can plot our graph even without any edges by using the <code class="docutils literal notranslate"><span class="pre">nx.draw()</span></code> function that is a handy tool to plot <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph objects (uses <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library in the background for plotting):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/18708224457e879380f4682f45c3da40284e69b071fd69de5056ce0e9dce48c2.png" src="../../../_images/18708224457e879380f4682f45c3da40284e69b071fd69de5056ce0e9dce48c2.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.1.</strong> Nodes visualized in arbitrary space.</em></p>
+<p>As we can see, at the moment the nodes are located arbitrarily in space because we do not have any specific locations defined for our <code class="docutils literal notranslate"><span class="pre">nodes</span></code>. As mentioned earlier, graphs do not necessarily need any information about the exact locations of the nodes to be able to draw a graph structure. However, the plot above is not yet a graph, because we do not have any edges associated with the nodes that would show how they relate or connect to each other.</p>
+<p>Thus, let’s continue by creating <code class="docutils literal notranslate"><span class="pre">edges</span></code> which are the other core element of a graph. A single <code class="docutils literal notranslate"><span class="pre">edge</span></code> is basically a connection between two <code class="docutils literal notranslate"><span class="pre">nodes</span></code>. <code class="docutils literal notranslate"><span class="pre">Edge</span></code> can also be called as <code class="docutils literal notranslate"><span class="pre">line</span></code> or <code class="docutils literal notranslate"><span class="pre">link</span></code> (depending on the context). To create edges, we can use the <code class="docutils literal notranslate"><span class="pre">.add_edge()</span></code> method where we define how the nodes are connected to each other. In <code class="docutils literal notranslate"><span class="pre">networkx</span></code>, the nodes that are connected to each other are often referred as <code class="docutils literal notranslate"><span class="pre">u</span></code> (first node) and <code class="docutils literal notranslate"><span class="pre">v</span></code> (last node). In the following, we will define the topology of our graph by defining one edge at a time how the nodes are connected to each other:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add edges</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="s2">"e"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">edges</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EdgeView([('a', 'b'), ('a', 'c'), ('b', 'd'), ('c', 'd'), ('d', 'e')])
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, by accessing the <code class="docutils literal notranslate"><span class="pre">.edges</span></code> we can get a list of node-pairs that construct the connections (i.e. edges) between the nodes. Now we can again plot the graph to see how our network topology looks like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/ebde9c31c39d4ed9533942086b4ba37d38d71d9160bdbdf8a24873df271151d1.png" src="../../../_images/ebde9c31c39d4ed9533942086b4ba37d38d71d9160bdbdf8a24873df271151d1.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> A simple graph with five nodes and edges.</em></p>
+<p>Now we have a very simple graph structure where the nodes are connected to each other as we defined them in the previous step. This kind of graph structure can already be useful for various purposes. If we for example consider that these nodes would represent persons, we could see how those persons are interacting with each other (who knows who). However, as we are mostly interested to study and understand <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">networks</span></code>, let’s continue and see how we can present this simple graph in such a way that the locations of the nodes are not in arbitrary space but they have exact locations.</p>
+<section id="adding-node-attributes">
+<h4>Adding node attributes<a class="headerlink" href="#adding-node-attributes" title="Link to this heading">#</a></h4>
+<p>As mentioned earlier, edges and nodes can have attributes associated with them (e.g. coordinates, distance, volume, capacity) which make them very useful data structure for various analytical purposes, such as conducting way-finding where the target is to find an optimal path between two locations on a network. In the following, we will add the same nodes with ids (<code class="docutils literal notranslate"><span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c,</span> <span class="pre">d,</span> <span class="pre">e</span></code>) but at this time we add coordinates for these nodes as <code class="docutils literal notranslate"><span class="pre">node</span> <span class="pre">attributes</span></code>. To do this, we construct a simple data collection that is a <code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">tuples</span></code> where each <code class="docutils literal notranslate"><span class="pre">tuple</span></code> contains the information for a given node. As the first item, we provide the id for a given node (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code>) and as the second item we provide all the node attributes as a Python <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. In practice, you can add as many node attributes as you like in this <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>, but in our case, we now only add one attribute which we call <code class="docutils literal notranslate"><span class="pre">&quot;coords&quot;</span></code> that will contain the x and y coordinates for a given node:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_collection</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)}),</span>
+    <span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)}),</span>
+    <span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}),</span>
+    <span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}),</span>
+    <span class="p">(</span><span class="s2">"e"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">node_collection</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can add this collection of nodes into our <code class="docutils literal notranslate"><span class="pre">graph</span></code> by using the <code class="docutils literal notranslate"><span class="pre">.add_nodes_from()</span></code> method which allows you to add multiple nodes at once without the need to call multiple times <code class="docutils literal notranslate"><span class="pre">.add_node()</span></code> as we did in our previous example. Now, our graph includes not only the nodes, but also the associated attributes as we can see here:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NodeDataView({'a': {'coords': (0, 5)}, 'b': {'coords': (5, 5)}, 'c': {'coords': (0, 0)}, 'd': {'coords': (5, 0)}, 'e': {'coords': (10, 0)}})
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-edge-attributes">
+<h4>Adding edge attributes<a class="headerlink" href="#adding-edge-attributes" title="Link to this heading">#</a></h4>
+<p>Adding edges to a given graph with <code class="docutils literal notranslate"><span class="pre">edge</span> <span class="pre">attributes</span></code> works in a very similar manner as adding nodes and node attributes as shown previously. When we want to add a collection of edges to a <code class="docutils literal notranslate"><span class="pre">graph</span></code> we create a <code class="docutils literal notranslate"><span class="pre">list</span></code> that contains tuples with information about the connections, i.e. which nodes are linked to each other (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>), and the edge attributes as a <code class="docutils literal notranslate"><span class="pre">dictionary</span></code>. Here, each <code class="docutils literal notranslate"><span class="pre">tuple</span></code> represents a single edge, where the first and second item corresponds to the connected node-ids and the third item corresponds to the edge attributes. In our case, we add a single edge attribute called <code class="docutils literal notranslate"><span class="pre">&quot;weight&quot;</span></code> which could represent the cost (e.g. distance or time) to move from one node to another, or the importance of a given edge (e.g. the number of people interacting between these nodes in one way or another):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_collection</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">2</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="s2">"e"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can add this collection of edges into our graph <code class="docutils literal notranslate"><span class="pre">G</span></code> by using the <code class="docutils literal notranslate"><span class="pre">.add_edges_from()</span></code> method which can be used to add multiple items at once to the given graph (similar to how we added multiple nodes). As a result, our graph now contains not only the information about the connections (edges), but also the associated <code class="docutils literal notranslate"><span class="pre">edge</span> <span class="pre">attributes</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edge_collection</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EdgeDataView([('a', 'b', {'weight': 1}), ('a', 'c', {'weight': 1}), ('b', 'd', {'weight': 2}), ('c', 'd', {'weight': 1}), ('d', 'e', {'weight': 3})])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-a-spatial-network">
+<h4>Visualizing a spatial network<a class="headerlink" href="#visualizing-a-spatial-network" title="Link to this heading">#</a></h4>
+<p>In the previous steps, we prepared a network (a.k.a a graph) that has the necessary information to construct and visualize a (planar) spatial network, where the nodes and edges are not located in arbitrary space but they are tied to our physical world with coordinates. To be able to visualize this spatial network with <code class="docutils literal notranslate"><span class="pre">networkx</span></code>, we first need to extract the coordinates of each node in our graph. We can do this easily by using the <code class="docutils literal notranslate"><span class="pre">nx.get_node_attributes()</span></code> function which will iterate over the nodes and associated node attributes to construct a <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> that contains the node-id as <code class="docutils literal notranslate"><span class="pre">key</span></code> and the coordinate-tuple as <code class="docutils literal notranslate"><span class="pre">value</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract node locations</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">"coords"</span><span class="p">)</span>
+<span class="n">positions</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'a': (0, 5), 'b': (5, 5), 'c': (0, 0), 'd': (5, 0), 'e': (10, 0)}
+</pre></div>
+</div>
+</div>
+</div>
+<p>With this information, we can now draw the network using the <code class="docutils literal notranslate"><span class="pre">nx.draw()</span></code> function similarly as in our previous example. However, now we determine the exact location for every node by using the <code class="docutils literal notranslate"><span class="pre">pos</span></code> parameter that is used to map the nodes to given locations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/6cbcd7c970b8993715be7aacac0defd578e9c9f43e834e31ea68ab05ac439e63.png" src="../../../_images/6cbcd7c970b8993715be7aacac0defd578e9c9f43e834e31ea68ab05ac439e63.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> A simple spatial network with five nodes and edges.</em></p>
+<p>Now we have visualized a simple spatial network where the locations of the nodes are pre-determined by us according the coordinates that we used when constructing the graph. Thus, we can be sure that the network always looks exactly the same when we visualize it (which is important for physical real-world networks), which is not the case if visualizing the network without the node coordinates. In fact, if you run the previous code without using the <code class="docutils literal notranslate"><span class="pre">pos</span></code> parameter multiple times, it is likely that you get a different looking graph each time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fix</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/4580d53f32dca22110f5f02d83c2448586ceab0890c204b30835558d2fbc72ea.png" src="../../../_images/4580d53f32dca22110f5f02d83c2448586ceab0890c204b30835558d2fbc72ea.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> Defining the node locations ensures that the graph always looks the same (as in the rightmost subplot).</em></p>
+<p>When we constructed our graph, we also included <code class="docutils literal notranslate"><span class="pre">edge</span> <span class="pre">attributes</span></code>. It is also possible to assign colors to edges and/or annotate them according a given edge attribute when visualizing which make it easier to understand the characteristics of our network. To annotate the edges, i.e. show a given edge attribute on top of the edges, we first need to parse the labels that we associate with the edges. We can do this in a very similar manner as how we extracted the node coordinates previously, but in this case we use the <code class="docutils literal notranslate"><span class="pre">nx.get_edge_attributes()</span></code> which returns a <code class="docutils literal notranslate"><span class="pre">dictionary</span></code> containing a tuple of the node-ids of a given edge as a <code class="docutils literal notranslate"><span class="pre">key</span></code> and the edge attribute (here <code class="docutils literal notranslate"><span class="pre">&quot;weight&quot;</span></code>) as the <code class="docutils literal notranslate"><span class="pre">value</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parse edge labels</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">)</span>
+<span class="n">weights</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{('a', 'b'): 1, ('a', 'c'): 1, ('b', 'd'): 2, ('c', 'd'): 1, ('d', 'e'): 3}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">edge_values</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 1, 2, 1, 3]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can draw the network in such a way that we determine the color of each edge according the <code class="docutils literal notranslate"><span class="pre">&quot;weight&quot;</span></code> attribute and also label the edges so that we can see the actual edge attribute values as well. To determine the color of the edges, we can use the <code class="docutils literal notranslate"><span class="pre">edge_color</span></code> parameter that can be used to determine a single color for all edges or, as in our case, provide a list of values that are mapped to a given color map that we define with the parameter <code class="docutils literal notranslate"><span class="pre">edge_cmap</span></code>. To label the edges, we use the <code class="docutils literal notranslate"><span class="pre">nx.draw_networkx_edge_labels()</span></code> function that draws and positions the labels on top of the graph as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Draw network with colored edges</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span>
+    <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span>
+    <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">font_weight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">,</span>
+    <span class="n">font_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">node_color</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_values</span><span class="p">,</span>
+    <span class="n">edge_cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">copper</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Draw edge labels</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span>
+    <span class="n">positions</span><span class="p">,</span>
+    <span class="n">edge_labels</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
+    <span class="n">font_color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span>
+    <span class="n">font_weight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/ecf0bfb72d8b1b73b49615df4d7102182c6b92bb9021b7458fb0eefc6c9f646e.png" src="../../../_images/ecf0bfb72d8b1b73b49615df4d7102182c6b92bb9021b7458fb0eefc6c9f646e.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> A graph with edge labels and colors that are determined by the edge attribute.</em></p>
+</section>
+</section>
+<section id="directed-graph">
+<h3>Directed graph<a class="headerlink" href="#directed-graph" title="Link to this heading">#</a></h3>
+<p>Networks can be <code class="docutils literal notranslate"><span class="pre">directed</span></code> or <code class="docutils literal notranslate"><span class="pre">undirected</span></code>, which determines the <code class="docutils literal notranslate"><span class="pre">directionality</span></code>, i.e. in which direction the nodes are connected to each other. In broad terms, the directionality determines how the interaction happens (or is allowed to happen) between the nodes. In directed graphs, <code class="docutils literal notranslate"><span class="pre">edges</span></code> are always directed, meaning that we need to define the direction how the nodes are connected to each other for each edge. For instance, if we want to have an edge between nodes <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> that can be traversed in both directions we actually need to construct two edges (called <em>reciprocal edges</em>, or sometimes <em>antiparallel edges</em>), i.e. one per direction: 1) the node A is connected to node B, and, 2) the node B is connected to node A. We briefly described this logic already in Chapter 5 (see Figure 5.8 and Table 5.1). These kind of directed edges are sometimes called as <code class="docutils literal notranslate"><span class="pre">arcs</span></code>. Some real-world networks where considering the directionality is important include e.g. rivers that flow to specific direction (from upstream to downstream) or a city street network where the travel direction can be restricted to a certain direction in specific parts of the network due to one-way-streets when travelling by car. However, in the context of transport networks do not always need to be directed. Undirected graphs can be used typically for walking or cycling related network analysis, as with those travel modes it is possible to travel the same street in any direction you like (although exceptions exist, such as in Denmark or Netherlands).</p>
+<p>We can create a directed graph with <code class="docutils literal notranslate"><span class="pre">networkx</span></code> in a very similar manner as we did in the previous section when we created an undirected graph. To initialize a directed graph, we can use <code class="docutils literal notranslate"><span class="pre">networkx</span></code>’s <code class="docutils literal notranslate"><span class="pre">nx.DiGraph()</span></code>. In a directed graph, the edge from node <code class="docutils literal notranslate"><span class="pre">a</span></code> to node <code class="docutils literal notranslate"><span class="pre">b</span></code> is stored separately from the edge from <code class="docutils literal notranslate"><span class="pre">b</span></code> to <code class="docutils literal notranslate"><span class="pre">a</span></code>. This means we can represent a two-way street by adding both of these reciprocal edges, and a one-way street by adding only one of them:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G_directed</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="n">G_directed</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;networkx.classes.digraph.DiGraph at 0x12ac8fc20&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now populate our directed graph with nodes and node attributes in a similar fashion as we did with the undirected graph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">node_collection</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)}),</span>
+    <span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)}),</span>
+    <span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}),</span>
+    <span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}),</span>
+    <span class="p">(</span><span class="s2">"e"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}),</span>
+<span class="p">]</span>
+<span class="c1"># Add nodes</span>
+<span class="n">G_directed</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">node_collection</span><span class="p">)</span>
+<span class="n">G_directed</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NodeDataView({'a': {'coords': (0, 5)}, 'b': {'coords': (5, 5)}, 'c': {'coords': (0, 0)}, 'd': {'coords': (5, 0)}, 'e': {'coords': (10, 0)}})
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, when constructing the edges, we now need to define a separate edge for each direction. In our case, we create reciprocal edges (i.e. bidirectional connections) everywhere except between the nodes <code class="docutils literal notranslate"><span class="pre">c</span></code> and <code class="docutils literal notranslate"><span class="pre">d</span></code> which we determine to be one-way as shown below. We also add a couple of edge attributes, i.e. <code class="docutils literal notranslate"><span class="pre">weight</span></code> and <code class="docutils literal notranslate"><span class="pre">color</span></code> where the green color indicates a bidirectional edge, and blue represents oneway, respectively. We can again use the <code class="docutils literal notranslate"><span class="pre">.add_edges_from()</span></code> method to add these edges to our graph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_collection</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">}),</span>
+    <span class="c1"># One-way</span>
+    <span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"blue"</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"d"</span><span class="p">,</span> <span class="s2">"e"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">}),</span>
+    <span class="p">(</span><span class="s2">"e"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"weight"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">}),</span>
+<span class="p">]</span>
+<span class="c1"># Add edges</span>
+<span class="n">G_directed</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edge_collection</span><span class="p">)</span>
+<span class="n">G_directed</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OutEdgeDataView([('a', 'b', {'weight': 1, 'color': 'green'}), ('a', 'c', {'weight': 1, 'color': 'green'}), ('b', 'a', {'weight': 1, 'color': 'green'}), ('b', 'd', {'weight': 2, 'color': 'green'}), ('c', 'a', {'weight': 1, 'color': 'green'}), ('c', 'd', {'weight': 1, 'color': 'blue'}), ('d', 'b', {'weight': 2, 'color': 'green'}), ('d', 'e', {'weight': 3, 'color': 'green'}), ('e', 'd', {'weight': 3, 'color': 'green'})])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Great! Now our graph is constructed and we can plot it using the same approaches and methods that we learned in the previous section:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract exact node locations</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G_directed</span><span class="p">,</span> <span class="s2">"coords"</span><span class="p">)</span>
+
+<span class="c1"># Parse edge labels</span>
+<span class="n">edge_labels</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G_directed</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">)</span>
+
+<span class="c1"># Parse edge colors</span>
+<span class="n">edge_colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G_directed</span><span class="p">,</span> <span class="s2">"color"</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Draw the graph with edge labels</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">G_directed</span><span class="p">,</span>
+    <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span>
+    <span class="n">font_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">node_color</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span>
+    <span class="n">G_directed</span><span class="p">,</span>
+    <span class="n">positions</span><span class="p">,</span>
+    <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">,</span>
+    <span class="n">font_color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span>
+    <span class="n">font_weight</span><span class="o">=</span><span class="s2">"bold"</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/1e8850e6aaa4a0191254b8906717bb41c2da814365ddb10dfd1974b272dbed60.png" src="../../../_images/1e8850e6aaa4a0191254b8906717bb41c2da814365ddb10dfd1974b272dbed60.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> A directed graph with edge labels showing the weight, and colors and arrows indicating the directionality.</em></p>
+<p>Now our visualized network shows not only the structure of the graph, but also the directionality which we encoded into the graph when constructing it. The small arrows at the end of the lines show the direction how the nodes are connected to each other. As we can see, all edges except the one highlighted with blue color are bidirectional. If we imagine that this network would represent a very simple street network, you could travel the “blue street” only from node <code class="docutils literal notranslate"><span class="pre">c</span></code> to <code class="docutils literal notranslate"><span class="pre">d</span></code> (i.e. a one-way street), whereas all the other streets you can travel to both directions.</p>
+</section>
+</section>
+<section id="creating-a-graph-from-geometries">
+<h2>Creating a graph from geometries<a class="headerlink" href="#creating-a-graph-from-geometries" title="Link to this heading">#</a></h2>
+<p>In the previous section, we learned how to create simple “toy graphs” from scratch based on few nodes and edges. However, in real life, you most typically need to create a graph from existing data that can be represented as networks. Some real-life examples include both natural and human-made networks, such as rivers, roads, energy grid, sewers, and so on. In the following, we will learn how to create directed and undirected graphs from existing geographic data. We will use street network here as an example, because streets are one of the most versatile types of networks with various rules and attributes associated with them. However, the same basic principles can be used to various different types of networks, such as the ones mentioned previously.</p>
+<section id="undirected-graph-using-a-geodataframe">
+<h3>Undirected graph using a GeoDataFrame<a class="headerlink" href="#undirected-graph-using-a-geodataframe" title="Link to this heading">#</a></h3>
+<p>Next, we will learn how to create an undirected <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph from a geographic dataset representing a small sample of streets located in the Helsinki City Centre area that we prepared based on open data fetched from the National Road and Street Database (Digiroad) by Finnish Transport Infrastructure Agency <a class="footnote-reference brackets" href="#digiroad" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. The data have been simplified for the purposes of this book, e.g. so that each street segment has a single speed limit value. Let’s start by reading the data with <code class="docutils literal notranslate"><span class="pre">geopandas</span></code> into a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> called <code class="docutils literal notranslate"><span class="pre">streets</span></code> and explore a bit how it looks like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">"data/digiroad_helsinki.gpkg"</span>
+<span class="n">streets</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+<span class="n">streets</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>direction</th>
+      <th>maxspeed</th>
+      <th>road_class</th>
+      <th>name</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>4</td>
+      <td>30</td>
+      <td>4</td>
+      <td>Uudenmaankatu</td>
+      <td>LINESTRING Z (385359.222 6671266.76 8.729, 385...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>3</td>
+      <td>40</td>
+      <td>4</td>
+      <td>Pitkäsilta</td>
+      <td>LINESTRING Z (386282.417 6672754.728 4.562, 38...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>3</td>
+      <td>30</td>
+      <td>5</td>
+      <td>Kruunuvuorenkatu</td>
+      <td>LINESTRING Z (387294.871 6671561.901 2.24, 387...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>2</td>
+      <td>30</td>
+      <td>5</td>
+      <td>Kristianinkatu</td>
+      <td>LINESTRING Z (386646.115 6672721.35 16.528, 38...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+      <td>30</td>
+      <td>5</td>
+      <td>Fabianinkatu</td>
+      <td>LINESTRING Z (386225.349 6671530.049 8.246, 38...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">streets</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/c51f42403b3fa655e0c11d48c97754e321c00b963093b9822fb31320e74a9592.png" src="../../../_images/c51f42403b3fa655e0c11d48c97754e321c00b963093b9822fb31320e74a9592.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> Geographic dataset representing the streets in the Helsinki City Centre area.</em></p>
+<p>As we can see from the table, we have a few columns that provide useful information related to constructing the graph. The most important one of these is the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column which represents the <code class="docutils literal notranslate"><span class="pre">LineString</span></code> objects of the roads that can be used to create the network topology. In addition, we have useful information related to transport, such as speed limit (<code class="docutils literal notranslate"><span class="pre">maxspeed</span></code>) and the permitted direction of movement (<code class="docutils literal notranslate"><span class="pre">direction</span></code>) map. The map reveals that we have a quite dense network where the streets zigzag across the area connecting different parts of the city to each other. In the South-East corner of the area, we seem have a small part of the network that is not connected to the rest. This part of the network is on an island which lacks a public road connection to the mainland having only a ferry connection that one can take to reach the island (also by car).</p>
+<p>In the following, we will see how to create an undirected graph from this geographic data using the same techniques that we learned previously when constructing a graph from scratch. We will start by introducing a function <code class="docutils literal notranslate"><span class="pre">gdf_to_graph()</span></code> that can be used to turn a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> consisting of <code class="docutils literal notranslate"><span class="pre">LineString</span></code> objects into a <code class="docutils literal notranslate"><span class="pre">nx.Graph</span></code> object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">gdf_to_graph</span><span class="p">(</span><span class="n">gdf</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Creates a NetworkX Graph from GeoDataFrame consisting of LineString objects.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    gdf : GeoDataFrame</span>
+<span class="sd">        GeoDataFrame containing the LineString data.</span>
+
+<span class="sd">    """</span>
+
+    <span class="c1"># Create the NetworkX graph</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+
+    <span class="c1"># Generate edge dictionary</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">coords</span>
+
+        <span class="c1"># Get first and last node of the edge (excluding vertices)</span>
+        <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Edge attributes</span>
+        <span class="n">edge_attr</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
+
+        <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_attr</span><span class="p">)</span>
+
+    <span class="c1"># Generate node attributes</span>
+    <span class="n">node_attrs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">node</span><span class="p">:</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span>
+    <span class="p">}</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">node_attrs</span><span class="p">)</span>
+
+    <span class="c1"># Relabel the indices</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">convert_node_labels_to_integers</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+
+    <span class="c1"># Add some useful attributes</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">"crs"</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">crs</span>
+
+    <span class="k">return</span> <span class="n">graph</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we will go through this function few steps at a time to understand what is happening. Let’s start by investigating what happens at the beginning of the function and inside the loop:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">streets</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
+    <span class="c1"># Get the coordinates</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">coords</span>
+
+    <span class="c1"># Get first and last node of the edge (excluding vertices)</span>
+    <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Get the edge attributes</span>
+    <span class="n">edge_attributes</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
+
+    <span class="c1"># Add to the graph</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_attributes</span><span class="p">)</span>
+    <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we first initialize the <code class="docutils literal notranslate"><span class="pre">graph</span></code> object that is used to store the data and construct the network structure. With <code class="docutils literal notranslate"><span class="pre">.itertuples()</span></code> method (see Chapter 3.3), we can iterate over the rows one by one where each row includes the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> (i.e. a <code class="docutils literal notranslate"><span class="pre">LineString</span></code> object) of a single segment in our street network. The <code class="docutils literal notranslate"><span class="pre">coords</span></code> variable here is used to store the coordinates of the <code class="docutils literal notranslate"><span class="pre">LineString</span></code> vertices. The coordinates of the first <code class="docutils literal notranslate"><span class="pre">LineString</span></code> in our street network look like following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(385359.22199999995, 6671266.759999999, 8.729),
+ (385388.0329999999, 6671288.834, 8.987),
+ (385429.82200000004, 6671317.645999999, 8.732)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, there are 3 vertices in this <code class="docutils literal notranslate"><span class="pre">LineString</span></code> object representing a given street. When constructing the graph topology, we only care about the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> of the street segment geometry (i.e. the first and last coordinates of the geometry). This means that in case there are vertices between the nodes, those will not be taken into consideration in the topology of the graph (unless specifically needed for some special use case). Thus, the network topology itself does not need to have the full geometry of the street segments for it to work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a GeoDataFrame out of the vertices</span>
+<span class="n">vertices</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geometry</span><span class="o">=</span><span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">coordpair</span><span class="p">)</span> <span class="k">for</span> <span class="n">coordpair</span> <span class="ow">in</span> <span class="n">coords</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">streets</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">vertices</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"r"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../../../_images/838e5b5127f0adb2904036f561812788cf88648246be90965b8ca563d26b8c81.png" src="../../../_images/838e5b5127f0adb2904036f561812788cf88648246be90965b8ca563d26b8c81.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> Only the nodes (in red) will be used to construct the edge for a given network topology.</em></p>
+<p>Considering only the nodes (ignoring the vertices) has also computational benefits as we ultimately reduce the size of the graph which makes it faster to run any analyses on it. Thus, we only take the first and last coordinate-pair of the edge geometry which we will use as nodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"First node:"</span><span class="p">,</span> <span class="n">first</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Last node:"</span><span class="p">,</span> <span class="n">last</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First node: (385359.22199999995, 6671266.759999999, 8.729)
+Last node: (385429.82200000004, 6671317.645999999, 8.732)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Although the network topology only considers the nodes, this does not mean that you would loose the actual geometries of the street network, as we can still store the full geometry as an edge attribute to our graph. The <code class="docutils literal notranslate"><span class="pre">edge_attributes</span></code> variable contains all the associated information from the given row as a dictionary:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_attributes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'Index': 0,
+ 'id': 0,
+ 'direction': 4,
+ 'maxspeed': 30,
+ 'road_class': 4,
+ 'name': 'Uudenmaankatu',
+ 'geometry': &lt;LINESTRING Z (385359.222 6671266.76 8.729, 385388.033 6671288.834 8.987, 38...&gt;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we call the <code class="docutils literal notranslate"><span class="pre">graph.add_edge(first,</span> <span class="pre">last,</span> <span class="pre">**edge_attributes)</span></code>, we add this edge to the given <code class="docutils literal notranslate"><span class="pre">graph</span></code>. The <code class="docutils literal notranslate"><span class="pre">**edge_attributes</span></code> command unpacks the values of the dictionary and inserts them as attributes for the given edge. Thus, when we investigate the contents of the edges at this point in time, we will see that the actual <code class="docutils literal notranslate"><span class="pre">geometry</span></code> is also stored for the edge:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EdgeDataView([((385359.22199999995, 6671266.759999999, 8.729), (385429.82200000004, 6671317.645999999, 8.732), {'Index': 0, 'id': 0, 'direction': 4, 'maxspeed': 30, 'road_class': 4, 'name': 'Uudenmaankatu', 'geometry': &lt;LINESTRING Z (385359.222 6671266.76 8.729, 385388.033 6671288.834 8.987, 38...&gt;})])
+</pre></div>
+</div>
+</div>
+</div>
+<p>At this point, you might wonder what happened with the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> as we did not specifically add them to the graph in a similar manner as in our earlier examples? We can investigate how the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> look like at this stage:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NodeDataView({(385359.22199999995, 6671266.759999999, 8.729): {}, (385429.82200000004, 6671317.645999999, 8.732): {}})
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, <code class="docutils literal notranslate"><span class="pre">networkx</span></code> has actually added the nodes automatically to the graph when we called the <code class="docutils literal notranslate"><span class="pre">.add_edge()</span></code> method based on the information we used to construct a given edge. Because we are using the <code class="docutils literal notranslate"><span class="pre">LineString</span></code> coordinates to construct our graph, the node ids look a bit strange at this point. For instance, the id of the first node in our graph looks like <code class="docutils literal notranslate"><span class="pre">(385359.22199999995,</span> <span class="pre">6671266.759999999,</span> <span class="pre">8.729)</span></code> which is a tuple consisting of three coordinates (x, y and z) represented with many decimal places. This kind of id for a node is very cumbersome to use, but we will soon see how to deal with this issue. Another observation that we can make here is the fact that these nodes do not yet contain any attribute information as we only have empty dictionaries associated with all the nodes. Luckily, it is possible to set the node attributes also after the topology has been constructed. To do this, we can for instance parse the coordinates of the nodes and store this information as node attributes using the <code class="docutils literal notranslate"><span class="pre">nx.set_node_attributes()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a dictionary that contain the node attributes</span>
+<span class="n">node_attrs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">node</span><span class="p">:</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span>
+<span class="p">}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">node_attrs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NodeDataView({(385359.22199999995, 6671266.759999999, 8.729): {'coords': (385359.22199999995, 6671266.759999999), 'x': 385359.22199999995, 'y': 6671266.759999999}, (385429.82200000004, 6671317.645999999, 8.732): {'coords': (385429.82200000004, 6671317.645999999), 'x': 385429.82200000004, 'y': 6671317.645999999}})
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, now the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> of our graph includes three attributes that provide information about the location of the nodes: <code class="docutils literal notranslate"><span class="pre">coords</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>. Here, we dropped out the <code class="docutils literal notranslate"><span class="pre">z</span></code> coordinate from the <code class="docutils literal notranslate"><span class="pre">coords</span></code> attribute as <code class="docutils literal notranslate"><span class="pre">networkx</span></code> (nor <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>) cannot handle 3D geometries properly e.g. when visualizing the data.</p>
+<p>Now after extracting useful coordinate information from the nodes, we can convert the node ids to be something more intuitive than these complicated coordinate tuples. Luckily, it is easy to relabel the node ids into simple integer values by using the <code class="docutils literal notranslate"><span class="pre">nx.convert_node_labels_to_integers()</span></code> function as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">convert_node_labels_to_integers</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>EdgeDataView([(0, 1, {'Index': 0, 'id': 0, 'direction': 4, 'maxspeed': 30, 'road_class': 4, 'name': 'Uudenmaankatu', 'geometry': &lt;LINESTRING Z (385359.222 6671266.76 8.729, 385388.033 6671288.834 8.987, 38...&gt;})])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NodeDataView({0: {'coords': (385359.22199999995, 6671266.759999999), 'x': 385359.22199999995, 'y': 6671266.759999999}, 1: {'coords': (385429.82200000004, 6671317.645999999), 'x': 385429.82200000004, 'y': 6671317.645999999}})
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, now the ids for the nodes were altered from long coordinate tuples into simple integers (such as <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>) both for the <code class="docutils literal notranslate"><span class="pre">edges</span></code> and <code class="docutils literal notranslate"><span class="pre">nodes</span></code> which are much easier to understand and use if you e.g. want to select specific node from the graph.</p>
+<p>As a very last thing in our <code class="docutils literal notranslate"><span class="pre">gdf_to_graph()</span></code> function, we add a custom attribute to our graph where we store the coordinate reference system information of the input <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> which can be useful information when using the given graph for analysis with other datasets:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">"crs"</span><span class="p">]</span> <span class="o">=</span> <span class="n">streets</span><span class="o">.</span><span class="n">crs</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">"crs"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Projected CRS: EPSG:3067&gt;
+Name: EUREF-FIN / TM35FIN(E,N)
+Axis Info [cartesian]:
+- E[east]: Easting (metre)
+- N[north]: Northing (metre)
+Area of Use:
+- name: Finland - onshore and offshore.
+- bounds: (19.08, 58.84, 31.59, 70.09)
+Coordinate Operation:
+- name: TM35FIN
+- method: Transverse Mercator
+Datum: EUREF-FIN
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s it! This is how you can create an undirected graph based on a given <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> that consists of <code class="docutils literal notranslate"><span class="pre">LineString</span></code> objects. The input data we used here represents streets, but the input data can basically be about anything as long as the geometries of the input data are represented as <code class="docutils literal notranslate"><span class="pre">LineString</span></code> objects. In a similar manner, you could represent e.g. rivers, pipelines, power lines, etc.</p>
+<p>Let’s finally use our <code class="docutils literal notranslate"><span class="pre">gdf_to_graph()</span></code> function and create a full network topology based on our <code class="docutils literal notranslate"><span class="pre">streets</span></code> <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">gdf_to_graph</span><span class="p">(</span><span class="n">streets</span><span class="p">)</span>
+
+<span class="n">positions</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">"coords"</span><span class="p">)</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span>
+    <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span>
+    <span class="n">node_color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/848b89d47fd29603f1389233e6a40d2d81d2fedc7db438469132f78ca44ee711.png" src="../../../_images/848b89d47fd29603f1389233e6a40d2d81d2fedc7db438469132f78ca44ee711.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> An undirected graph with nodes and edges representing the streets in the Helsinki City Centre area.</em></p>
+</section>
+<section id="directed-graph-using-a-geodataframe">
+<h3>Directed graph using a GeoDataFrame<a class="headerlink" href="#directed-graph-using-a-geodataframe" title="Link to this heading">#</a></h3>
+<p>Now as we have learned how to create a simple undirected graph based on <code class="docutils literal notranslate"><span class="pre">LineString</span></code> geometries, we will continue and expand the previous example to construct a directed graph topology that considers the permitted direction of movement along the streets. When working with street network data and analyzing e.g. the travel times or distances by car, it is necessary to take into consideration one-way streets as those are extremely common especially in larger cities. On these streets, a person can only drive to a specific direction, and if you would need to travel to opposite direction, making an U-turn would not be possible but you would need to travel further to find another path where the driving is permitted to the direction you are heading. Thus, one-way streets can have significant influence on the paths between given locations which need to be taken into account when doing network analysis. If directionality would not be taken into account (like in our previous example), our analyses and results will likely provide incorrect path suggestions and unrealistic results.</p>
+<p>In the following, we will continue working with the same street network as in our previous example but now we will create a directed graph where the permitted direction of travel is taken into consideration. Let’s start again by reading the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+
+<span class="n">fp</span> <span class="o">=</span> <span class="s2">"data/digiroad_helsinki.gpkg"</span>
+<span class="n">streets</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+<span class="n">streets</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>direction</th>
+      <th>maxspeed</th>
+      <th>road_class</th>
+      <th>name</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>4</td>
+      <td>30</td>
+      <td>4</td>
+      <td>Uudenmaankatu</td>
+      <td>LINESTRING Z (385359.222 6671266.76 8.729, 385...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>3</td>
+      <td>40</td>
+      <td>4</td>
+      <td>Pitkäsilta</td>
+      <td>LINESTRING Z (386282.417 6672754.728 4.562, 38...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>3</td>
+      <td>30</td>
+      <td>5</td>
+      <td>Kruunuvuorenkatu</td>
+      <td>LINESTRING Z (387294.871 6671561.901 2.24, 387...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>2</td>
+      <td>30</td>
+      <td>5</td>
+      <td>Kristianinkatu</td>
+      <td>LINESTRING Z (386646.115 6672721.35 16.528, 38...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>2</td>
+      <td>30</td>
+      <td>5</td>
+      <td>Fabianinkatu</td>
+      <td>LINESTRING Z (386225.349 6671530.049 8.246, 38...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">direction</span></code> column includes information about the allowed direction of the traffic flow, i.e. whether the traffic is permitted in both directions or whether it is a oneway street. In this street network dataset the values are coded as shown in Table 8.1. As we can see based on these first five rows, there seem to be a couple of street segments that can be travelled to both directions indicated with value <code class="docutils literal notranslate"><span class="pre">2</span></code> (i.e. the edge should be bidirectional). In addition, there are couple of segments where the travel is permitted against the digitization direction (value <code class="docutils literal notranslate"><span class="pre">3</span></code>) and one where the travel is permitted in the direction of digitization. The direction of digitization basically means the order how the vertices (points) of a given <code class="docutils literal notranslate"><span class="pre">LineString</span></code> have been digitized when the data was created.</p>
+<p>: <em><strong>Table 8.1</strong>. The rules for directed graph in terms of permitted direction of traffic.</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Value</p></th>
+<th class="head"><p>Direction of traffic flow</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Traffic is permitted in both directions</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Traffic is permitted against the direction of digitization (end-node to start-node)</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Traffic is permitted in the direction of digitization (start-node to end-node)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>So far a <code class="docutils literal notranslate"><span class="pre">DiGraph</span></code> has been enough, because in our small example each pair of nodes was connected by at most one edge per direction. Real street data is messier: occasionally two separate road segments connect the same pair of intersections in the same direction — for instance a short direct link and a longer parallel stretch of the same street. A <code class="docutils literal notranslate"><span class="pre">DiGraph</span></code> keeps only one edge per direction between a given pair of nodes, so the second segment would silently overwrite the first and disappear from the network. To keep every segment, we use <code class="docutils literal notranslate"><span class="pre">nx.MultiDiGraph()</span></code>, which allows several edges between the same pair of nodes in the same direction.</p>
+<p>Let’s start by creating a function called <code class="docutils literal notranslate"><span class="pre">gdf_to_directed_graph()</span></code> which works mostly in a similar manner as our previous function <code class="docutils literal notranslate"><span class="pre">gdf_to_graph()</span></code> but with a few important tweaks that allows us to take into consideration the directionality:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">gdf_to_directed_graph</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"direction"</span><span class="p">,</span> <span class="n">both_ways</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">against</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">along</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Creates a NetworkX MultiDiGraph from road network GeoDataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    gdf : GeoDataFrame</span>
+<span class="sd">        GeoDataFrame containing the road network data.</span>
+
+<span class="sd">    direction : str</span>
+<span class="sd">        Name for column that contains information about the allowed driving directions</span>
+
+<span class="sd">    both_ways : int</span>
+<span class="sd">        Value specifying that the road is drivable to both directions.</span>
+
+<span class="sd">    against : int</span>
+<span class="sd">        Value specifying that the road is drivable against the digitizing direction.</span>
+
+<span class="sd">    along : int</span>
+<span class="sd">        Value specifying that the road is drivable along the digitizing direction.</span>
+
+<span class="sd">    """</span>
+
+    <span class="c1"># Create the NetworkX graph</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">()</span>
+
+    <span class="c1"># Generate edge dictionary</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">gdf</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">edge</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">coords</span>
+
+        <span class="c1"># Get first and last node of the edge (excluding vertices and possible Z coordinate)</span>
+        <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">2</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1"># Edge attributes</span>
+        <span class="n">edge_attr</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">_asdict</span><span class="p">())</span>
+
+        <span class="c1"># Create edges according the direction rules</span>
+        <span class="k">if</span> <span class="n">edge_attr</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span> <span class="o">==</span> <span class="n">both_ways</span><span class="p">:</span>
+
+            <span class="c1"># If road is bi-directional add it in both ways</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_attr</span><span class="p">)</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">last</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_attr</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">edge_attr</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span> <span class="o">==</span> <span class="n">along</span><span class="p">:</span>
+
+            <span class="c1"># Add the edge along digitization direction</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_attr</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">edge_attr</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span> <span class="o">==</span> <span class="n">against</span><span class="p">:</span>
+
+            <span class="c1"># Add the edge against digitization direction</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">last</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="o">**</span><span class="n">edge_attr</span><span class="p">)</span>
+
+    <span class="c1"># Generate node attributes</span>
+    <span class="n">node_attrs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">node</span><span class="p">:</span> <span class="p">{</span><span class="s2">"coords"</span><span class="p">:</span> <span class="p">(</span><span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s2">"x"</span><span class="p">:</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span>
+    <span class="p">}</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">set_node_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">node_attrs</span><span class="p">)</span>
+
+    <span class="c1"># Relabel the indices</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">convert_node_labels_to_integers</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+
+    <span class="c1"># Add some useful attributes</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">"crs"</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">crs</span>
+
+    <span class="k">return</span> <span class="n">graph</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we added a few parameters to our function, namely <code class="docutils literal notranslate"><span class="pre">direction</span></code> that is used to provide the name of the column in our input <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> that contains information about which direction a specific edge can be traversed. In addition, we added parameters <code class="docutils literal notranslate"><span class="pre">both_ways</span></code>, <code class="docutils literal notranslate"><span class="pre">against</span></code> and <code class="docutils literal notranslate"><span class="pre">along</span></code> that are used to inform the function about the logic of how the edges should be added to the <code class="docutils literal notranslate"><span class="pre">graph</span></code> following the rules in Table 8.1. Inside the loop, we added a few conditional statements that control the logic how edges are added to the graph. If a specific street segment can be traversed to both directions (i.e. <code class="docutils literal notranslate"><span class="pre">direction=2</span></code> | <code class="docutils literal notranslate"><span class="pre">direction=both_ways</span></code>), we add reciprocal edges, i.e. a separate edge for each direction between the given nodes: 1) from the first node to the last node, and 2) from the last node to the first node.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">gdf_to_directed_graph</span><span class="p">(</span><span class="n">streets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">positions</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="n">attrs</span><span class="p">[</span><span class="s2">"coords"</span><span class="p">]</span> <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">attrs</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">data</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"blue"</span> <span class="k">if</span> <span class="n">attrs</span><span class="p">[</span><span class="s2">"direction"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="s2">"red"</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">attrs</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">pos</span><span class="o">=</span><span class="n">positions</span><span class="p">,</span>
+    <span class="n">node_color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span>
+    <span class="n">arrows</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/a72ef6cce4f29997d970505d763d1b5be4372153778c02f36db572699ff02005.png" src="../../../_images/a72ef6cce4f29997d970505d763d1b5be4372153778c02f36db572699ff02005.png" />
+</div>
+</div>
+<p><em><strong>Figure 8.X.</strong> A directed graph representing the streets in the Helsinki City Centre area, where the edge colors indicate the permitted direction of travel (blue for two-way streets and red for one-way streets).</em></p>
+</section>
+</section>
+<section id="saving-a-graph-to-disk">
+<h2>Saving a graph to disk<a class="headerlink" href="#saving-a-graph-to-disk" title="Link to this heading">#</a></h2>
+<p>Once we have constructed a graph, it is often useful to store it on disk so that we do not need to build it again every time we want to use it. This is handy when creating the graph takes a while, or when we want to share the network with others. Saving a graph works in a similar way as saving a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> to a file, which we did in Chapter 6.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph can be written to disk in several different file formats, and the best choice depends on what you want to do with the network afterwards. Table 8.2 summarizes the most common options.</p>
+<p>: <em><strong>Table 8.2</strong>. Common file formats for saving a <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph to disk.</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Format</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Pickle</p></td>
+<td class="text-left"><p>Python’s own storage format. Saves the graph exactly as it is, including all node and edge attributes (such as the street geometries) and the coordinate reference system. Simple to use, but the files can only be read back in Python.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>GraphML</p></td>
+<td class="text-left"><p>A widely used format that can also be opened in other network analysis software, such as Gephi. Supports only simple attribute values (text and numbers), so richer attributes like geometries have to be converted or removed first.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>GML</p></td>
+<td class="text-left"><p>A plain-text format that, like GraphML, is understood by many other tools but stores only simple attribute values.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>JSON</p></td>
+<td class="text-left"><p>A text-based format that is convenient for web applications, but is likewise limited to values that can be stored as text or numbers.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For our purposes, we recommend using the <code class="docutils literal notranslate"><span class="pre">Pickle</span></code> format. Our street network stores rich information on its edges — most importantly the <code class="docutils literal notranslate"><span class="pre">geometry</span></code> of each street segment — together with the coordinate reference system of the data. Pickle is the only one of these formats that can store all of this as-is, without us first having to convert or drop any attributes. When we read the graph back, we get an identical copy of the network we saved. The other formats are useful mainly if you want to open the network in a different program, in which case you would first need to reduce the attributes to plain text and numbers.</p>
+<p>Let’s save our directed street network <code class="docutils literal notranslate"><span class="pre">G</span></code> to disk. We use Python’s built-in <code class="docutils literal notranslate"><span class="pre">pickle</span></code> module and write the graph into a file with a <code class="docutils literal notranslate"><span class="pre">.pickle</span></code> ending:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">output_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span>
+
+<span class="c1"># Write the graph to disk</span>
+<span class="n">output_fp</span> <span class="o">=</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"street_network.pickle"</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_fp</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, we opened a file in write-binary mode (<code class="docutils literal notranslate"><span class="pre">&quot;wb&quot;</span></code>) and used <code class="docutils literal notranslate"><span class="pre">pickle.dump()</span></code> to store our graph <code class="docutils literal notranslate"><span class="pre">G</span></code> into it. Reading the graph back is just as straightforward, we open the file in read-binary mode (<code class="docutils literal notranslate"><span class="pre">&quot;rb&quot;</span></code>) and use <code class="docutils literal notranslate"><span class="pre">pickle.load()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read the graph back from disk</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_fp</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">G_from_disk</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s check that the network we read from disk really is the same as the one we saved:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compare the reloaded graph with the original one</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Same number of nodes:"</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span> <span class="o">==</span> <span class="n">G_from_disk</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Same number of edges:"</span><span class="p">,</span> <span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span> <span class="o">==</span> <span class="n">G_from_disk</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Same number of nodes: True
+Same number of edges: True
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the network we read from disk matches the original graph <code class="docutils literal notranslate"><span class="pre">G</span></code>: it contains the same number of nodes and edges. Because we saved the graph in Pickle format, all of the edge attributes — including the street geometries — are preserved as well, which means we can continue working with <code class="docutils literal notranslate"><span class="pre">G_from_disk</span></code> just as we would with the original graph.</p>
+<p>Finally, let’s look at how the other formats listed in Table 8.2 can be used. Because these formats can only store simple values, we first create a simplified copy of our graph where the geometries and other complex attributes have been removed. We can then write this simplified network to disk in <code class="docutils literal notranslate"><span class="pre">GraphML</span></code>, <code class="docutils literal notranslate"><span class="pre">GML</span></code>, and <code class="docutils literal notranslate"><span class="pre">JSON</span></code> formats:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="n">G_simple</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">del</span> <span class="n">G_simple</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">"crs"</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">G_simple</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="s2">"coords"</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">G_simple</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="s2">"geometry"</span><span class="p">]</span>
+    <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
+
+<span class="c1"># Write the simplified graph to disk in different formats</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">write_graphml</span><span class="p">(</span><span class="n">G_simple</span><span class="p">,</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"street_network.graphml"</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">write_gml</span><span class="p">(</span><span class="n">G_simple</span><span class="p">,</span> <span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"street_network.gml"</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"street_network.json"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">node_link_data</span><span class="p">(</span><span class="n">G_simple</span><span class="p">),</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Reading these files back into <code class="docutils literal notranslate"><span class="pre">networkx</span></code> works with the matching read functions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read the graph back from each of the formats</span>
+<span class="n">graph_from_graphml</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_graphml</span><span class="p">(</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"street_network.graphml"</span><span class="p">)</span>
+<span class="n">graph_from_gml</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_gml</span><span class="p">(</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"street_network.gml"</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_dir</span> <span class="o">/</span> <span class="s2">"street_network.json"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">graph_from_json</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">node_link_graph</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that, unlike Pickle, these formats do not store the street geometries — which is exactly why we simplified the graph before writing it, and why Pickle remains our recommended choice for saving spatial networks.</p>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="digiroad" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://vayla.fi/en/transport-network/data/digiroad">https://vayla.fi/en/transport-network/data/digiroad</a></p>
+</aside>
+</aside>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Python-GIS-book/site",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./part2/chapter-08/nb"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0-learning-objectives.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Learning objectives</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01-spatial-network-analysis.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Spatial network analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-network">What is a network?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-graph-from-scratch">Creating a graph from scratch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#undirected-graph">Undirected graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-node-attributes">Adding node attributes</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-edge-attributes">Adding edge attributes</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-a-spatial-network">Visualizing a spatial network</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directed-graph">Directed graph</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-graph-from-geometries">Creating a graph from geometries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#undirected-graph-using-a-geodataframe">Undirected graph using a GeoDataFrame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directed-graph-using-a-geodataframe">Directed graph using a GeoDataFrame</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-a-graph-to-disk">Saving a graph to disk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2026, Henrikki Tenkanen, Vuokko Heikinheimo, David Whipp.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
