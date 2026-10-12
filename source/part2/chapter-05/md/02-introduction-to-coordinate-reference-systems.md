@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.16.7
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -51,9 +51,9 @@ _**Figure 5.9**. When representing the curved surface of the Earth in 2D space, 
 A good way to understand the way how the map projection works, is the "orange peel analogy". You can imagine that the Earth is a citrus fruit which you are peeling. A datum is the fruit that you choose to peal (orange, satsuma, grapefruit, lemon), and they all have a bit different shape and size. The map projection then is the approach you choose to peel the fruit and make it flat. 
 
 ![_**Figure 5.10**. Representing the process of map projection with an orange._
-](../img/orange_peel_analogy.png)
+](../img/flattening-earth-projection-orange.jpg)
 
-_**Figure 5.10**. Representing the process of map projection with an orange ([Source](http://profdrikageografia.blogspot.com/2010_12_01_archive.html))._
+_**Figure 5.10**. Representing the process of map projection with an orange._
 
 
 When using map projections, we always make approximations and hence lose something. There are no projections that would not distort anything or have the same scale throughout the map. Hence, a projection needs to be chosen according to the purpose of use, in order to preserve specific aspects of the map that are the most important to the user. These can be for example the shapes of objects, their surface areas, correct distances between locations, or the compass direction ({cite}`Vermeer2019`).
