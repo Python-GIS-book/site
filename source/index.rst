@@ -48,15 +48,15 @@ The book consists of 4 parts:
 
          This part of the book will introduce several real-world examples of how to apply geographic data analysis in Python. It assumes that you understand the key concepts presented in previous parts.
 
-    .. grid-item-card:: Appendices: Working efficiently with Python
-         :link: appendices/index.html
+    .. grid-item-card:: Online extras: Data and Python usage tips
+         :link: online-extras/index.html
          :columns: 12 12 5 5
          :text-align: center
 
          .. image:: _static/appendices.svg
             :height: 100px
 
-         The appendices include information for working efficiently with Python: how to develop software with git, how to write and use Python script files, and tips for testing and debugging code.
+         The online extras include descriptions and copies of data used in the book and information for working efficiently with Python, including best practices for programming in Python, using git and GitHub.com, how to write and use Python script files, and tips for testing and debugging code.
 
 .. toctree::
    :maxdepth: 2
@@ -121,12 +121,12 @@ The book consists of 4 parts:
    back-matter/nb/glossary.ipynb
    back-matter/nb/references.ipynb
    authors
-   
+
 .. toctree::
    :maxdepth: 2
-   :caption: Datasets
+   :caption: Online extras
    :titlesonly:
    :hidden:
-   
-   data/index
-   data/noaa-data.ipynb
+
+   online-extras/data/index
+   online-extras/python-tips/index

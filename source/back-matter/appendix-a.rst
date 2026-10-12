@@ -1,14 +1,11 @@
-A. Working effectively in Python
-================================
+A. Solutions to questions and exercises
+=======================================
 
-TEXT DESCRIPTION GOES HERE...
+This appendix includes answers to questions in the book text and exercises at the end of select chapters.
 
 .. toctree::
     :maxdepth: 1
     :caption: Contents:
 
-    A.1 Tips for maintaining Python environments <nb/appendix-0-python-environments.ipynb>
-    A.2 Python programming best practices <nb/appendix-1-best-practices.ipynb>
-    A.3 Version control with using Git and GitHub <nb/appendix-2-git-github.ipynb>
-    A.4 Using Python script files <nb/appendix-3-script-files.ipynb>
-    A.5 Testing and debugging your code <nb/appendix-4-testing-and-debugging.ipynb>
+    nb/appendix-0-question-solutions.ipynb
+    nb/appendix-1-exercise-solutions.ipynb

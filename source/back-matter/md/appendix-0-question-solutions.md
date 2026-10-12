@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -13,7 +13,7 @@ jupyter:
 ---
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
-# Question solutions
+# B.1 Question solutions
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -201,7 +201,7 @@ data["MONTH"] = data["DATE_STR"].str.slice(start=4, stop=6)
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 4
 
-4.1
+### Question 4.1
 ```python
 # Define dates
 start_time = pd.to_datetime("201910011800")
@@ -225,12 +225,12 @@ ax.text(warm_time, 43.0, "Warmest temperature in the evening ->")
 ax.legend(loc=4)
 ```
 
-4.2
+### Question 4.2
 ```python
 len(data.dropna())
 ```
 
-4.3
+### Question 4.3
 ```python
 # Create the new figure and subplots
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
@@ -279,7 +279,7 @@ ax2.text(pd.to_datetime("20130815"), -25, "Summer")
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## Chapter 6
 
-6.1
+### Question 6.1
 
 ```python
 
@@ -295,7 +295,7 @@ point.buffer(1)
 
 ```
 
-6.2
+### Question 6.2
 
 ```python
 
@@ -306,7 +306,7 @@ print("Number of groups", data["GROUP"].nunique())
 ```
 
 
-6.3
+### Question 6.3
 
 ```python
 
@@ -322,7 +322,7 @@ print("Maximum:",
 
 ```
 
-6.4
+### Question 6.4
 
 ```python
 
@@ -337,7 +337,7 @@ temp.plot()
 
 ```
 
-6.5
+### Question 6.5
 
 ```python
 # Plot the admin borders as background
@@ -349,7 +349,7 @@ dissolved.loc[dissolved["dense"]==1].buffer(500).plot(ax=ax1,
                                                       color="yellow")
 ```
 
-6.6
+### Question 6.6
 
 ```python
 # Select Finland and reproject
@@ -377,7 +377,7 @@ ax2.set_aspect(aspect=1)
 plt.tight_layout()
 ```
 
-6.7
+### Question 6.7
 
 ```python
 
@@ -394,13 +394,14 @@ geo = geocode(
 geo.explore()
 ```
 
-6.8
+### Question 6.8
 
 ```python
 print("Line a is equal to line b: ", line_a.equals(line_b))
 ```
 
-6.9
+### Question 6.9
+
 ```python
 # Check column names in the spatial join result
 print(districts_with_points.columns.values)
@@ -412,7 +413,7 @@ grouped = districts_with_points.groupby("Name")
 grouped.index_right.count()
 ```
 
-6.10
+### Question 6.10
 
 ```python
 
@@ -427,21 +428,27 @@ result.explore()
 
 ```
 How does the result differ from the version where we joined information from the grids to the points? 
-- this result has polygon geometry in stead of points
-- order of the columns is different
+- This result has polygon geometry in stead of points.
+- Order of the columns is different.
   
 What would be the benefit of doing the join this way around?
 - If your research question is related to the population grid, then it might make more sense to join additional information to those statistical units.
-- If the point data would be somehow sensitive, joining the information to a coarser spatial unit might be meaningful
+- If the point data would be somehow sensitive, joining the information to a coarser spatial unit might be meaningful.
 
 
-6.11
+### Question 6.11
 
 ```python
-#insert solution here
+
+# Find the nearest road
+nearest_park_roads = parks.sjoin_nearest(roads, distance_col="distance")
+
+# What is the maximum distance?
+max_dist = nearest_park_roads["distance"].max()
+print(f"Maximum distance is {max_dist:.2f} meters.")
 ```
 
-6.12
+### Question 6.12
 
 ```python
 
@@ -464,4 +471,149 @@ stop_buffer = stop_buffer.merge(building_count, on="stop_id")
 # As a result, we should have identical number of buildings identified per stop (see the last two columns)
 stop_buffer.head()
 ```
+### Question 6.13
+
+```python
+union.explore()
+```
+
+When hovering over the buffer geometry border, the attribute values in the table change. 
+Inside the ring, the attributes of the Helsinki railway station are kept in the results, whereas outside of the ring 
+the table does not include any data for the columns associated with the railway station.
+
+### Question 6.14
+
+```python
+# Solution
+
+break_values = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+
+# Create one subplot. Control figure size in here.
+fig, ax = plt.subplots(figsize=(6, 4))
+
+# Visualize the travel times using a classification scheme and add a legend
+grid.plot(
+    ax=ax,
+    column="car_r_t",
+    linewidth=0,
+    scheme="UserDefined",
+    classification_kwds={"bins": break_values},
+    legend=True,
+    legend_kwds={"title": "Travel times (min)", "bbox_to_anchor": (1.4, 1)},
+)
+
+# Set the x and y axis off and adjust padding around the subplot
+plt.axis("off")
+plt.tight_layout()
+```
+
+### Question 6.15
+
+The results differ based on the selected thresholds. Here is one potential solution: 
+
+```python
+
+# Threhsold values
+pt_maximum = 40
+walk_minimum = 5000
+
+# Applying the rule and storing the classification into a new column
+grid["rule2"] = (grid["pt_r_tt"] < pt_maximum) & (grid["walk_d"] > walk_minimum)
+
+grid.loc[grid["rule2"]==True].explore()
+```
+
+This map would show areas further away from the Central railway station.
+
+
+
+<!-- #endregion -->
+
+<!-- #region editable=true slideshow={"slide_type": ""} -->
+## Chapter 9
+
+
+### Question 9.1
+
+```python
+# Example solution: 
+
+# Control figure size in here
+fig, ax = plt.subplots(figsize=(8, 5))
+
+# Visualize the travel times using a classification scheme and add a legend
+grid.plot(ax=ax,
+          column="pt_r_t",
+          cmap="RdYlBu",
+          linewidth=0,
+          scheme="user_defined",
+          classification_kwds={'bins': break_values},
+          k=9,
+          alpha=0.5,
+          legend=True,
+          legend_kwds={"title": "Travel times (min)",
+                       "bbox_to_anchor": (1.27, 1),
+                      "frameon": False}
+         )
+
+# Set the x and y axis off and adjust padding around the subplot
+plt.axis("off")
+plt.tight_layout()
+
+# Add scalebar
+ax.add_artist(ScaleBar(1, location="lower right", box_alpha=0.5))
+
+# Add basemap with basic OpenStreetMap visualization
+ctx.add_basemap(ax, source=ctx.providers.CartoDB.Voyager, crs=grid.crs)
+```
+
+<!-- #endregion -->
+
+<!-- #region -->
+## Chapter 10
+
+
+### Question 10.1
+
+There is no one right answer to this question. Typically, urban areas are relatively well mapped in OpenStreetMap (www.openstreetmap.org). Some amenities, such as recently opened restaurants might be missing or having outdated attribute information.
+
+### Question 10.2
+
+```python
+
+# Get number of unique values in column `amenity`
+amenities["amenity"].nunique()
+```
+### Question 10.3
+
+```python
+
+# Example solution
+place = "Gamla stan, Stockholm, Sweden"
+aoi = ox.geocoder.geocode_to_gdf(place)
+
+# Street network
+graph = ox.graph.graph_from_place(place, network_type="walk")
+edges = ox.convert.graph_to_gdfs(graph, nodes=False, edges=True)
+
+# Other map features
+buildings = ox.features.features_from_place(place, tags={"building": True})
+amenities = ox.features.features_from_place(
+    place, tags={"amenity": ["restaurant", "cafe"]}
+)
+parks = ox.features.features_from_place(
+    place, tags={"leisure": "park", "landuse": "grass"}
+)
+
+# Plot the result
+fig, ax = plt.subplots(figsize=(8.5, 8))
+
+aoi.plot(ax=ax, facecolor="black")
+edges.plot(ax=ax, linewidth=1, edgecolor="dimgray")
+buildings.plot(ax=ax, facecolor="silver", alpha=0.7)
+parks.plot(ax=ax, facecolor="green", alpha=0.7)
+amenities.plot(ax=ax, color="yellow", alpha=0.7, markersize=10)
+plt.tight_layout()
+```
+
 <!-- #endregion -->
