@@ -1,14 +1,15 @@
-A. Working effectively in Python
-================================
+Working effectively in Python
+=============================
 
-TEXT DESCRIPTION GOES HERE...
+This is a collection of tips to help you learn not only how to work in Python, but how to do so efficiently and using common tools used in computational geospatial science.
+This section includes information about how to create and maintain Python environments, best practices for programming in Python, instructions for how to use Git and GitHub, and more.
 
 .. toctree::
     :maxdepth: 1
     :caption: Contents:
 
-    A.1 Tips for maintaining Python environments <nb/python-extra-0-python-environments.ipynb>
-    A.2 Python programming best practices <nb/python-extra-1-best-practices.ipynb>
-    A.3 Version control with using Git and GitHub <nb/python-extra-2-git-github.ipynb>
-    A.4 Using Python script files <nb/python-extra-3-script-files.ipynb>
-    A.5 Testing and debugging your code <nb/python-extra-4-testing-and-debugging.ipynb>
+    nb/python-extra-0-python-environments.ipynb
+    nb/python-extra-1-best-practices.ipynb
+    nb/python-extra-2-git-github.ipynb
+    nb/python-extra-3-script-files.ipynb
+    nb/python-extra-4-testing-and-debugging.ipynb
