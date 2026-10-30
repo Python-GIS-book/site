@@ -206,9 +206,9 @@ $$
 
 Where:  
 
-- \(t\) = travel time in **seconds (s)**  
-- \(d\) = distance in **meters (m)**  
-- \(v\) = speed limit in **kilometers per hour (km/h)**
+- $t$ = travel time in **seconds (s)**  
+- $d$ = distance in **meters (m)**  
+- $v$ = speed limit in **kilometers per hour (km/h)**
 
 The multiplication of distance by 3.6 is a conversion factor between meters per second and kilometers per hour:
 
