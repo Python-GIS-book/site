@@ -12,27 +12,14 @@ jupyter:
     name: python3
 ---
 
-<!-- #region -->
 # Spatial network analysis
-
-Contents:
-- Why do spatial network analysis?
-- Retrieving a street network from OpenStreetMap
-- Preparing the network for routing (adding travel time)
-- Building a routable graph
-- Finding the shortest path:
-  - From A to B (by distance and by travel time)
-  - One-way streets and the direction of travel
-  - From one origin to many destinations (a first look at accessibility; see Chapter 11)
-- Other uses of networks (brief pointer) — common network operations such as connected components and centrality are covered in Chapter 8.3
-
 
 This section focuses on spatial networks and learning how to construct a routable directed graph for `networkx` library that can be used to find a shortest paths along the given street network based on travel times or distance by given transport mode (e.g. car or cycling). Finding a shortest path from A to B using a specific street network is a very common problem in GIS that has many practical applications. For example, navigation services use shortest path analysis to guide drivers, cyclists and pedestrians to their destination, emergency services use it to estimate how quickly an ambulance can reach a given address, and delivery companies use it to plan their routes. Network analysis is also commonly used in urban planning, for instance to study how easily people can reach services such as schools, health care or grocery stores (a topic that we return to in Chapter 11).
 
 Python provides easy to use tools for conducting spatial network analysis. One of the easiest ways to start is to use a library called `networkx`[^networkx]
 which is a Python module that provides a lot tools that can be used to analyze networks on various different ways. It also contains algorithms such as Dijkstra’s algorithm[^dijkstra] or A\*[^astar]
 algorithm that are commonly used to find shortest paths along transportation network that can help e.g. in wayfinding.
-<!-- #endregion -->
+
 
 ## Typical workflow for routing
 
@@ -46,9 +33,7 @@ If you want to conduct network analysis (in any programming language) there are 
 
 ## Retrieving network data
 
-As a first step, we need to obtain data for routing. `osmnx`[^osmnx] library makes it really easy to retrieve routable networks from OpenStreetMap (OSM) with different transport modes (walking, cycling and driving). 
-
-Let's first extract OSM data for Helsinki city centre that are drivable by car. In `osmnx`, we can use a function called `ox.graph_from_point()` which retrieves data from OpenStreetMap around a given center point. We define the center point as a `(latitude, longitude)` pair and set how far around it to fetch data with the `dist` parameter (in meters). It is possible to specify what kind of roads should be retrieved from OSM with `network_type` -parameter (supports e.g. `walk`, `drive`, `bike`, `all`). In the following, we fetch all the drivable roads around the Helsinki city centre:
+As a first step, we want to obtain data for routing. One of the most widely used data sources for street networks is OpenStreetMap (OSM) that provides this type of data openly at a global scale. There are a few Python libraries that you can use to easily find and download OSM data, including `osmnx`[^osmnx] and `pyrosm`[^pyrosm]. These libraries make it really easy to retrieve routable networks from OpenStreetMap with different transport modes (walking, cycling and driving). as well as retrieve other interesting data, such as buildings and Points of Interest (POIs). Here, we will first show how you can use `osmnx` to extract OSM data for Helsinki city centre that are drivable by car. In `osmnx`, you can specify the area from where you want to download the data by providing a point of interest, a bounding polygon or a place name. To fetch OSM data around a given center point, we can use a function called `ox.graph_from_point()`. We define the center point as a `(latitude, longitude)` pair and set how far around it to fetch data with the `dist` parameter (in meters). It is possible to specify what kind of roads should be retrieved from OSM with `network_type` -parameter (supports e.g. `walk`, `drive`, `bike`, `all`). In the following, we fetch all the drivable roads around the Helsinki city centre with 2500 meter radius:
 
 ```python
 import osmnx as ox
@@ -64,14 +49,16 @@ G = ox.graph_from_point(center_point, dist=2500, network_type="drive", simplify=
 type(G)
 ```
 
-Okay, as we can see we have now fetched a routable graph out of OpenStreetMap data of ours which is something called `MultiDiGraph` object of `networkx` library.
-
-So basically this graph `G` is made out of **nodes** and **edges**. We can easily extract the `nodes` and `edges` out of this graph by using `osmnx` as follows: 
+As we can see, we have now fetched a routable graph from OpenStreetMap and stored it into variable `G`. The data is automatically returned as a `networkx` `MultiDiGraph` which is a directed graph with reciprocal edges allowing multiple edges between the same pair of nodes (which we discussed in previous section). We can easily extract the `nodes` and `edges` out of this graph by using the `ox.graph_to_gdfs()` function which returns those features from the graph into separate GeoDataFrames: 
 
 ```python
 # Extract the nodes and edges
 nodes, edges = ox.graph_to_gdfs(G)
-edges.head()
+nodes.head(2)
+```
+
+```python
+edges.head(2)
 ```
 
 ```python
@@ -82,53 +69,42 @@ ax = nodes.plot(ax=ax, color="red", markersize=3.5)
 _**Figure 8.X.** Drivable streets (edges) and their nodes (in red) in the Helsinki city centre, retrieved from OpenStreetMap._
 
 
-Okay, now we have drivable roads as a GeoDataFrame for the Helsinki city centre. If you look at the GeoDataFrame, we can see that `osmnx` has also calculated us the `length` of each road segment (presented in meters). The geometries are presented here as `LineString` objects. Notice that when calculating length yourself, it is important that your input data is in projected coordinate system. In case your data has e.g. `WGS84` as the CRS (like the data we retrieved from OpenStreetMap), you should first reproject your data into an appropriate metric system (see Chapter 6.4). In OSM, the information about the allowed direction of movement is stored in column `oneway`. Let's take a look what kind of values we have in that column:
+As a result, we have drivable roads as a GeoDataFrame for the Helsinki city centre in which the geometries are presented as `LineString` objects which we have mapped in **Figure 8.X**. The `nodes` GeoDataFrame contains information about the coordinates of each node, as well as a unique id for each node, called `osmid`. These id-values are used for constructing the edges, i.e. the from- and to-ids for each edge in the `edges` GeoDataFrame. To determine the structure and directionality of the network, `osmnx` stores the from-id as `u` in the index, while index level `v` stores the to-id accordingly. The third index level, `key`, is used to separate several edges that connect the same pair of nodes (i.e. reciprocal edge). If you look at the GeoDataFrame, we can see that `osmnx` has also calculated us the `length` of each road segment in meters automatically. Notice that if calculating the length yourself, it is important that your input data is in projected (metric) coordinate system (see Chapter 6.4). As our graph is a directed one, the data should include information about which direction the movement is allowed. In OSM, this information is stored in a column `oneway`. Let's take a look what values do we have in this column:
 
 ```python
 edges["oneway"].unique()
 ```
 
-As we can see the unique values in that column are `True` and `False`. This information can be used to construct a `directed` graph for routing by car. For walking and cycling, you typically want create a `bidirectional` graph, because the travel is typically allowed in both directions at least in Finland. Notice, that the rules vary by country, e.g. in Copenhagen you have oneway rules also for bikes but typically each road have the possibility to travel both directions (you just need to change the side of the road if you want to make a U-turn). Column `maxspeed` contains information about the speed limit for given road:
+As we can see the unique values in that column are `True` and `False`. This information was used to construct the `directed` graph for routing. For walking and cycling, you may want create an `undirected` graph, because the travel is typically allowed in both directions at least in Finland. Notice, that the rules vary by country and for instance in Copenhagen you have oneway rules also for bikes. Column `maxspeed` contains information about the speed limit for a given road:
 
 ```python
 edges["maxspeed"].unique()
 ```
 
-As we can see, there are also `None` values in the data, meaning that the speed limit has not been tagged for some roads. This is typical, and often you need to fill the non existing speed limits yourself. This can be done by taking advantage of the road class that is always present in column `highway`:
+As is visible here, there are also `None` values in the data, meaning that the speed limit has not been tagged for some roads. This is typical, and often you need to fill the non existing speed limits yourself. This can be done by taking advantage of the road class that is always present in column `highway`:
 
 ```python
 edges["highway"].unique()
 ```
 
-Based on these values, we can make assumptions that e.g. `living_street` roads in Helsinki have a speed limit of 20 kmph. Hence, this information can be used to fill the missing values in `maxspeed`. The second dataset that we extracted from the graph are `nodes`:
-
-```python
-nodes.head()
-```
-
-As we can see, the `nodes` GeoDataFrame contains information about the coordinates of each node as well as a unique `id` for each node. These `id` values are used to determine the connectivity in our network. Hence, `osmnx` has also stored the **from** and **to** ids for each edge in the index of the `edges` GeoDataFrame (see the output of `edges.head()` above). Index level `u` contains information about the **from-id** and level `v` about the **to-id** accordingly. The third index level, `key`, is used to separate several edges that connect the same pair of nodes.
-
-
-Okay, as we can see now we have both the roads (i.e. *edges*) and the nodes that connect the street elements together (in red color in the previous figure) that are typically intersections. However, we can see that many of the nodes are in locations that are clearly not intersections. This is intented behavior to ensure that we have full **connectivity** in our network. We can at later stage clean and simplify this network by merging all roads that belong to the same link (i.e. street elements that are between two intersections) which also reduces the size of the network. 
-
-Notice that in OSM, the street topology is typically not directly suitable for graph traversal due to missing nodes at intersections which means that the roads are not splitted at those locations. The consequence of this, is that it is not possible to make a turn if there is no intersection present in the data structure. Hence, `osmnx` will separate all road segments/geometries into individual rows in the data. 
-
+Based on these values, we can make assumptions that e.g. `living_street` roads in Helsinki have a speed limit of 20 kmph. Hence, this information can be used to fill the missing values in `maxspeed`.
 
 
 ## Modifying the network
 
-At this stage, we have the necessary components to build a routable graph (nodes and edges) based on distance. However, in real life the network distance is not the best cost metric to use, because the shortest path (based on distance) is not necessarily always the optimal route in terms of **travel time**. Time is typically the measure that people value more (plus it is easier to comprehend), so at this stage we want to **add a new cost attribute** to our edges GeoDataFrame that converts the metric distance information to travel time (in seconds) based on following formula:
-
- - `<distance-in-meters> / (<speed-limit-kmph> / 3.6)`
- 
-Before we can do this calculation, we need to ensure that all rows in `maxspeed` column have information about the speed limit. Let's check the value counts of the column and also include information about the `NaN` values with `dropna` parameter:
+At this stage, we have the necessary components to build a routable graph (nodes and edges) based on distance. However, in real life the network distance is not the best cost metric to use, because the shortest path (based on distance) is not necessarily always the optimal route in terms of **travel time**. Time is typically the measure that people value more (plus it is easier to comprehend), so at this stage we want to **add a new cost attribute** to our edges GeoDataFrame that converts the metric distance information to travel time (in seconds). Before we can do this calculation, we need to ensure that all rows in `maxspeed` column have information about the speed limit. Let's check the value counts of the column and also include information about the `NaN` values with `dropna` parameter:
 
 ```python
 # Count values
 edges["maxspeed"].value_counts(dropna=False)
 ```
 
-As we can see, the rows which do not contain information about the speed limit is the second largest group in our data. Hence, we need to apply a criteria to fill these gaps. We can do this based on following "rule of thumb" criteria in Finland (notice that these vary country by country):
+<!-- #region -->
+As we can see, the rows which do not contain information about the speed limit is the second largest group in our data. Hence, we need to apply a criteria to fill these gaps. We can do this based on a following "rule of thumb" criteria in Finland presented in Table 8.3 (notice that these vary country by country).
+
+
+: _**Table 8.3**. Typical speed limits (km/h) in Finland for different road classes within and outside urban regions._
+
 
 | Road class           | Speed limit within urban region | Speed limit outside urban region |
 |----------------------|---------------------------------|----------------------------------|
@@ -150,6 +126,7 @@ As we can see, the rows which do not contain information about the speed limit i
 | other                | 50                              | 80                               |
 
 For simplicity, we can consider that all the roads in Helsinki Region follows the *within urban region* speed limits, although this is not exactly true (the higher speed limits start somewhere at the outer parts of the city region). For making the speed limit values more robust / correct, you could use data about urban/rural classification which is available in Finland from Finnish Environment Institute[^ykr]. Let's first convert our `maxspeed` values to integers using `astype()` method:
+<!-- #endregion -->
 
 ```python
 edges["maxspeed"] = edges["maxspeed"].astype(float).astype(pd.Int64Dtype())
@@ -178,7 +155,7 @@ def road_class_to_kmph(road_class):
         return 50
 ```
 
-Now we can apply this function to all rows that **do not have speed limit information**:
+Now we can apply this function to all rows that do not have speed limit information:
 
 ```python
 mask = edges["maxspeed"].isnull()
@@ -273,23 +250,23 @@ _**Figure 8.X.** The routable street network of the Helsinki city centre plotted
 
 ## Shortest path analysis 
 
-Now we have everything we need to start routing with NetworkX (based on driving distance or travel time). One of most widely used real-world use-cases for spatial networks relates to navigation, i.e. how to find a route from a given origin location to a given destination that would be as short (or quick) as possible. There are various approaches and algorithms that allows to find such routes, but the one we introduce here is one of the most famous ones, called Dijkstra's algorithm, that is widely used to find an optimal least-cost path between given nodes. But first, let's again go through some basics about routing.
+Now we have everything we need to start routing with NetworkX (based on driving distance or travel time). One of the most widely used real-world use-cases for spatial networks relates to navigation, i.e. how to find a route from a given origin location to a given destination that would be as short (or quick) as possible. There are various approaches and algorithms that can be used to find such routes, but the one we introduce here is one of the most famous ones, called Dijkstra's algorithm, that is widely used to find an optimal least-cost path between given nodes. But first, let's again go through some basics about routing.
 
 
-**Basic logic in routing.** Most (if not all) routing algorithms work more or less in a similar manner. The basic steps for finding an optimal route from A to B, is to:
+**Basic logic in routing.** Most (if not all) routing algorithms work more or less in a similar manner. The basic steps for finding an optimal route from A to B are to:
  1. Find the nearest node for origin location (+ get info about its node-id and distance between origin and node)
  2. Find the nearest node for destination location (+ get info about its node-id and distance between destination and node)
  3. Use a routing algorithm to find the shortest path between A and B
  4. Retrieve edge attributes for the given route(s) and summarize them (can be distance, time, CO2, or whatever)
  
-This same logic should be applied always when searching for an optimal route between a single origin to a single destination, or when calculating one-to-many -type of routing queries (producing e.g. travel time matrices). 
+This same logic should be applied always when searching for an optimal route between a single origin and a single destination, or when calculating one-to-many -type of routing queries (producing e.g. travel time matrices). 
 
 
 ### Find the optimal route between two locations
 
 Next, we will learn how to find the shortest path between two locations using Dijkstra's[^dijkstra_algorithm] algorithm. The idea behind Dijkstra's algorithm is quite intuitive. The algorithm starts from the origin and explores the network step by step, always continuing from the node that is closest to the origin at that point (in terms of the chosen cost, such as distance or travel time). For every node it reaches, the algorithm keeps track of the shortest known way to get there, and updates it whenever it finds a shorter one. In this way, the search spreads outwards from the origin, a bit like water flowing along the streets, and once it reaches the destination, the route that it has found is the shortest possible one.
 
-First, let's find the closest nodes for two locations that are located in the area. OSMnx provides a handly function for geocoding an address `ox.geocode()`. We can use that to retrieve the x and y coordinates of our origin and destination.
+Before we can find a route, we need to define the origin and destination of our trip. In this example, we will find a route by car from Ruoholahdenkatu 24 to Annankatu 18, which are two addresses located in the Helsinki city centre. To find the closest nodes for these locations, we first need to know their coordinates. OSMnx provides a handy function for geocoding an address `ox.geocode()` (we discussed geocoding in more detail in Chapter 6.5). We can use that to retrieve the x and y coordinates of our origin and destination:
 
 ```python
 # OSM data is in WGS84 so typically we need to use lat/lon coordinates when searching for the closest node
@@ -306,12 +283,12 @@ print("Origin coords:", orig_x, orig_y)
 print("Destination coords:", dest_x, dest_y)
 ```
 
-Okay, now we have coordinates for our origin and destination.
+Now we have coordinates for our origin and destination. The coordinates are longitude (x) and latitude (y) values in the WGS84 coordinate reference system, which is the same as in our street network. Hence, we can use them directly for finding the closest nodes from the graph.
 
 
 ### Find the nearest nodes
 
-Next, we need to find the closest nodes from the graph for both of our locations. For calculating the closest point we use `ox.distance.nearest_nodes()` -function and specify `return_dist=True` to get the distance in meters.
+Next, we need to find the closest nodes from the graph for both of our locations, which correspond to the first two steps of the basic logic of routing that we described above. This step is needed because the routing algorithm finds paths between the nodes of the graph, and our origin and destination are not necessarily located exactly at any of the nodes. For calculating the closest point we use `ox.distance.nearest_nodes()` -function and specify `return_dist=True` to get the distance in meters:
 
 ```python
 # Find the closest nodes for origin and destination
@@ -326,19 +303,14 @@ print("Origin node-id:", orig_node_id, "and distance:", dist_to_orig, "meters.")
 print("Destination node-id:", dest_node_id, "and distance:", dist_to_dest, "meters.")
 ```
 
-Now we are ready to start the actual routing with NetworkX. 
+As a result, we get the id of the closest node for both locations, together with the distance (in meters) between the location and the node. Both nodes are located only a few tens of meters away from the given addresses. Now we are ready to start the actual routing with NetworkX. 
 
 
-### Find the fastest route by distance / time
+### Find the shortest and the fastest route
 
-Now we can do the routing and find the shortest path between the origin and target locations
-by using the `dijkstra_path()` function of NetworkX. For getting only the cumulative cost of the trip, we can directly use a function `dijkstra_path_length()` that returns the total cost of the route (e.g. the distance or the travel time) without the actual path.
+Now we can do the routing and find the shortest path between the origin and target locations by using the `dijkstra_path()` function of NetworkX. For getting only the cumulative cost of the trip, we can directly use a function `dijkstra_path_length()` that returns the total cost of the route (e.g. the distance or the travel time) without the actual path.
 
-The function takes our graph `G` as input which will be the network used for finding the shortest path. In addition, we need to define the nodes that are used as the origin (i.e. `source`) and destination points (`target`) for the analysis. Lastly, we need to define the `weight` (also called as `cost` or `impedance`) which is needed to find the optimal least-cost path between the given `source` and `target` nodes.
-
-With `weight` -parameter we can specify the attribute that we want to use as cost/impedance. We have now two possible weight attributes available: `'length'` and `'travel_time_seconds'`.    
-
-- Let's first calculate the routes between locations by driving, and also retrieve the travel times
+The function takes our graph `G` as input which will be the network used for finding the shortest path. In addition, we need to define the nodes that are used as the origin (i.e. `source`) and destination points (`target`) for the analysis. Lastly, we need to define the `weight` (also called as `cost` or `impedance`) which is needed to find the optimal least-cost path between the given `source` and `target` nodes. With `weight` -parameter we can specify the attribute that we want to use as cost/impedance. We have now two possible weight attributes available: `'length'` and `'travel_time_seconds'`. Let's calculate the routes between our locations using both weights, and also retrieve the total distance and travel time of these routes:
 
 ```python
 # Calculate the paths
@@ -358,24 +330,16 @@ travel_time = nx.dijkstra_path_length(
 )
 ```
 
+Now we have found two routes: `metric_path` is the shortest route based on distance and `time_path` is the fastest route based on travel time. Both of them are stored as lists of the nodes that the route goes through (we will take a closer look at these lists later in this section). In addition, we stored the total distance (in meters) of the shortest route into the variable `travel_length` and the total travel time (in seconds) of the fastest route into the variable `travel_time`. Let's print these values, and convert the travel time into minutes by dividing it by 60:
+
 ```python
-metric_path == time_path
+print(f"Shortest path distance {travel_length: .1f} meters.")
+print(f"Shortest path time {travel_time/60: .1f} minutes.")
 ```
 
-```python
-travel_length
-```
+As we can see, the shortest route is roughly one kilometer long, and driving the fastest route takes about two minutes. Let's now see what we got by visualizing the results. For visualization purposes, we can use a handy function again from OSMnx called `ox.plot_graph_route()` that plots the route in a simple map. The function takes the graph and the route as input, and draws the route as a red line on top of the street network. With the other parameters, we can adjust how the map looks: here, we draw the streets as thin (`edge_linewidth`) black (`edge_color`) lines on a white background (`bgcolor`), and hide the nodes of the network by setting their size to zero (`node_size`). Let's start by plotting the shortest route based on distance:
 
 ```python
-travel_time
-```
-
-Okay, that was it! Let's now see what we got as results by visualizing the results.
-
-For visualization purposes, we can use a handy function again from OSMnx called `ox.plot_graph_route()` that plots the route in a simple map:
-
-```python
-# Shortest path based on distance
 fig, ax = ox.plot_graph_route(
     G,
     metric_path,
@@ -385,13 +349,12 @@ fig, ax = ox.plot_graph_route(
     edge_color="black",
     figsize=(14, 10),
 )
-
-# Print some useful information as well
-print(f"Shortest path distance {travel_length: .1f} meters.")
 ```
 
 _**Figure 8.X.** The shortest route between the origin and the destination based on distance._
 
+
+In Figure 8.X, the shortest route starts from our origin at Ruoholahdenkatu and ends at our destination at Annankatu. The circles at both ends of the route show the nodes that are closest to these locations. Next, let's plot the fastest route based on travel time in a similar manner:
 
 ```python
 fig, ax = ox.plot_graph_route(
@@ -403,15 +366,18 @@ fig, ax = ox.plot_graph_route(
     edge_color="black",
     figsize=(14, 10),
 )
-
-# Print some useful information as well
-print(f"Shortest path time {travel_time/60: .1f} minutes.")
 ```
 
 _**Figure 8.X.** The fastest route between the origin and the destination based on travel time._
 
 
-Great! Now we have successfully found the optimal route between our origin and destination and we also have estimates about the travel time that it takes to travel between the locations by driving. As we can see, the route optimized based on travel time and distance were exactly the same which is natural, as the network here is relatively small and there are no big differences in the speed limits. However, with larger networks, you might get alternating routes as travelling e.g. via ring roads is typically faster than driving throught the city (as an example).
+The routes in the two previous figures look exactly the same. We can confirm this by checking whether the lists of nodes in the two routes are equal:
+
+```python
+metric_path == time_path
+```
+
+Great! Now we have successfully found the optimal route between our origin and destination and we also have estimates about the travel time that it takes to travel between the locations by driving. As we can see, the routes optimized based on travel time and distance are exactly the same, which is natural, as the network here is relatively small and there are no big differences in the speed limits. However, with larger networks, you might get alternative routes as travelling e.g. via ring roads is typically faster than driving through the city (as an example).
 
 
 ### Summarizing the route
@@ -520,6 +486,77 @@ _**Figure 8.X.** Travel time by car (in minutes) from the origin to all nodes in
 As we can see, the travel times generally increase the further away the nodes are from the origin. Calculating travel times from one or many origins to all destinations like this is the basis of accessibility analysis, which we will discuss in more detail in Chapter 11.
 
 
+## Routing in large networks with `pyrosm`
+
+Thus far, we have used `osmnx` to retrieve the street network for the Helsinki city centre. Under the hood, `osmnx` downloads the OpenStreetMap data from a web service called Overpass API[^overpass]. This works well for relatively small areas, such as a city centre or a neighborhood. However, the larger the area, the more data needs to be downloaded, and the Overpass server limits how long each query can run and how many queries each user can make. Very large areas also need to be split into many smaller queries. Hence, downloading the street network of a large city region, not to mention a whole country, can take a long time or even fail if the server is busy.
+
+For large areas, a better option is to use the `pyrosm` library which reads OpenStreetMap data from **PBF files**[^pbf]. A PBF file (short for Protocolbuffer Binary Format) is a compressed file that contains all the OpenStreetMap data for a given area, such as a city, a region or a whole country. These files are distributed by data providers such as Geofabrik[^geofabrik] (countries and regions) and BBBike[^bbbike] (cities). Because `pyrosm` reads the data from a file on your own computer instead of a server, it can read the street network for large areas quickly. `pyrosm` also provides a function called `get_data()` that downloads a PBF file for you based on the name of the area. Let's use it to download the data for Helsinki:
+
+```python
+from pyrosm import OSM, get_data
+
+fp = get_data("helsinki")
+fp
+```
+
+As a result, we get the path to the downloaded file. By default, `get_data()` saves the file into a temporary folder on your computer, but you can also choose the folder yourself with the `directory` parameter. The Helsinki data comes from BBBike, and it covers Helsinki and parts of its neighboring cities, such as Espoo and Vantaa. Next, we initialize a reader object called `OSM` with the path to our file, and read the drivable streets with the `get_network()` method. The `network_type` parameter works in a similar manner as in `osmnx` (supported values include e.g. `"walking"`, `"cycling"`, `"driving"` and `"all"`). By specifying `nodes=True`, we get also the nodes of the network which we need for building the graph:
+
+```python
+osm = OSM(fp)
+nodes_large, edges_large = osm.get_network(network_type="driving", nodes=True)
+edges_large.head(2)
+```
+
+As we can see, the edges are returned as a GeoDataFrame in which the `u` and `v` columns contain the ids of the from- and to-nodes of each street segment, and the `length` column contains the length of the segment in meters. Now we can build a routable graph out of the nodes and edges with the `to_graph()` method. By default, `pyrosm` builds a graph for another network analysis library called `igraph`, so we need to specify `graph_type="networkx"` to get a `networkx` graph:
+
+```python
+G_large = osm.to_graph(nodes_large, edges_large, graph_type="networkx")
+G_large
+```
+
+As a result, we have a `MultiDiGraph` similar to the one that we retrieved earlier with `osmnx`. In the same way as `osmnx`, `pyrosm` takes the one-way streets into account when building a graph for driving. In addition, `pyrosm` simplifies the graph by default, i.e. it merges the street segments between two intersections into a single edge, which makes the graph considerably smaller (we will discuss simplification in more detail in Chapter 8.3). The graph is also compatible with `osmnx`, which means that we can use the same `osmnx` functions with it as earlier. For instance, `osmnx` provides handy functions for adding travel times to the graph: the `ox.routing.add_edge_speeds()` function fills in the missing speed limits with the average speed limit of the streets in the same road class, and the `ox.routing.add_edge_travel_times()` function calculates the travel time in seconds for each edge using the same formula that we used earlier:
+
+```python
+G_large = ox.routing.add_edge_speeds(G_large)
+G_large = ox.routing.add_edge_travel_times(G_large)
+```
+
+Now the edges of our graph have information about the speed in km/h (`speed_kph`) and the travel time in seconds (`travel_time`). Let's use the graph to find the fastest route by car from our origin location to Helsinki Airport, which is located in Vantaa about 16 kilometers north of the city centre. This trip would not have been possible with the network that we used earlier, because it covered only the city centre. We find the nearest nodes and the fastest route in the same way as earlier, using the coordinates of the airport terminal as the destination:
+
+```python
+airport_x, airport_y = 24.9645, 60.3165
+
+orig_node_large = ox.distance.nearest_nodes(G_large, X=orig_x, Y=orig_y)
+airport_node = ox.distance.nearest_nodes(G_large, X=airport_x, Y=airport_y)
+
+route_large = nx.dijkstra_path(
+    G_large, source=orig_node_large, target=airport_node, weight="travel_time"
+)
+
+fig, ax = ox.plot_graph_route(
+    G_large,
+    route_large,
+    edge_linewidth=0.2,
+    node_size=0,
+    bgcolor="white",
+    edge_color="black",
+    figsize=(14, 10),
+)
+```
+
+_**Figure 8.X.** The fastest route by car from the origin to Helsinki Airport, based on a street network read from a PBF file with `pyrosm`._
+
+
+Figure 8.X shows the street network that we read with `pyrosm` together with the fastest route to the airport. Finally, let's summarize the route in the same way as earlier by calculating the total length (in meters) and travel time (in seconds) of the trip:
+
+```python
+route_large_edges = ox.routing.route_to_gdf(G_large, route_large, weight="travel_time")
+route_large_edges[["length", "travel_time"]].sum()
+```
+
+As we can see, the fastest route to the airport is about 20 kilometers long and the trip takes around 21 minutes by car, assuming that we can drive according to the speed limits. The same steps work also for much larger areas. For example, `get_data("finland")` downloads the OpenStreetMap data for the whole of Finland (a file of about 800 MB), from which you can build a graph for the whole country in the same way as above. Reading data for a whole country naturally requires more memory and time. If you only need a part of the data, you can pass a bounding box to the `OSM` reader with the `bounding_box` parameter as a list of coordinates in the order `[min_lon, min_lat, max_lon, max_lat]` (e.g. `OSM(fp, bounding_box=[24.8, 60.1, 25.1, 60.3])`), in which case `pyrosm` keeps only the data within the given area.
+
+
 In this section, we learned how to retrieve a street network from OpenStreetMap, prepare it for routing by calculating travel times for the streets, and use it for finding the shortest paths between locations. However, routing is only one of the many things that we can do with networks. In the next section, we will look at other common network operations, such as identifying the connected components of a network and measuring the centrality of its nodes and edges.
 
 
@@ -529,6 +566,11 @@ In this section, we learned how to retrieve a street network from OpenStreetMap,
 [^dijkstra]: <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.weighted.single_source_dijkstra.html>
 [^astar]: <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.astar.astar_path.html>
 [^osmnx]: <https://osmnx.readthedocs.io/en/stable/>
+[^pyrosm]: <https://pyrosm.readthedocs.io/en/stable/>
 [^ykr]: <https://www.avoindata.fi/data/fi/dataset/kaupunki-maaseutu-luokitus-ykr>
 [^dijkstra_algorithm]: <https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm>
+[^overpass]: <https://wiki.openstreetmap.org/wiki/Overpass_API>
+[^pbf]: <https://wiki.openstreetmap.org/wiki/PBF_Format>
+[^geofabrik]: <https://download.geofabrik.de/>
+[^bbbike]: <https://download.bbbike.org/osm/>
 
