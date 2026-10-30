@@ -51,7 +51,7 @@ dependencies:
   - palettable=3.3.3
   - pandas=3.0.6
   - pyinterpolate=1.2.1
-  - pyrosm=0.13.1
+  - pyrosm=0.26.0
   - pysal=25.1
   - pysheds=0.5
   - rasterio=1.5.1
