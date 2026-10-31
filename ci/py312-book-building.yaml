@@ -41,6 +41,8 @@ dependencies:
   - lonboard=0.16.0
   - matplotlib=3.11.2
   - matplotlib-scalebar=0.9.0
+  - momepy=1.0.0
+  - neatnet=0.1.6
   - netcdf4=1.7.4
   - numpy=1.26.4
   - openjdk=25.0.2

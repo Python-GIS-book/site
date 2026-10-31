@@ -26,15 +26,120 @@ Contents:
 - Other uses of networks (brief) — morphology, spatial weights, etc.
 
 
-In the previous section, we used a street network to find the shortest routes between locations. However, routing is only one of the many things that we can do with networks. Networks can also tell us a lot about the structure of the area that they represent, and checking this structure is a good idea before using a network for any analysis. For example, is it possible to travel between all parts of the network? How many streets meet at each intersection? Which streets and intersections are the most important ones for moving around in the city? In this section, we go through common network operations that help us answer these kinds of questions. We continue using the `networkx`[^networkx] and `osmnx`[^osmnx] libraries and a drivable street network of the Helsinki city centre, similar to the one that we used in the previous section.
+In the previous section, we used a street network to find the shortest routes between locations. However, routing is only one of the many things that we can do with networks. Networks can also tell us a lot about the structure of the area that they represent, and checking this structure is a good idea before using a network for any analysis. For example, is it possible to travel between all parts of the network? How many streets meet at each intersection? Which streets and intersections are the most important ones for moving around in the city? In this section, we go through common network operations that help us answer these kinds of questions. We start by checking whether the streets in a street dataset are correctly connected to each other, and then continue using the `networkx`[^networkx] and `osmnx`[^osmnx] libraries and a drivable street network of the Helsinki city centre, similar to the one that we used in the previous section.
 
-Let's start by retrieving the street network in the same way as in the previous section. This time, we use a slightly larger area that extends 3500 meters from the center point in each direction:
+
+## Checking and fixing network topology
+
+As we learned in Chapter 8.1, the way in which the nodes and edges of a network are connected to each other is called network topology. When we create a network from lines, such as the street segments of the Digiroad data in Chapter 8.1, the topology is based on the end points of the lines: two street segments are connected only if they end at exactly the same point. Real-world data often contain errors that break this rule. For instance, a street may end a few meters before the street that it should join (a gap), it may continue a few meters past it (an overshoot), it may end on the middle of another street without a node that would connect them (a missing node), or the same street may be in the data twice (a duplicate). Such errors are difficult to notice on a map, but they can make a route impossible or force it to take a long detour. Hence, it is a good idea to check the topology of the data before using it for any analysis.
+
+Let's take a look at a part of the Digiroad street data from Chapter 8.1 that covers the Kamppi, Punavuori, Ruoholahti and Jätkäsaari districts of Helsinki. To demonstrate the checks, we have added some typical errors to this data. Let's read the data with `geopandas` and plot it:
+
+```python
+import geopandas as gpd
+import matplotlib.pyplot as plt
+import momepy
+import neatnet
+import networkx as nx
+
+streets = gpd.read_file("data/digiroad_topology_errors.gpkg")
+ax = streets.plot(color="black", linewidth=0.5, figsize=(10, 8))
+```
+
+_**Figure 8.X.** Street data for the Kamppi, Punavuori, Ruoholahti and Jätkäsaari districts of Helsinki, with some added topology errors._
+
+
+As we can see, the errors are not visible on the map. To check the topology, we first convert the lines into a graph. In Chapter 8.1, we wrote our own function for this, but here we use the `gdf_to_nx()` function of the `momepy`[^momepy] library, which works in a similar manner: it uses the end points of the lines as nodes and the lines as edges. By default, the function creates an undirected `MultiGraph`, which keeps also the duplicate lines as separate edges. Then we check whether it is possible to travel between all parts of the network by counting its separate parts (called connected components) with the `nx.number_connected_components()` function. We will discuss connected components in more detail later in this section.
+
+```python
+G_streets = momepy.gdf_to_nx(streets)
+nx.number_connected_components(G_streets)
+```
+
+As we can see, the network consists of 8 separate parts. Some of them can be real, for instance short pieces of streets that were cut at the border of the area, but some of them can be caused by errors. To find the places where the errors may be located, let's look at the dead ends of the network, i.e. the nodes that are connected to only one edge (in other words, nodes whose degree is 1). The `momepy.node_degree()` function calculates the degree of every node and stores it as a node attribute, and the `momepy.nx_to_gdf()` function returns the nodes of the graph as a GeoDataFrame when we specify `lines=False`. Then we select the nodes whose degree is 1:
+
+```python
+G_streets = momepy.node_degree(G_streets)
+nodes = momepy.nx_to_gdf(G_streets, lines=False)
+dead_ends = nodes.loc[nodes["degree"] == 1]
+len(dead_ends)
+```
+
+Most of these dead ends are real, i.e. streets that end in a cul-de-sac or are cut at the border of the area. However, a dead end that is located very close to another street is suspicious, because it may be a gap or a missing node. Let's find the dead ends that have another street within 5 meters. We enlarge each dead end into a circle with a radius of 5 meters with the `.buffer()` method and count how many street segments intersect each circle with a spatial join (see Chapter 6.7). As each dead end touches its own street segment, the dead ends with more than one intersecting segment are close to another street. Finally, we plot all dead ends in black and the suspicious ones in red:
+
+```python
+dead_end_areas = dead_ends.set_geometry(dead_ends.buffer(5))
+nearby = gpd.sjoin(dead_end_areas, streets, predicate="intersects")
+segment_counts = nearby.groupby(level=0).size()
+suspicious = dead_ends.loc[segment_counts[segment_counts > 1].index]
+
+ax = streets.plot(color="lightgrey", linewidth=0.8, figsize=(10, 8))
+ax = dead_ends.plot(ax=ax, color="black", markersize=8)
+ax = suspicious.plot(ax=ax, color="red", markersize=40)
+```
+
+_**Figure 8.X.** Dead ends of the street network (in black) and the dead ends that are located within 5 meters from another street (in red)._
+
+
+Figure 8.X shows 7 suspicious dead ends. Six of them are the errors that we added to the data. The seventh one is an error that was already in our data: Sinebrychoffinkatu crosses Mallaskatu and ends a few meters past it (an overshoot), without a node at the crossing point. Next, let's check whether the data contain duplicate lines. We can find them with the `.duplicated()` method, which marks every row that is identical to some earlier row. Before the comparison, we convert the geometries into a standard form with the `.normalize()` method, so that the same line is detected as a duplicate even if its coordinates are stored in the opposite order:
+
+```python
+duplicates = streets.geometry.normalize().duplicated()
+streets.loc[duplicates]
+```
+
+As we can see, three street segments are in the data twice. Finally, let's check whether there are lines that cross each other without a node at the crossing point. We can find them with a spatial join that uses the `"crosses"` predicate. Each pair of crossing lines is found twice (the first line crosses the second one and vice versa), so we divide the number of rows by two:
+
+```python
+crossings = gpd.sjoin(streets, streets, predicate="crosses")
+len(crossings) // 2
+```
+
+As we can see, there are 12 pairs of lines that cross each other without a node. However, not all of them are errors. For instance, streets that cross each other on different levels, such as a street on a bridge and a street below it, should not be connected. To tell whether a crossing is an error, we would need additional information, such as aerial images or attributes that tell whether a street is on a bridge or in a tunnel. Hence, we do not try to fix the crossings automatically.
+
+Now that we have found the errors, let's fix them with the `neatnet`[^neatnet] library, which provides tools for cleaning street networks. The `neatnet.extend_lines()` function extends the loose ends of lines by at most the given distance (`tolerance`, here 5 meters) until they touch another line, which closes the gaps. The `neatnet.fix_topology()` function then adds a node to every place where the end of a line touches another line, which fixes the missing nodes. In addition, it removes duplicate lines and the nodes in which only two street segments meet (we will discuss such nodes later in this section):
+
+```python
+streets_extended = neatnet.extend_lines(streets, tolerance=5)
+streets_fixed = neatnet.fix_topology(streets_extended)
+```
+
+Let's check the result in the same way as above by counting the connected components, dead ends and duplicates of the fixed data:
+
+```python
+G_fixed = momepy.node_degree(momepy.gdf_to_nx(streets_fixed))
+nodes_fixed = momepy.nx_to_gdf(G_fixed, lines=False)
+
+print("Connected components:", nx.number_connected_components(G_fixed))
+print("Dead ends:", (nodes_fixed["degree"] == 1).sum())
+print("Duplicates:", streets_fixed.geometry.normalize().duplicated().sum())
+```
+
+As we can see, the number of connected components decreased from 8 to 6, the number of dead ends decreased by six, and there are no duplicates left. The remaining six connected components were already in the original data. Let's zoom in to one of the suspicious dead ends and compare the data before and after the fix:
+
+```python
+location = suspicious.geometry.iloc[0]
+xmin, ymin, xmax, ymax = location.buffer(30).bounds
+
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(12, 6))
+for ax, lines, points in [(ax1, streets, nodes), (ax2, streets_fixed, nodes_fixed)]:
+    lines.plot(ax=ax, color="black")
+    points.plot(ax=ax, color="black", markersize=30)
+    points.loc[points["degree"] == 1].plot(ax=ax, color="red", markersize=30)
+    ax.set_xlim(xmin, xmax)
+    ax.set_ylim(ymin, ymax)
+```
+
+_**Figure 8.X.** A gap between two streets before (left) and after (right) fixing the topology. The nodes are shown in black and the dead ends in red._
+
+
+On the left, the side street ends before it reaches the street that it should join, and its end is a dead end. On the right, the side street has been extended to the other street, and there is a node where the two streets meet. Notice, however, that the overshoot at Sinebrychoffinkatu is still in the data, because the functions that we used do not shorten lines that continue past another line. Fixing it would require cutting the line at the crossing point and removing the part beyond it. In addition, `fix_topology()` merged the street segments that met at nodes of degree 2, which is why the fixed data contain 516 segments instead of 733. If the data had attributes that can change along a street, such as speed limits or the permitted driving direction, merging the segments could lose or mix such information. Hence, automatic fixes are useful, but it is always a good idea to check the result. The tolerance should also be chosen with care, because a too large tolerance could connect streets that are not connected in reality, such as a dead-end street that ends close to a motorway.
+
+In the rest of this section, we use a drivable street network from OpenStreetMap. Let's retrieve it in the same way as in the previous section. This time, we use a slightly larger area that extends 3500 meters from the center point in each direction:
 
 ```python
 import osmnx as ox
-import networkx as nx
 import pandas as pd
-import matplotlib.pyplot as plt
 
 center_point = (60.162, 24.937)
 G = ox.graph_from_point(center_point, dist=3500, network_type="drive", simplify=False)
@@ -137,11 +242,11 @@ _**Figure 8.X.** Nodes of the street network colored by their degree._
 As we can see, the nodes with degree 2 are spread along the streets all over the network. Because these nodes are not real intersections, they do not tell much about the structure of the street network, but they make the network larger than necessary. Next, we will see how we can clean the network from such nodes.
 
 
-## Checking and cleaning network topology
+## Simplifying the network
 
-As we learned in Chapter 8.1, the way in which the nodes and edges of a network are connected to each other is called network topology. Real-world network data often contain issues in their topology that we need to check and fix before the analysis. In this section, we have already come across two of them: parts of the network between which it is not possible to drive in both directions (which we removed by keeping only the largest strongly connected component), and nodes that are not real intersections (the nodes with degree 2), which are unnecessary for many analyses. Another common issue is that a single intersection is represented with several nodes, which typically happens when the two driving directions of a large street are drawn as separate lines in the data. For fixing this issue, `osmnx` has the `ox.consolidate_intersections()` function that merges nodes that are close to each other into a single node, but we do not use it in this section.
+The nodes with degree 2 are not errors as such, but they are unnecessary for many analyses. Another common issue in street networks is that a single intersection is represented with several nodes, which typically happens when the two driving directions of a large street are drawn as separate lines in the data. For fixing this issue, `osmnx` has the `ox.consolidate_intersections()` function that merges nodes that are close to each other into a single node, but we do not use it in this section.
 
-We can clean the network by merging all the street elements that are between two intersections into one. This process is called **simplification**, and it is the same step that `pyrosm` did for us automatically in the previous section. With `osmnx`, we can do it with the `ox.simplify_graph()` function. The function removes the nodes that are only in the middle of a street and merges the edges connected to them into a single edge. Notice that the shape of the streets is not lost in this process, because `osmnx` stores the shape of the merged edges as a `LineString` in the `geometry` attribute of the new edge. Let's simplify our graph and compare the number of nodes and edges before and after the simplification:
+We can clean the network by merging all the street elements that are between two intersections into one. This process is called **simplification**, and it is the same step that `pyrosm` did for us automatically in the previous section, and that the `fix_topology()` function of `neatnet` did for the Digiroad data at the beginning of this section. With `osmnx`, we can do it with the `ox.simplify_graph()` function. The function removes the nodes that are only in the middle of a street and merges the edges connected to them into a single edge. Notice that the shape of the streets is not lost in this process, because `osmnx` stores the shape of the merged edges as a `LineString` in the `geometry` attribute of the new edge. Let's simplify our graph and compare the number of nodes and edges before and after the simplification:
 
 ```python
 G_simplified = ox.simplify_graph(G)
@@ -461,6 +566,8 @@ In this section, we learned how to check whether a network is connected, how to 
 
 [^networkx]: <https://networkx.org/documentation/stable/>
 [^osmnx]: <https://osmnx.readthedocs.io/en/stable/>
+[^momepy]: <https://docs.momepy.org/>
+[^neatnet]: <https://uscuni.org/neatnet/>
 [^centrality]: <https://en.wikipedia.org/wiki/Centrality>
 [^osm_tags]: <https://wiki.openstreetmap.org/wiki/Tags>
 [^sinuosity]: <https://en.wikipedia.org/wiki/Sinuosity>
