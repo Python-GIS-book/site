@@ -578,9 +578,9 @@ In this section, we learned how to retrieve a street network from OpenStreetMap,
 
 ## Footnotes
 
-[^networkx]: <https://networkx.github.io/documentation/stable/>
-[^dijkstra]: <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.weighted.single_source_dijkstra.html>
-[^astar]: <https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.astar.astar_path.html>
+[^networkx]: <https://networkx.org/documentation/stable/>
+[^dijkstra]: <https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.shortest_paths.weighted.single_source_dijkstra.html>
+[^astar]: <https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.shortest_paths.astar.astar_path.html>
 [^osmnx]: <https://osmnx.readthedocs.io/en/stable/>
 [^pyrosm]: <https://pyrosm.readthedocs.io/en/stable/>
 [^ykr]: <https://www.avoindata.fi/data/fi/dataset/kaupunki-maaseutu-luokitus-ykr>
