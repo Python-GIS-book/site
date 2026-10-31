@@ -90,6 +90,16 @@ edges["highway"].unique()
 Based on these values, we can make assumptions that e.g. `living_street` roads in Helsinki have a speed limit of 20 kmph. Hence, this information can be used to fill the missing values in `maxspeed`.
 
 
+Notice that retrieving data around a center point is only one of the ways to define the area of interest. For instance, you can also retrieve the street network based on a place name with the `ox.graph_from_place()` function, which first finds the boundary polygon of the place with the Nominatim geocoding service (see Chapter 6.5) and then downloads the streets within this polygon. As an example, the following retrieves the drivable streets of the Kamppi district in Helsinki, but in the rest of this section we continue with the network that we retrieved around the center point:
+
+```python
+G_kamppi = ox.graph_from_place("Kamppi, Helsinki, Finland", network_type="drive")
+fig, ax = ox.plot_graph(G_kamppi, bgcolor="white", edge_color="black", node_color="red")
+```
+
+_**Figure 8.X.** Drivable streets in the Kamppi district of Helsinki, retrieved from OpenStreetMap with `osmnx` based on the place name._
+
+
 ## Modifying the network
 
 At this stage, we have the necessary components to build a routable graph (nodes and edges) based on distance. However, in real life the network distance is not the best cost metric to use, because the shortest path (based on distance) is not necessarily always the optimal route in terms of **travel time**. Time is typically the measure that people value more (plus it is easier to comprehend), so at this stage we want to **add a new cost attribute** to our edges GeoDataFrame that converts the metric distance information to travel time (in seconds). Before we can do this calculation, we need to ensure that all rows in `maxspeed` column have information about the speed limit. Let's check the value counts of the column and also include information about the `NaN` values with `dropna` parameter:
@@ -490,16 +500,22 @@ As we can see, the travel times generally increase the further away the nodes ar
 
 Thus far, we have used `osmnx` to retrieve the street network for the Helsinki city centre. Under the hood, `osmnx` downloads the OpenStreetMap data from a web service called Overpass API[^overpass]. This works well for relatively small areas, such as a city centre or a neighborhood. However, the larger the area, the more data needs to be downloaded, and the Overpass server limits how long each query can run and how many queries each user can make. Very large areas also need to be split into many smaller queries. Hence, downloading the street network of a large city region, not to mention a whole country, can take a long time or even fail if the server is busy.
 
-For large areas, a better option is to use the `pyrosm` library which reads OpenStreetMap data from **PBF files**[^pbf]. A PBF file (short for Protocolbuffer Binary Format) is a compressed file that contains all the OpenStreetMap data for a given area, such as a city, a region or a whole country. These files are distributed by data providers such as Geofabrik[^geofabrik] (countries and regions) and BBBike[^bbbike] (cities). Because `pyrosm` reads the data from a file on your own computer instead of a server, it can read the street network for large areas quickly. `pyrosm` also provides a function called `get_data()` that downloads a PBF file for you based on the name of the area. Let's use it to download the data for Helsinki:
+For large areas, a better option is to use the `pyrosm` library which reads OpenStreetMap data from **PBF files**[^pbf]. A PBF file (short for Protocolbuffer Binary Format) is a compressed file that contains all the OpenStreetMap data for a given area, such as a city, a region or a whole country. These files are distributed by data providers such as Geofabrik[^geofabrik] and Movisda[^movisda] (countries and regions) and BBBike[^bbbike] (cities). Because `pyrosm` reads the data from a file on your own computer instead of a server, it can read the street network for large areas quickly. To get the data, we can use the `get_data_by_geocoding()` function of `pyrosm`, which works in a similar manner as the `ox.graph_from_place()` function that we used earlier. Under the hood, the function geocodes the place name with Nominatim to find the boundary polygon of the place, downloads the smallest available PBF file that covers the place, and crops the data to the boundaries of the place. Instead of a single place name, we can also pass a list of place names, in which case the function combines the places into one area. Let's use it to download the data for the Helsinki metropolitan area, which consists of four cities: Helsinki, Espoo, Vantaa and Kauniainen:
 
 ```python
-from pyrosm import OSM, get_data
+from pyrosm import OSM, get_data_by_geocoding
 
-fp = get_data("helsinki")
+places = [
+    "Helsinki, Finland",
+    "Espoo, Finland",
+    "Vantaa, Finland",
+    "Kauniainen, Finland",
+]
+fp = get_data_by_geocoding(places)
 fp
 ```
 
-As a result, we get the path to the downloaded file. By default, `get_data()` saves the file into a temporary folder on your computer, but you can also choose the folder yourself with the `directory` parameter. The Helsinki data comes from BBBike, and it covers Helsinki and parts of its neighboring cities, such as Espoo and Vantaa. Next, we initialize a reader object called `OSM` with the path to our file, and read the drivable streets with the `get_network()` method. The `network_type` parameter works in a similar manner as in `osmnx` (supported values include e.g. `"walking"`, `"cycling"`, `"driving"` and `"all"`). By specifying `nodes=True`, we get also the nodes of the network which we need for building the graph:
+As a result, we get the path to a new PBF file that contains the data for the four cities. In this case, `pyrosm` downloaded a PBF file for the whole Uusimaa region from Movisda and cropped it to the boundaries of the cities. By default, `get_data_by_geocoding()` saves the files into a temporary folder on your computer, but you can also choose the folder yourself with the `directory` parameter. Notice also the warning that `pyrosm` printed: the downloaded PBF file does not cover a tiny part of the boundary polygons that Nominatim returned (here, a small area in the sea south of Helsinki). When the part that is left out is less than 0.1 % of the area, `pyrosm` uses the file anyway and only warns about it, which is fine for our purposes. Next, we initialize a reader object called `OSM` with the path to our file, and read the drivable streets with the `get_network()` method. The `network_type` parameter works in a similar manner as in `osmnx` (supported values include e.g. `"walking"`, `"cycling"`, `"driving"` and `"all"`). By specifying `nodes=True`, we get also the nodes of the network which we need for building the graph:
 
 ```python
 osm = OSM(fp)
@@ -554,7 +570,7 @@ route_large_edges = ox.routing.route_to_gdf(G_large, route_large, weight="travel
 route_large_edges[["length", "travel_time"]].sum()
 ```
 
-As we can see, the fastest route to the airport is about 20 kilometers long and the trip takes around 21 minutes by car, assuming that we can drive according to the speed limits. The same steps work also for much larger areas. For example, `get_data("finland")` downloads the OpenStreetMap data for the whole of Finland (a file of about 800 MB), from which you can build a graph for the whole country in the same way as above. Reading data for a whole country naturally requires more memory and time. If you only need a part of the data, you can pass a bounding box to the `OSM` reader with the `bounding_box` parameter as a list of coordinates in the order `[min_lon, min_lat, max_lon, max_lat]` (e.g. `OSM(fp, bounding_box=[24.8, 60.1, 25.1, 60.3])`), in which case `pyrosm` keeps only the data within the given area.
+As we can see, the fastest route to the airport is about 20 kilometers long and the trip takes around 21 minutes by car, assuming that we can drive according to the speed limits. The same steps work also for much larger areas. For example, `get_data_by_geocoding("Finland")` downloads the OpenStreetMap data for the whole of Finland (a file of about 700 MB), from which you can build a graph for the whole country in the same way as above. Reading data for a whole country naturally requires more memory and time. If you only need a part of the data, you can pass a bounding box to the `OSM` reader with the `bounding_box` parameter as a list of coordinates in the order `[min_lon, min_lat, max_lon, max_lat]` (e.g. `OSM(fp, bounding_box=[24.8, 60.1, 25.1, 60.3])`), in which case `pyrosm` keeps only the data within the given area.
 
 
 In this section, we learned how to retrieve a street network from OpenStreetMap, prepare it for routing by calculating travel times for the streets, and use it for finding the shortest paths between locations. However, routing is only one of the many things that we can do with networks. In the next section, we will look at other common network operations, such as identifying the connected components of a network and measuring the centrality of its nodes and edges.
@@ -572,5 +588,6 @@ In this section, we learned how to retrieve a street network from OpenStreetMap,
 [^overpass]: <https://wiki.openstreetmap.org/wiki/Overpass_API>
 [^pbf]: <https://wiki.openstreetmap.org/wiki/PBF_Format>
 [^geofabrik]: <https://download.geofabrik.de/>
+[^movisda]: <https://osm.download.movisda.io/>
 [^bbbike]: <https://download.bbbike.org/osm/>
 
