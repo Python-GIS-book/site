@@ -12,7 +12,7 @@ jupyter:
     name: python3
 ---
 
-# Spatial network analysis
+# Shortest path analysis
 
 In the previous section, we learned how to create graphs both from scratch and from existing street network data stored in a GeoPackage file. This section focuses on spatial networks and learning how to construct a routable directed graph for `networkx` library that can be used to find a shortest paths along the given street network based on travel times or distance by given transport mode (e.g. car or cycling). Finding a shortest path from A to B using a specific street network is a very common problem in GIS that has many practical applications. For example, navigation services use shortest path analysis to guide drivers, cyclists and pedestrians to their destination, emergency services use it to estimate how quickly an ambulance can reach a given address, and delivery companies use it to plan their routes. Network analysis is also commonly used in urban planning, for instance to study how easily people can reach services such as schools, health care or grocery stores (a topic that we return to in Chapter 11).
 
@@ -530,7 +530,7 @@ G_large = osm.to_graph(nodes_large, edges_large, graph_type="networkx")
 G_large
 ```
 
-As a result, we have a `MultiDiGraph` similar to the one that we retrieved earlier with `osmnx`. In the same way as `osmnx`, `pyrosm` takes the one-way streets into account when building a graph for driving. In addition, `pyrosm` simplifies the graph by default, i.e. it merges the street segments between two intersections into a single edge, which makes the graph considerably smaller (we will discuss simplification in more detail in Chapter 8.3). The graph is also compatible with `osmnx`, which means that we can use the same `osmnx` functions with it as earlier. For instance, `osmnx` provides handy functions for adding travel times to the graph: the `ox.routing.add_edge_speeds()` function fills in the missing speed limits with the average speed limit of the streets in the same road class, and the `ox.routing.add_edge_travel_times()` function calculates the travel time in seconds for each edge using the same formula that we used earlier:
+As a result, we have a `MultiDiGraph` similar to the one that we retrieved earlier with `osmnx`. In the same way as `osmnx`, `pyrosm` takes the one-way streets into account when building a graph for driving. In addition, `pyrosm` simplifies the graph by default, i.e. it merges the street segments between two intersections into a single edge, which makes the graph considerably smaller (we will discuss simplification in more detail in Chapter 8.4). The graph is also compatible with `osmnx`, which means that we can use the same `osmnx` functions with it as earlier. For instance, `osmnx` provides handy functions for adding travel times to the graph: the `ox.routing.add_edge_speeds()` function fills in the missing speed limits with the average speed limit of the streets in the same road class, and the `ox.routing.add_edge_travel_times()` function calculates the travel time in seconds for each edge using the same formula that we used earlier:
 
 ```python
 G_large = ox.routing.add_edge_speeds(G_large)
@@ -573,7 +573,7 @@ route_large_edges[["length", "travel_time"]].sum()
 As we can see, the fastest route to the airport is about 20 kilometers long and the trip takes around 21 minutes by car, assuming that we can drive according to the speed limits. The same steps work also for much larger areas. For example, `get_data_by_geocoding("Finland")` downloads the OpenStreetMap data for the whole of Finland (a file of about 700 MB), from which you can build a graph for the whole country in the same way as above. Reading data for a whole country naturally requires more memory and time. If you only need a part of the data, you can pass a bounding box to the `OSM` reader with the `bounding_box` parameter as a list of coordinates in the order `[min_lon, min_lat, max_lon, max_lat]` (e.g. `OSM(fp, bounding_box=[24.8, 60.1, 25.1, 60.3])`), in which case `pyrosm` keeps only the data within the given area.
 
 
-In this section, we learned how to retrieve a street network from OpenStreetMap, prepare it for routing by calculating travel times for the streets, and use it for finding the shortest paths between locations. However, routing is only one of the many things that we can do with networks. In the next section, we will look at other common network operations, such as identifying the connected components of a network and measuring the centrality of its nodes and edges.
+In this section, we learned how to retrieve a street network from OpenStreetMap, prepare it for routing by calculating travel times for the streets, and use it for finding the shortest paths between locations. However, routing is only one of the many things that we can do with networks. In the next three sections, we will look at other common network operations: identifying the connected components of a network, checking and cleaning its topology, and measuring the centrality of its nodes and edges.
 
 
 ## Footnotes
