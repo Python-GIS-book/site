@@ -292,7 +292,7 @@ ax = rivers.plot(linewidth=0.5, figsize=(10, 8))
 _**Figure 8.X.** Rivers in the state of Acre in Brazil, based on OpenStreetMap data._
 
 
-As we can see, Acre is covered by a dense network of rivers. Notice also the warning that `pyrosm` printed above the figure. It tells us that the PBF file that `pyrosm` downloaded does not cover the whole boundary polygon of Acre that Nominatim returned, and hence a small part of the area is missing from our data. In this case, the missing part is less than 0.1 % of the area and consists mostly of narrow strips along the border of the state, which does not affect our analysis.
+As we can see, Acre is covered by a dense network of rivers. Similarly as in the previous section, `pyrosm` also printed a warning above the figure, because the downloaded PBF file does not cover the whole boundary polygon of Acre, and hence a small part of the area is missing from our data. In this case, the missing part is less than 0.1 % of the area and consists mostly of narrow strips along the border of the state, which does not affect our analysis.
 
 A common way to describe the shape of a river is its **sinuosity**[^sinuosity], which is the length of the river divided by the straight-line distance between its end points. A completely straight river has a sinuosity of 1, and the more the river winds, the higher its sinuosity. Rivers with a sinuosity above 1.5 are typically called meandering rivers.
 
