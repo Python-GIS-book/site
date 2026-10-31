@@ -20,7 +20,7 @@ Attribution: © Finnish Transport Infrastructure Agency, Digiroad.
 
 ### Processing
 
-Done in `source/data/prepare_digiroad_network_data.ipynb`:
+Done in `source/online-extras/data/prepare_digiroad_network_data.ipynb`:
 
 1. From `DR_LINKKI_K` kept `LINK_ID`, `TOIMINN_LK`, `AJOSUUNTA`, `TIENIMI_SU` and the
    geometry; joined the speed limit value (`ARVO`) from `DR_NOPEUSRAJOITUS_K` on `LINK_ID`.
@@ -61,3 +61,53 @@ that change partway along a link, or differ by driving direction, are simplified
 - Eight pairs of intersections are connected by two different segments (e.g. a direct
   link and a loop around a square, or the two carriageways of a divided street). A
   `networkx.Graph` keeps only one of them; use `MultiGraph`/`MultiDiGraph` to keep both.
+- Sinebrychoffinkatu (`id` 1187) crosses Mallaskatu (`id` 1915) without a node and ends
+  about 4 m past it (an overshoot), so its end is a dead end. Chapter 8.3 uses this as an
+  example of an error that the automatic fixes do not remove.
+
+## digiroad_topology_errors.gpkg
+
+Street data with added topology errors, used in Chapter 8.3 to demonstrate how to check
+and fix the topology of a network. A part of `digiroad_helsinki.gpkg` covering Kamppi,
+Punavuori, Ruoholahti and Jätkäsaari: 733 `LineString` segments (2D), EPSG:3067, single
+layer `digiroad_topology_errors`.
+
+### Processing
+
+Done in `source/online-extras/data/prepare_topology_errors_data.ipynb`:
+
+1. Selected the segments of `digiroad_helsinki.gpkg` that intersect the bounding box
+   lon 24.905–24.945, lat 60.157–60.170 (WGS84); segments crossing the box edge are kept
+   whole (736 segments). Kept the columns `id` and `name` and dropped the Z coordinate.
+2. Missing nodes: at three T-junctions, joined the two segments of the through street
+   into one line, so that the side street ends on the middle of the line without a node:
+   Messitytönkuja / Laivapojankuja (`id` 625 + 1813, side street 1075), Kellosaarenkatu /
+   Loistokuja (1821 + 104, 1248) and Saukonlaituri / Saukonkatu (2043 + 1173, 1481).
+3. Gaps: at three other T-junctions, joined the through street in the same way and cut
+   3 m off the end of the side street at the junction: Lastenkodinkatu / Lastenkodin kuja
+   (1869 + 2041, 254), Laivurinkatu / Sepänkatu (1870 + 1079, 1346) and Selkämerenkatu /
+   Messitytönkatu (670 + 1342, 829). The joined line keeps the `id` of the first segment.
+4. Duplicates: appended copies of the segments 1733 (Annankatu), 1317 (Laivurinkatu) and
+   1687 (Salmisaarenkatu), which keep their `id`.
+
+The data keep the errors that were already in `digiroad_helsinki.gpkg` within this area,
+such as the overshoot of Sinebrychoffinkatu (see above).
+
+### Checks
+
+Built as an undirected graph from the line end points, the data have 588 nodes,
+8 connected components (6 before the errors were added), 103 dead ends (97 before) and
+3 duplicate segments. After `neatnet.extend_lines(tolerance=5)` and
+`neatnet.fix_topology()` (neatnet 0.1.6), the result is the same as `fix_topology()` of the
+original 736 segments: 516 segments, 368 nodes, 6 components, 97 dead ends, no
+duplicates, and the same 12 pairs of lines crossing without a node.
+
+### Columns
+
+| column | description |
+|---|---|
+| `id` | `id` of the segment in `digiroad_helsinki.gpkg` (repeated for the three duplicates) |
+| `name` | street name in Finnish; empty for unnamed segments |
+| `geometry` | `LineString`, EPSG:3067 |
+
+Derived from Digiroad (© Finnish Transport Infrastructure Agency, CC BY 4.0).
