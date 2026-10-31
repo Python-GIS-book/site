@@ -11,4 +11,3 @@
     8.3 Connectivity <nb/02-connectivity.ipynb>
     8.4 Checking and cleaning network topology <nb/03-network-topology.ipynb>
     8.5 Centrality <nb/04-centrality.ipynb>
-    8.6 Multimodal network analysis <nb/05-multimodal-network-analysis.ipynb>

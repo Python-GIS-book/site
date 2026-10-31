@@ -106,7 +106,7 @@ _**Figure 8.X.** Closeness centrality of the nodes in the street network._
 As we can see, closeness centrality is highest in the central parts of the street network and decreases towards its edges. This is natural, as the nodes in the central parts are on average closer to all other nodes. However, part of this pattern is caused by the fact that our data ends at the border of the area, whereas in reality the street network continues beyond it. This is an example of the edge effect that we discussed in Chapter 8.3, and it is good to keep it in mind when interpreting centrality measures (betweenness centrality is affected by it as well).
 
 
-In this section, we learned how to measure the importance of nodes and edges with centrality measures. Public transport routes and stops form networks as well, and they can be combined with street networks. In the next section, we will move on to such multimodal networks that combine several modes of transport, such as walking and public transport.
+In this section, we learned how to measure the importance of nodes and edges with centrality measures. Public transport routes and stops form networks as well, and they can be combined with street networks. In Chapter 11, we will use such multimodal networks that combine several modes of transport, such as walking and public transport, to calculate travel times for accessibility analysis.
 
 
 ## Footnotes
