@@ -343,11 +343,15 @@ _**Figure 8.X.** Geographic dataset representing the streets in the Helsinki Cit
 As we can see from the table, we have a few columns that provide useful information related to constructing the graph. The most important one of these is the `geometry` column which represents the `LineString` objects of the roads that can be used to create the network topology. In addition, we have useful information related to transport, such as speed limit (`maxspeed`) and the permitted direction of movement (`direction`) map. The map reveals that we have a quite dense network where the streets zigzag across the area connecting different parts of the city to each other. In the South-East corner of the area, we seem have a small part of the network that is not connected to the rest. This part of the network is on an island which lacks a public road connection to the mainland having only a ferry connection that one can take to reach the island (also by car). 
 
 
-In the following, we will see how to create an undirected graph from this geographic data using the same techniques that we learned previously when constructing a graph from scratch. We will start by introducing a function `gdf_to_graph()` that can be used to turn a `GeoDataFrame` consisting of `LineString` objects into a `nx.Graph` object:
+In the following, we will see how to create an undirected graph from this geographic data using the same techniques that we learned previously when constructing a graph from scratch.
+
+So far a `Graph` has been enough, because in our small example each pair of nodes was connected by at most one edge. Real street data is messier: occasionally two separate road segments connect the same pair of intersections — for instance a short direct link and a longer parallel stretch of the same street. A `Graph` keeps only one edge between a given pair of nodes, so the second segment would silently overwrite the first and disappear from the network. To keep every segment, we use `nx.MultiGraph()`, which allows several edges between the same pair of nodes.
+
+We will start by introducing a function `gdf_to_graph()` that can be used to turn a `GeoDataFrame` consisting of `LineString` objects into a `nx.MultiGraph` object:
 
 ```python
 def gdf_to_graph(gdf):
-    """Creates a NetworkX Graph from GeoDataFrame consisting of LineString objects.
+    """Creates a NetworkX MultiGraph from GeoDataFrame consisting of LineString objects.
 
     Parameters
     ----------
@@ -358,7 +362,7 @@ def gdf_to_graph(gdf):
     """
 
     # Create the NetworkX graph
-    graph = nx.Graph()
+    graph = nx.MultiGraph()
 
     # Generate edge dictionary
     for row in gdf.itertuples():
@@ -391,7 +395,7 @@ def gdf_to_graph(gdf):
 Next, we will go through this function few steps at a time to understand what is happening. Let's start by investigating what happens at the beginning of the function and inside the loop:
 
 ```python
-graph = nx.Graph()
+graph = nx.MultiGraph()
 
 for row in streets.itertuples():
     # Get the coordinates
@@ -542,7 +546,7 @@ Here, the `direction` column includes information about the allowed direction of
 
 
 
-So far a `DiGraph` has been enough, because in our small example each pair of nodes was connected by at most one edge per direction. Real street data is messier: occasionally two separate road segments connect the same pair of intersections in the same direction — for instance a short direct link and a longer parallel stretch of the same street. A `DiGraph` keeps only one edge per direction between a given pair of nodes, so the second segment would silently overwrite the first and disappear from the network. To keep every segment, we use `nx.MultiDiGraph()`, which allows several edges between the same pair of nodes in the same direction.
+In our small example, a `DiGraph` was enough, but for the same reason as with the undirected graph, we use `nx.MultiDiGraph()` for the street data, which allows several edges between the same pair of nodes in the same direction.
 
 
 Let's start by creating a function called `gdf_to_directed_graph()` which works mostly in a similar manner as our previous function `gdf_to_graph()` but with a few important tweaks that allows us to take into consideration the directionality:
