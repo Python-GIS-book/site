@@ -38,9 +38,10 @@ Let's take a look at a part of the Digiroad street data from Chapter 8.1 that co
 ```python
 import geopandas as gpd
 import matplotlib.pyplot as plt
-import momepy
 import neatnet
 import networkx as nx
+import osmnx as ox
+import pandas as pd
 
 streets = gpd.read_file("data/digiroad_topology_errors.gpkg")
 ax = streets.plot(color="black", linewidth=0.5, figsize=(10, 8))
@@ -49,18 +50,63 @@ ax = streets.plot(color="black", linewidth=0.5, figsize=(10, 8))
 _**Figure 8.X.** Street data for the Kamppi, Punavuori, Ruoholahti and Jätkäsaari districts of Helsinki, with some added topology errors._
 
 
-As we can see, the errors are not visible on the map. To check the topology, we first convert the lines into a graph. In Chapter 8.1, we wrote our own function for this, but here we use the `gdf_to_nx()` function of the `momepy`[^momepy] library, which works in a similar manner: it uses the end points of the lines as nodes and the lines as edges. By default, the function creates an undirected `MultiGraph`, which keeps also the duplicate lines as separate edges. Then we check whether it is possible to travel between all parts of the network by counting its separate parts (called connected components) with the `nx.number_connected_components()` function. We will discuss connected components in more detail later in this section.
+As we can see, the errors are not visible on the map. To check the topology, we first convert the lines into a graph with the `gdf_to_graph()` function that we wrote in Chapter 8.1. The function uses the end points of the lines as nodes and the lines as edges, and it creates an undirected `MultiGraph`, which keeps also the duplicate lines as separate edges. Let's define the function again:
 
 ```python
-G_streets = momepy.gdf_to_nx(streets)
+def gdf_to_graph(gdf):
+    """Creates a NetworkX MultiGraph from GeoDataFrame consisting of LineString objects.
+
+    Parameters
+    ----------
+
+    gdf : GeoDataFrame
+        GeoDataFrame containing the LineString data.
+
+    """
+
+    # Create the NetworkX graph
+    graph = nx.MultiGraph()
+
+    # Generate edge dictionary
+    for row in gdf.itertuples():
+        coords = row.geometry.coords
+
+        # Get first and last node of the edge (excluding vertices)
+        first, last = coords[0], coords[-1]
+
+        # Edge attributes
+        edge_attr = row._asdict()
+
+        graph.add_edge(first, last, **edge_attr)
+
+    # Generate node attributes
+    node_attrs = {
+        node: {"coords": (node[0], node[1]), "x": node[0], "y": node[1]}
+        for node in graph.nodes
+    }
+    nx.set_node_attributes(graph, node_attrs)
+
+    # Relabel the indices
+    graph = nx.convert_node_labels_to_integers(graph)
+
+    # Add some useful attributes
+    graph.graph["crs"] = gdf.crs
+
+    return graph
+```
+
+Now we can create the graph and check whether it is possible to travel between all parts of the network by counting its separate parts (called connected components) with the `nx.number_connected_components()` function. We will discuss connected components in more detail later in this section.
+
+```python
+G_streets = gdf_to_graph(streets)
 nx.number_connected_components(G_streets)
 ```
 
-As we can see, the network consists of 8 separate parts. Some of them can be real, for instance short pieces of streets that were cut at the border of the area, but some of them can be caused by errors. To find the places where the errors may be located, let's look at the dead ends of the network, i.e. the nodes that are connected to only one edge (in other words, nodes whose degree is 1). The `momepy.node_degree()` function calculates the degree of every node and stores it as a node attribute, and the `momepy.nx_to_gdf()` function returns the nodes of the graph as a GeoDataFrame when we specify `lines=False`. Then we select the nodes whose degree is 1:
+As we can see, the network consists of 8 separate parts. Some of them can be real, for instance short pieces of streets that were cut at the border of the area, but some of them can be caused by errors. To find the places where the errors may be located, let's look at the dead ends of the network, i.e. the nodes that are connected to only one edge (in other words, nodes whose degree is 1). We can get the nodes of the graph as a GeoDataFrame with the `ox.graph_to_gdfs()` function that we used in Chapter 8.2, because our function stored the coordinates of the nodes as `x` and `y` attributes and the coordinate reference system as the `crs` attribute of the graph. Then we add the degree of each node as a new column with the `.degree()` method of the graph (we will discuss the degree in more detail later in this section) and select the nodes whose degree is 1:
 
 ```python
-G_streets = momepy.node_degree(G_streets)
-nodes = momepy.nx_to_gdf(G_streets, lines=False)
+nodes = ox.graph_to_gdfs(G_streets, edges=False)
+nodes["degree"] = pd.Series(dict(G_streets.degree()))
 dead_ends = nodes.loc[nodes["degree"] == 1]
 len(dead_ends)
 ```
@@ -107,8 +153,9 @@ streets_fixed = neatnet.fix_topology(streets_extended)
 Let's check the result in the same way as above by counting the connected components, dead ends and duplicates of the fixed data:
 
 ```python
-G_fixed = momepy.node_degree(momepy.gdf_to_nx(streets_fixed))
-nodes_fixed = momepy.nx_to_gdf(G_fixed, lines=False)
+G_fixed = gdf_to_graph(streets_fixed)
+nodes_fixed = ox.graph_to_gdfs(G_fixed, edges=False)
+nodes_fixed["degree"] = pd.Series(dict(G_fixed.degree()))
 
 print("Connected components:", nx.number_connected_components(G_fixed))
 print("Dead ends:", (nodes_fixed["degree"] == 1).sum())
@@ -138,9 +185,6 @@ On the left, the side street ends before it reaches the street that it should jo
 In the rest of this section, we use a drivable street network from OpenStreetMap. Let's retrieve it in the same way as in the previous section. This time, we use a slightly larger area that extends 3500 meters from the center point in each direction:
 
 ```python
-import osmnx as ox
-import pandas as pd
-
 center_point = (60.162, 24.937)
 G = ox.graph_from_point(center_point, dist=3500, network_type="drive", simplify=False)
 ```
@@ -566,7 +610,6 @@ In this section, we learned how to check whether a network is connected, how to 
 
 [^networkx]: <https://networkx.org/documentation/stable/>
 [^osmnx]: <https://osmnx.readthedocs.io/en/stable/>
-[^momepy]: <https://docs.momepy.org/>
 [^neatnet]: <https://uscuni.org/neatnet/>
 [^centrality]: <https://en.wikipedia.org/wiki/Centrality>
 [^osm_tags]: <https://wiki.openstreetmap.org/wiki/Tags>
