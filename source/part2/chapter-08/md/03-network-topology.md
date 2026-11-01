@@ -285,9 +285,6 @@ Notice, however, that the overshoot at Sinebrychoffinkatu is still in the data, 
 The tolerance should also be chosen with care, because a too large tolerance could connect streets that are not connected in reality, such as a dead-end street that ends close to a motorway. Hence, automatic fixes are useful, but it is always a good idea to check the result.
 
 
-In this section, we learned how to calculate the degree of the nodes of a network, how to simplify a street network, and how to find and fix errors in the topology of street data. In the next section, we will use the simplified street network to find out which nodes and edges are the most important ones in the network.
-
-
 ## Footnotes
 
 [^neatnet]: <https://uscuni.org/neatnet/>

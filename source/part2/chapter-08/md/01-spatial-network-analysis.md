@@ -612,9 +612,6 @@ route_large_edges[["length", "travel_time"]].sum()
 As we can see, the fastest route to the airport is about 20 kilometers long and the trip takes around 21 minutes by car, assuming that we can drive according to the speed limits. The same steps work also for much larger areas. For example, `get_data_by_geocoding("Finland")` downloads the OpenStreetMap data for the whole of Finland (a file of about 700 MB), from which you can build a graph for the whole country in the same way as above. Reading data for a whole country naturally requires more memory and time. If you only need a part of the data, you can pass a bounding box to the `OSM` reader with the `bounding_box` parameter as a list of coordinates in the order `[min_lon, min_lat, max_lon, max_lat]` (e.g. `OSM(fp, bounding_box=[24.8, 60.1, 25.1, 60.3])`), in which case `pyrosm` keeps only the data within the given area.
 
 
-In this section, we learned how to retrieve a street network from OpenStreetMap, prepare it for routing by calculating travel times for the streets, and use it for finding the shortest paths between locations. However, routing is only one of the many things that we can do with networks. In the next three sections, we will look at other common network operations: identifying the connected components of a network, checking and cleaning its topology, and measuring the centrality of its nodes and edges.
-
-
 ## Footnotes
 
 [^networkx]: <https://networkx.org/documentation/stable/>

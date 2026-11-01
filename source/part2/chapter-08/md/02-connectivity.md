@@ -15,7 +15,7 @@ jupyter:
 # Connectivity
 
 
-In the previous section, we used a street network to find the shortest routes between locations. Networks can also tell us a lot about the structure of the area that they represent, and checking this structure is a good idea before using a network for any analysis. Is it possible to travel between all parts of the network? How many streets meet at each intersection? Which streets and intersections are the most important ones for moving around in the city?
+In the previous section, we used a street network to find the shortest routes between locations. However, routing is only one of the many things that we can do with networks. Networks can also tell us a lot about the structure of the area that they represent, and checking this structure is a good idea before using a network for any analysis. Is it possible to travel between all parts of the network? How many streets meet at each intersection? Which streets and intersections are the most important ones for moving around in the city?
 
 In this and the next two sections, we go through common network operations that help us answer these questions. This section focuses on the first one, the *{term}`connectivity`* of the network. We use the `networkx`[^networkx] and `osmnx`[^osmnx] libraries and a drivable street network of the Helsinki city centre, and at the end of the section, we apply the same ideas to a river network and a power grid.
 
@@ -267,9 +267,6 @@ cut_off["name"].dropna().tolist()
 As we can see, the failure of this single line would cut off several substations from the main grid, including the substation of Ísafjörður, the largest town in the Westfjords. In practice, local power plants in the region could still produce part of the electricity, but the region would lose its connection to the rest of the grid.
 
 This kind of analysis is a simple way to find the weak points of a network, also in other networks, such as streets or water pipes. Notice, however, that the results depend on how completely and accurately the grid has been mapped in OpenStreetMap, and they do not necessarily match the official data of the grid operator.
-
-
-In this section, we learned how to check whether a network is connected, how to find the nodes that can be reached from a given node in a directed network, and how to find the edges whose failure would split a network into separate parts. In the next section, we will look at how many edges are connected to each node of a network, and how to check and fix errors in the topology of street data.
 
 
 ## Footnotes
