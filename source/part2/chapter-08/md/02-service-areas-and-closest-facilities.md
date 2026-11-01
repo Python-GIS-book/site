@@ -37,10 +37,10 @@ fp = get_data_by_geocoding(places)
 osm = OSM(fp)
 ```
 
-Next, we read the street network for walking and build a `networkx` graph out of it in the same way as in Chapter 8.2. The walking network contains also footways and other paths, so it is considerably larger than the driving network that we used in Chapter 8.2, and reading it takes a bit longer:
+Next, we read the street network for walking and build a `networkx` graph out of it in the same way as in Chapter 8.2. The walking network contains also footways and other paths, so it is considerably larger than the driving network that we used in Chapter 8.2, and reading it takes a bit longer. Many of the paths in the Helsinki region are shared by pedestrians and cyclists. In OpenStreetMap, such paths are typically tagged as cycle ways (`highway=cycleway`), and a `foot` tag tells whether pedestrians may use them (e.g. `foot=designated`). For the cycle ways that do not have a `foot` tag, the `shared_paths` parameter decides whether they are included in the walking network. With `shared_paths="local"` (the default), `pyrosm` follows the default rules of the country where the path is located, and in Finland, pedestrians may use cycle ways. With `"tagged"`, these cycle ways are left out, and with `"all"`, they are included in every country:
 
 ```python
-nodes, edges = osm.get_network(network_type="walking", nodes=True)
+nodes, edges = osm.get_network(network_type="walking", shared_paths="local", nodes=True)
 G_walk = osm.to_graph(nodes, edges, graph_type="networkx")
 G_walk
 ```
@@ -130,7 +130,7 @@ store_nodes = ox.distance.nearest_nodes(G_walk, X=store_points.x, Y=store_points
 store_nodes[:5]
 ```
 
-Now we could find the closest store for each node by running a separate search from every node of the network, and picking the store with the shortest travel time. With more than 300,000 nodes in our network, this would take a long time. A much faster option is to turn the problem around and start a single search from all the stores at the same time. This is what the `nx.multi_source_dijkstra_path_length()` function does: the search spreads out from all the stores simultaneously, and each node is reached first from the store that is closest to it. As a result, we get the travel time to the closest store for every node of the network in one go. Because the travel times in our walking graph are the same in both directions, it does not matter that the search starts from the stores. We pass the store nodes to the function as a set, which removes the duplicates in case two stores share the same nearest node:
+Now we could find the closest store for each node by running a separate search from every node of the network, and picking the store with the shortest travel time. With more than 400,000 nodes in our network, this would take a long time. A much faster option is to turn the problem around and start a single search from all the stores at the same time. This is what the `nx.multi_source_dijkstra_path_length()` function does: the search spreads out from all the stores simultaneously, and each node is reached first from the store that is closest to it. As a result, we get the travel time to the closest store for every node of the network in one go. Because the travel times in our walking graph are the same in both directions, it does not matter that the search starts from the stores. We pass the store nodes to the function as a set, which removes the duplicates in case two stores share the same nearest node:
 
 ```python
 walk_times = nx.multi_source_dijkstra_path_length(
@@ -210,7 +210,7 @@ def travel_time_to_closest(G, facility_points, grid):
     return pd.Series(grid_nodes, index=grid.index).map(travel_times) / 60
 ```
 
-Now we can read the cycling network, assume a constant cycling speed of 15 km/h, and calculate the travel times to the closest store:
+Now we can read the cycling network, assume a constant cycling speed of 15 km/h, and calculate the travel times to the closest store. In the cycling network, the `shared_paths` parameter works the other way around: it decides which footways without a `bicycle` tag are included. In Finland, cyclists may not use footways by default, so with the default `"local"`, the cycling network includes only the footways that are tagged as open for bicycles (e.g. `bicycle=yes`):
 
 ```python
 nodes, edges = osm.get_network(network_type="cycling", nodes=True)
@@ -278,7 +278,7 @@ for column, title in titles.items():
     print(f"{title}: {within_10min / total_inhabitants:.0%} of the inhabitants")
 ```
 
-As we can see, almost all inhabitants can reach a grocery store within 10 minutes by bike or by car, whereas on foot, the share is considerably smaller. Measures like this are commonly used in accessibility analysis, which we will discuss in more detail in Chapter 11.
+As we can see, almost all inhabitants can reach a grocery store within 10 minutes by bike or by car, whereas on foot, only about half of them can. Measures like this are commonly used in accessibility analysis, which we will discuss in more detail in Chapter 11.
 
 
 In this section, we learned how to find the area that can be reached from a location within a given travel time, and how to calculate the travel time to the closest facility for a large number of locations at once. We also attached the travel times to a population grid, which makes it possible to compare the travel modes with each other and to combine the travel times with other data. There are also more specialized network problems related to facilities and routes, such as finding the best order in which to visit several locations (the traveling salesman problem), planning the routes of a fleet of delivery vehicles (the vehicle routing problem), or choosing the best locations for new facilities (location-allocation problems). These are beyond the scope of this book, but you can find tools for them for example in `networkx` (the `nx.approximation.traveling_salesman_problem()` function) and in the `spopt` library[^spopt]. In the next section, we move on to other common network operations, starting with the connectivity of networks.
