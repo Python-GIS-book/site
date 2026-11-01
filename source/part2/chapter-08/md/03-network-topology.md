@@ -14,7 +14,7 @@ jupyter:
 
 # Checking and cleaning network topology
 
-In the previous section, we checked whether it is possible to travel between all parts of a network. In this section, we look at the structure of a network in more detail and see how network data can be cleaned before the analysis. We start by counting how many edges are connected to each node of a street network, and use this information to remove the nodes that are not needed for most analyses. Then, we check whether the streets in a street dataset are correctly connected to each other, and fix the errors that we find. First, let's retrieve the same drivable street network of the Helsinki city centre as in the previous section, and keep only its largest strongly connected component (see Chapter 8.4):
+In the previous section, we checked whether it is possible to travel between all parts of a network. In this section, we look at the structure of a network in more detail and see how network data can be cleaned before the analysis. We start by counting how many edges are connected to each node of a street network, and use this information to remove the nodes that are not needed for most analyses. Then, we check whether the streets in a street dataset are correctly connected to each other, and fix the errors that we find. First, let's retrieve the same drivable street network of the Helsinki city centre as in the previous section, and keep only its largest strongly connected component (see Chapter 8.3):
 
 ```python
 import geopandas as gpd
@@ -176,7 +176,7 @@ def gdf_to_graph(gdf):
     return graph
 ```
 
-Now we can create the graph and check whether it is possible to travel between all parts of the network by counting its connected components with the `nx.number_connected_components()` function that we used in Chapter 8.4:
+Now we can create the graph and check whether it is possible to travel between all parts of the network by counting its connected components with the `nx.number_connected_components()` function that we used in Chapter 8.3:
 
 ```python
 G_streets = gdf_to_graph(streets)

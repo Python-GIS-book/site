@@ -17,7 +17,7 @@ jupyter:
 In the previous sections, we have looked at the structure of networks. Next, we want to find out which nodes and edges are the most important ones in a network. For instance, a street can be important because many routes go through it, and an intersection can be important because it is close to all other places in the network. In network analysis, the importance of a node or an edge is measured with **centrality** measures. There is no single definition of what makes a node important, and hence there are many different centrality measures that look at importance from different perspectives. In the following, we go through three commonly used measures: degree centrality, betweenness centrality and closeness centrality. You can read the Wikipedia article about different centrality measures[^centrality] if you are interested what the other centrality measures mean.
 
 
-We use the same simplified street network of the Helsinki city centre as in Chapter 8.5. Let's retrieve it from OpenStreetMap, keep its largest strongly connected component (see Chapter 8.4) and simplify it (see Chapter 8.5):
+We use the same simplified street network of the Helsinki city centre as in Chapter 8.4. Let's retrieve it from OpenStreetMap, keep its largest strongly connected component (see Chapter 8.3) and simplify it (see Chapter 8.4):
 
 ```python
 import networkx as nx
@@ -32,7 +32,7 @@ G_simplified = ox.simplify_graph(G)
 
 ## Degree centrality
 
-**Degree centrality** is a simple centrality measure that counts how many neighbors a node has, i.e. how many other nodes it is directly connected to. To make the values comparable between networks of different sizes, the degree is divided by the number of other nodes in the network, which means that degree centrality tells the fraction of nodes that a node is connected to. Let's calculate the degree centrality with the `nx.degree_centrality()` function. As with the degree in Chapter 8.5, we use an undirected version of our simplified network, so that each street segment is counted only once. We also extract the nodes and edges of the simplified network as GeoDataFrames and add both the degree and the degree centrality of each node to them, so that we can compare the two. To keep the output short, we show only one node for each value of the degree:
+**Degree centrality** is a simple centrality measure that counts how many neighbors a node has, i.e. how many other nodes it is directly connected to. To make the values comparable between networks of different sizes, the degree is divided by the number of other nodes in the network, which means that degree centrality tells the fraction of nodes that a node is connected to. Let's calculate the degree centrality with the `nx.degree_centrality()` function. As with the degree in Chapter 8.4, we use an undirected version of our simplified network, so that each street segment is counted only once. We also extract the nodes and edges of the simplified network as GeoDataFrames and add both the degree and the degree centrality of each node to them, so that we can compare the two. To keep the output short, we show only one node for each value of the degree:
 
 ```python
 G_simplified_undirected = ox.convert.to_undirected(G_simplified)
@@ -103,7 +103,7 @@ ax = nodes_simplified.plot(
 _**Figure 8.X.** Closeness centrality of the nodes in the street network._
 
 
-As we can see, closeness centrality is highest in the central parts of the street network and decreases towards its edges. This is natural, as the nodes in the central parts are on average closer to all other nodes. However, part of this pattern is caused by the fact that our data ends at the border of the area, whereas in reality the street network continues beyond it. This is an example of the edge effect that we discussed in Chapter 8.4, and it is good to keep it in mind when interpreting centrality measures (betweenness centrality is affected by it as well).
+As we can see, closeness centrality is highest in the central parts of the street network and decreases towards its edges. This is natural, as the nodes in the central parts are on average closer to all other nodes. However, part of this pattern is caused by the fact that our data ends at the border of the area, whereas in reality the street network continues beyond it. This is an example of the edge effect that we discussed in Chapter 8.3, and it is good to keep it in mind when interpreting centrality measures (betweenness centrality is affected by it as well).
 
 
 In this section, we learned how to measure the importance of nodes and edges with centrality measures. Public transport routes and stops form networks as well, and they can be combined with street networks. In Chapter 11, we will use such multimodal networks that combine several modes of transport, such as walking and public transport, to calculate travel times for accessibility analysis.

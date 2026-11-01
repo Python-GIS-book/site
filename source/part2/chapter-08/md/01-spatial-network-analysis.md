@@ -511,6 +511,43 @@ _**Figure 8.X.** Travel time by car (in minutes) from the origin to all nodes in
 
 As we can see, the travel times generally increase the further away the nodes are from the origin. Calculating travel times from one or many origins to all destinations like this is the basis of accessibility analysis, which we will discuss in more detail in Chapter 11.
 
+In accessibility analyses, the travel times are often reported for areal units, such as the cells of a statistical grid, instead of the nodes of the network. Let's see how we can link our travel times to the population grid of the Helsinki Region Environmental Services Authority (HSY) that we used in Chapter 6.7. The grid consists of 250 x 250 meter cells, and it contains the number of inhabitants living in each cell. Because our street network covers only the Helsinki city centre, we keep only the grid cells that are located within the area of the network. For this purpose, we create a polygon that covers all the nodes of the network, i.e. their convex hull (see Chapter 6.2), and select the grid cells that are within it:
+
+```python
+pop_grid = gpd.read_file("data/Population_grid_2021_HSY.gpkg")
+network_area = nodes.to_crs(pop_grid.crs).union_all().convex_hull
+pop_grid = pop_grid.loc[pop_grid.within(network_area)].copy()
+len(pop_grid)
+```
+
+To find the travel time for each grid cell, we use the center point of the cell to represent it. We calculate the centroids of the cells (the grid is already in a projected coordinate reference system), convert them to WGS84 and find the nearest node of the network for each centroid with the `ox.distance.nearest_nodes()` function, in the same way as we did for our origin and destination earlier. Then we look up the travel time of each node from the `travel_time_min` column of the `nodes` GeoDataFrame with the `.map()` method:
+
+```python
+centroids = pop_grid.centroid.to_crs(epsg=4326)
+pop_grid["node_id"] = ox.distance.nearest_nodes(G, X=centroids.x, Y=centroids.y)
+pop_grid["travel_time_min"] = pop_grid["node_id"].map(nodes["travel_time_min"])
+pop_grid[["inhabitants", "node_id", "travel_time_min"]].head()
+```
+
+Now each grid cell has the id of its nearest node and the travel time (in minutes) from our origin to the cell. Let's plot the grid cells colored by the travel time:
+
+```python
+ax = pop_grid.plot(
+    column="travel_time_min",
+    cmap="RdYlBu",
+    linewidth=0,
+    legend=True,
+    legend_kwds={"label": "Travel time by car (minutes)"},
+    figsize=(10, 10),
+)
+ax.set_axis_off()
+```
+
+_**Figure 8.X.** Travel time by car (in minutes) from the origin to the populated 250 x 250 meter grid cells in the Helsinki city centre._
+
+
+As we can see in Figure 8.X, the travel times of the grid cells follow the same pattern as the travel times of the nodes in the previous figure. However, the grid covers only the places where people live, and it tells how many people live in each cell. In Chapter 11, we will use this kind of information to study how easily the people living in different parts of a city can reach the places that they need.
+
 
 ## Routing in large networks with `pyrosm`
 
@@ -546,7 +583,7 @@ G_large = osm.to_graph(nodes_large, edges_large, graph_type="networkx")
 G_large
 ```
 
-As a result, we have a `MultiDiGraph` similar to the one that we retrieved earlier with `osmnx`. In the same way as `osmnx`, `pyrosm` takes the one-way streets into account when building a graph for driving. In addition, `pyrosm` simplifies the graph by default, i.e. it merges the street segments between two intersections into a single edge, which makes the graph considerably smaller (we will discuss simplification in more detail in Chapter 8.5). The graph is also compatible with `osmnx`, which means that we can use the same `osmnx` functions with it as earlier. For instance, `osmnx` provides handy functions for adding travel times to the graph: the `ox.routing.add_edge_speeds()` function fills in the missing speed limits with the average speed limit of the streets in the same road class, and the `ox.routing.add_edge_travel_times()` function calculates the travel time in seconds for each edge using the same formula that we used earlier:
+As a result, we have a `MultiDiGraph` similar to the one that we retrieved earlier with `osmnx`. In the same way as `osmnx`, `pyrosm` takes the one-way streets into account when building a graph for driving. In addition, `pyrosm` simplifies the graph by default, i.e. it merges the street segments between two intersections into a single edge, which makes the graph considerably smaller (we will discuss simplification in more detail in Chapter 8.4). The graph is also compatible with `osmnx`, which means that we can use the same `osmnx` functions with it as earlier. For instance, `osmnx` provides handy functions for adding travel times to the graph: the `ox.routing.add_edge_speeds()` function fills in the missing speed limits with the average speed limit of the streets in the same road class, and the `ox.routing.add_edge_travel_times()` function calculates the travel time in seconds for each edge using the same formula that we used earlier:
 
 ```python
 G_large = ox.routing.add_edge_speeds(G_large)
@@ -589,7 +626,7 @@ route_large_edges[["length", "travel_time"]].sum()
 As we can see, the fastest route to the airport is about 20 kilometers long and the trip takes around 21 minutes by car, assuming that we can drive according to the speed limits. The same steps work also for much larger areas. For example, `get_data_by_geocoding("Finland")` downloads the OpenStreetMap data for the whole of Finland (a file of about 700 MB), from which you can build a graph for the whole country in the same way as above. Reading data for a whole country naturally requires more memory and time. If you only need a part of the data, you can pass a bounding box to the `OSM` reader with the `bounding_box` parameter as a list of coordinates in the order `[min_lon, min_lat, max_lon, max_lat]` (e.g. `OSM(fp, bounding_box=[24.8, 60.1, 25.1, 60.3])`), in which case `pyrosm` keeps only the data within the given area.
 
 
-In this section, we learned how to retrieve a street network from OpenStreetMap, prepare it for routing by calculating travel times for the streets, and use it for finding the shortest paths between locations. In the next section, we use the same tools to find the areas that can be reached within a given time, and the closest facilities for a large number of locations. After that, we will look at other common network operations: identifying the connected components of a network, checking and cleaning its topology, and measuring the centrality of its nodes and edges.
+In this section, we learned how to retrieve a street network from OpenStreetMap, prepare it for routing by calculating travel times for the streets, and use it for finding the shortest paths between locations. However, routing is only one of the many things that we can do with networks. In the next three sections, we will look at other common network operations: identifying the connected components of a network, checking and cleaning its topology, and measuring the centrality of its nodes and edges.
 
 
 ## Footnotes

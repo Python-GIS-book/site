@@ -62,12 +62,12 @@ that change partway along a link, or differ by driving direction, are simplified
   link and a loop around a square, or the two carriageways of a divided street). A
   `networkx.Graph` keeps only one of them; use `MultiGraph`/`MultiDiGraph` to keep both.
 - Sinebrychoffinkatu (`id` 1187) crosses Mallaskatu (`id` 1915) without a node and ends
-  about 4 m past it (an overshoot), so its end is a dead end. Chapter 8.3 uses this as an
+  about 4 m past it (an overshoot), so its end is a dead end. Chapter 8.4 uses this as an
   example of an error that the automatic fixes do not remove.
 
 ## digiroad_topology_errors.gpkg
 
-Street data with added topology errors, used in Chapter 8.3 to demonstrate how to check
+Street data with added topology errors, used in Chapter 8.4 to demonstrate how to check
 and fix the topology of a network. A part of `digiroad_helsinki.gpkg` covering Kamppi,
 Punavuori, Ruoholahti and Jätkäsaari: 733 `LineString` segments (2D), EPSG:3067, single
 layer `digiroad_topology_errors`.
@@ -115,7 +115,7 @@ Derived from Digiroad (© Finnish Transport Infrastructure Agency, CC BY 4.0).
 ## Population_grid_2021_HSY.gpkg
 
 Population grid of the Helsinki metropolitan area (Helsinki, Espoo, Vantaa and
-Kauniainen) for 2021, used in Chapter 8.3. 5 853 cells of 250 m × 250 m, EPSG:3879
+Kauniainen) for 2021, used in Chapter 8.2. 5 853 cells of 250 m × 250 m, EPSG:3879
 (ETRS-GK25), single layer. The file is identical to
 `part2/chapter-06/nb/data/Helsinki/Population_grid_2021_HSY.gpkg`.
 
@@ -131,8 +131,9 @@ Licensed under Creative Commons Attribution 4.0 (CC BY 4.0).
 - Only cells with at least five inhabitants are included (HSY's privacy rule).
 - The last cell (`id` `Vaestotietoruudukko_2021.5853`, 30 427 inhabitants) lies in the
   Gulf of Finland. HSY places there the institutional population and the residents who
-  cannot be linked to any building. Chapter 8.3 removes it.
-- `occupancy_rate` is 999999999 instead of a percentage for 56 cells; Chapter 8.3 does
+  cannot be linked to any building. It lies outside the city-centre area that Chapter 8.2
+  uses.
+- `occupancy_rate` is 999999999 instead of a percentage for 56 cells; Chapter 8.2 does
   not use the column.
 
 ### Columns

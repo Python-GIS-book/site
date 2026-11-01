@@ -26,10 +26,10 @@ Contents:
 - Other uses of networks (brief) — morphology, spatial weights, etc.
 
 
-In the previous two sections, we used street networks to find routes and travel times between locations. However, routing is only one of the many things that we can do with networks. Networks can also tell us a lot about the structure of the area that they represent, and checking this structure is a good idea before using a network for any analysis. For example, is it possible to travel between all parts of the network? How many streets meet at each intersection? Which streets and intersections are the most important ones for moving around in the city? In this and the next two sections, we go through common network operations that help us answer these kinds of questions. In this section, we focus on the first question, which concerns the **connectivity** of the network. We use the `networkx`[^networkx] and `osmnx`[^osmnx] libraries and a drivable street network of the Helsinki city centre, similar to the one that we used in Chapter 8.2. At the end of the section, we apply the same ideas to a river network and a power grid.
+In the previous section, we used a street network to find the shortest routes between locations. However, routing is only one of the many things that we can do with networks. Networks can also tell us a lot about the structure of the area that they represent, and checking this structure is a good idea before using a network for any analysis. For example, is it possible to travel between all parts of the network? How many streets meet at each intersection? Which streets and intersections are the most important ones for moving around in the city? In this and the next two sections, we go through common network operations that help us answer these kinds of questions. In this section, we focus on the first question, which concerns the **connectivity** of the network. We use the `networkx`[^networkx] and `osmnx`[^osmnx] libraries and a drivable street network of the Helsinki city centre, similar to the one that we used in the previous section. At the end of the section, we apply the same ideas to a river network and a power grid.
 
 
-Let's start by retrieving the street network from OpenStreetMap in the same way as in Chapter 8.2. This time, we use a slightly larger area that extends 3500 meters from the center point in each direction:
+Let's start by retrieving the street network from OpenStreetMap in the same way as in the previous section. This time, we use a slightly larger area that extends 3500 meters from the center point in each direction:
 
 ```python
 import networkx as nx
@@ -40,7 +40,7 @@ center_point = (60.162, 24.937)
 G = ox.graph_from_point(center_point, dist=3500, network_type="drive", simplify=False)
 ```
 
-Now we have the street network stored in the variable `G` as a `MultiDiGraph`, just like in Chapter 8.2. Next, we will check whether it is possible to travel between all parts of this network.
+Now we have the street network stored in the variable `G` as a `MultiDiGraph`, just like in the previous section. Next, we will check whether it is possible to travel between all parts of this network.
 
 
 ## Connected components
@@ -65,7 +65,7 @@ print("Nodes in the whole network:", G.number_of_nodes())
 print("Nodes in the largest strongly connected component:", len(largest_component))
 ```
 
-As we can see, most of the nodes belong to the largest strongly connected component. To see where the other nodes are located, let's select the nodes that do not belong to the largest component and plot them in red on top of the street network. Here, we first extract the nodes and edges of the graph as `GeoDataFrames` like in Chapter 8.2. The index of the `nodes` GeoDataFrame contains the node ids, and we can use the `.isin()` method to check which of them are part of the largest component (the `~` character reverses the selection):
+As we can see, most of the nodes belong to the largest strongly connected component. To see where the other nodes are located, let's select the nodes that do not belong to the largest component and plot them in red on top of the street network. Here, we first extract the nodes and edges of the graph as `GeoDataFrames` like in the previous section. The index of the `nodes` GeoDataFrame contains the node ids, and we can use the `.isin()` method to check which of them are part of the largest component (the `~` character reverses the selection):
 
 ```python
 nodes, edges = ox.graph_to_gdfs(G)
@@ -88,7 +88,7 @@ print("Route from outside to inside:", nx.has_path(G, node_outside, node_inside)
 print("Route from inside to outside:", nx.has_path(G, node_inside, node_outside))
 ```
 
-As we can see, at least one of the two routes does not exist, i.e. we cannot drive between these two nodes in both directions. If we tried to find such a route with the `nx.dijkstra_path()` function that we used in Chapter 8.2, `networkx` would raise an error. For this reason, it is common to keep only the largest strongly connected component of the network for routing and other network analyses. With `osmnx`, we can do this with the `ox.truncate.largest_component()` function by setting the `strongly` parameter to `True`:
+As we can see, at least one of the two routes does not exist, i.e. we cannot drive between these two nodes in both directions. If we tried to find such a route with the `nx.dijkstra_path()` function that we used in the previous section, `networkx` would raise an error. For this reason, it is common to keep only the largest strongly connected component of the network for routing and other network analyses. With `osmnx`, we can do this with the `ox.truncate.largest_component()` function by setting the `strongly` parameter to `True`:
 
 ```python
 G = ox.truncate.largest_component(G, strongly=True)
@@ -100,10 +100,10 @@ As we can see, the number of nodes is now the same as the number of nodes in the
 
 ## Reachability in directed networks
 
-Thus far in this chapter, we have used networks to represent streets. However, networks are used for many other purposes in GIS as well. For instance, in spatial statistics, the neighbor relationships between areas, such as which neighborhoods share a border, are often represented as a graph (called spatial weights), and in urban studies, network measures, such as the number of streets that meet at each intersection, are used to compare the street patterns of different cities. In addition, many phenomena form networks themselves, and the network operations that we have learned so far can be applied to them in a similar manner as to streets. In the rest of this section, we look at two examples: a river network and an electricity grid. We retrieve both of them from OpenStreetMap with the `pyrosm` library that we introduced in Chapter 8.2, because our examples cover large areas. In OpenStreetMap, the type of each feature is described with **tags**, which are key-value pairs such as `highway=residential` for a residential street or `waterway=river` for a river[^osm_tags]. With `pyrosm`, we can retrieve any type of line features as a network by passing a custom filter to the `get_network()` method. The filter tells which tags the features should have, and it is written in a similar format as the queries of the Overpass API, e.g. `'["waterway"="river"]'` for rivers.
+Thus far in this chapter, we have used networks to represent streets. However, networks are used for many other purposes in GIS as well. For instance, in spatial statistics, the neighbor relationships between areas, such as which neighborhoods share a border, are often represented as a graph (called spatial weights), and in urban studies, network measures, such as the number of streets that meet at each intersection, are used to compare the street patterns of different cities. In addition, many phenomena form networks themselves, and the network operations that we have learned so far can be applied to them in a similar manner as to streets. In the rest of this section, we look at two examples: a river network and an electricity grid. We retrieve both of them from OpenStreetMap with the `pyrosm` library that we introduced in the previous section, because our examples cover large areas. In OpenStreetMap, the type of each feature is described with **tags**, which are key-value pairs such as `highway=residential` for a residential street or `waterway=river` for a river[^osm_tags]. With `pyrosm`, we can retrieve any type of line features as a network by passing a custom filter to the `get_network()` method. The filter tells which tags the features should have, and it is written in a similar format as the queries of the Overpass API, e.g. `'["waterway"="river"]'` for rivers.
 
 
-Rivers form natural networks in which smaller rivers (tributaries) join larger ones, and the water flows from upstream to downstream. Let's examine the rivers in Acre, a state in the western part of the Brazilian Amazon. We download the data with the `get_data_by_geocoding()` function that we used in Chapter 8.2, and select the rivers with a custom filter that keeps only the features tagged with `waterway=river`:
+Rivers form natural networks in which smaller rivers (tributaries) join larger ones, and the water flows from upstream to downstream. Let's examine the rivers in Acre, a state in the western part of the Brazilian Amazon. We download the data with the `get_data_by_geocoding()` function that we used in the previous section, and select the rivers with a custom filter that keeps only the features tagged with `waterway=river`:
 
 ```python
 from pyrosm import OSM, get_data_by_geocoding
@@ -121,7 +121,7 @@ ax = rivers.plot(linewidth=0.5, figsize=(10, 8))
 _**Figure 8.X.** Rivers in the state of Acre in Brazil, based on OpenStreetMap data._
 
 
-As we can see, Acre is covered by a dense network of rivers. Similarly as in Chapter 8.2, `pyrosm` also printed a warning above the figure, because the downloaded PBF file does not cover the whole boundary polygon of Acre, and hence a small part of the area is missing from our data. In this case, the missing part is less than 0.1 % of the area and consists mostly of narrow strips along the border of the state, which does not affect our analysis.
+As we can see, Acre is covered by a dense network of rivers. Similarly as in the previous section, `pyrosm` also printed a warning above the figure, because the downloaded PBF file does not cover the whole boundary polygon of Acre, and hence a small part of the area is missing from our data. In this case, the missing part is less than 0.1 % of the area and consists mostly of narrow strips along the border of the state, which does not affect our analysis.
 
 
 Next, let's use our river data as a network. Water flows only in one direction, and hence rivers form a directed network (as we mentioned in Chapter 8.1). In OpenStreetMap, rivers are drawn in the direction of the flow, which means that the `u` and `v` columns of our data tell from which node to which node the water flows in each segment. Hence, we can build a directed graph from the river segments with the `nx.from_pandas_edgelist()` function, which creates a graph from a table in which each row represents an edge:
