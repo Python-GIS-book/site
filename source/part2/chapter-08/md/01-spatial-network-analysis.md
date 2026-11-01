@@ -276,6 +276,22 @@ This same logic should be applied always when searching for an optimal route bet
 
 Next, we will learn how to find the shortest path between two locations using Dijkstra's[^dijkstra_algorithm] algorithm. The idea behind Dijkstra's algorithm is quite intuitive. The algorithm starts from the origin and explores the network step by step, always continuing from the node that is closest to the origin at that point (in terms of the chosen cost, such as distance or travel time). For every node it reaches, the algorithm keeps track of the shortest known way to get there, and updates it whenever it finds a shorter one. In this way, the search spreads outwards from the origin, a bit like water flowing along the streets, and once it reaches the destination, the route that it has found is the shortest possible one.
 
+Dijkstra's algorithm is not the only way to find shortest paths. Table 8.4 lists some commonly used shortest path algorithms, what they are suited for, and which `networkx` function implements them.
+
+
+: _**Table 8.4**. Commonly used shortest path algorithms and when to use them._
+
+| Algorithm | Description | When to use | In `networkx` |
+|:----------|:------------|:------------|:--------------|
+| Breadth-first search | Explores the network one edge at a time and ignores edge weights, so it finds the path with the fewest edges. | When every edge counts the same, e.g. the number of street segments or stops between two places. | `nx.shortest_path()` without `weight` |
+| Dijkstra's algorithm | Spreads out from the origin, always continuing from the closest node it has not yet visited. Works with any cost that is not negative, such as distance or travel time. | The default choice for routing in street networks, from one origin to one or all destinations. | `nx.dijkstra_path()`, `nx.single_source_dijkstra_path_length()` |
+| A* | Like Dijkstra, but uses an estimate of the remaining cost (e.g. the straight-line distance to the destination) to search towards the destination first. The estimate must never be larger than the real remaining cost. | One origin and one destination in a large network, where node coordinates give a good estimate. | `nx.astar_path()` with `heuristic` |
+| Bellman–Ford | Slower than Dijkstra, but also works when some edge costs are negative. | Rarely needed in transport networks; e.g. the energy use of an electric vehicle, which can be negative downhill when the battery recharges. | `nx.bellman_ford_path()` |
+| Floyd–Warshall | Calculates the shortest paths between all pairs of nodes at once. | Complete travel time matrices for small networks. Computation time and memory grow quickly with network size, so for large networks running Dijkstra from each origin is faster. | `nx.floyd_warshall()` |
+| Contraction hierarchies | Prepares the network once by adding shortcut edges, after which each query is very fast. Used by routing engines such as OSRM. | Very many queries on a large network that does not change, e.g. travel time matrices for a whole country. | not available |
+| RAPTOR | Built for public transport timetables. It works in rounds, one per transfer, instead of searching a graph. R5 (and so `r5py`) uses an extended version of it. | Routing with public transport. | not available |
+
+
 Before we can find a route, we need to define the origin and destination of our trip. In this example, we will find a route by car from Ruoholahdenkatu 24 to Annankatu 18, which are two addresses located in the Helsinki city centre. To find the closest nodes for these locations, we first need to know their coordinates. OSMnx provides a handy function for geocoding an address `ox.geocode()` (we discussed geocoding in more detail in Chapter 6.5). We can use that to retrieve the x and y coordinates of our origin and destination:
 
 ```python
