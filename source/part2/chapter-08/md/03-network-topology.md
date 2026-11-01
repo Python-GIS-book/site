@@ -220,7 +220,7 @@ ax = suspicious.plot(ax=ax, color="red", markersize=40)
 _**Figure 8.28.** Dead ends of the street network (in black) and the dead ends that are located within 5 meters from another street (in red)._
 
 
-Figure 8.28 shows 7 suspicious dead ends. Six of them are the errors that we added to the data. The seventh one is an error that was already in our data: Sinebrychoffinkatu crosses Mallaskatu and ends a few meters past it (an overshoot), without a node at the crossing point.
+Figure 8.28 shows 7 suspicious dead ends. Six of them are the errors that we added to the data. The seventh one is an error that was already in our data: a street that crosses another street and ends a few meters past it (an overshoot), without a node at the crossing point.
 
 Next, let's check whether the data contain duplicate lines. We can find them with the `.duplicated()` method, which marks every row that is identical to some earlier row. Before the comparison, we convert the geometries into a standard form with the `.normalize()` method, so that the same line is detected as a duplicate even if its coordinates are stored in the opposite order:
 
@@ -280,7 +280,7 @@ _**Figure 8.29.** A gap between two streets before (left) and after (right) fixi
 
 On the left, the side street ends before it reaches the street that it should join, and its end is a dead end. On the right, the side street has been extended to the other street, and there is a node where the two streets meet.
 
-Notice, however, that the overshoot at Sinebrychoffinkatu is still in the data, because the functions that we used do not shorten lines that continue past another line. In addition, `fix_topology()` merged the street segments that met at nodes of degree 2, which is why the fixed data contain fewer segments than the original data. If the data had attributes that can change along a street, such as speed limits or the permitted driving direction, merging the segments could lose or mix such information.
+Notice, however, that the overshoot that we found earlier is still in the data, because the functions that we used do not shorten lines that continue past another line. In addition, `fix_topology()` merged the street segments that met at nodes of degree 2, which is why the fixed data contain fewer segments than the original data. If the data had attributes that can change along a street, such as speed limits or the permitted driving direction, merging the segments could lose or mix such information.
 
 The tolerance should also be chosen with care, because a too large tolerance could connect streets that are not connected in reality, such as a dead-end street that ends close to a motorway. Hence, automatic fixes are useful, but it is always a good idea to check the result.
 
