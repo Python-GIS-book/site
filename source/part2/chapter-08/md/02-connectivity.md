@@ -17,7 +17,7 @@ jupyter:
 
 In the previous section, we used a street network to find the shortest routes between locations. Networks can also tell us a lot about the structure of the area that they represent, and checking this structure is a good idea before using a network for any analysis. Is it possible to travel between all parts of the network? How many streets meet at each intersection? Which streets and intersections are the most important ones for moving around in the city?
 
-In this and the next two sections, we go through common network operations that help us answer these questions. This section focuses on the first one, the **connectivity** of the network. We use the `networkx`[^networkx] and `osmnx`[^osmnx] libraries and a drivable street network of the Helsinki city centre, and at the end of the section, we apply the same ideas to a river network and a power grid.
+In this and the next two sections, we go through common network operations that help us answer these questions. This section focuses on the first one, the *{term}`connectivity`* of the network. We use the `networkx`[^networkx] and `osmnx`[^osmnx] libraries and a drivable street network of the Helsinki city centre, and at the end of the section, we apply the same ideas to a river network and a power grid.
 
 
 Let's start by retrieving the street network from OpenStreetMap in the same way as in the previous section. This time, we use a slightly larger area that extends 3500 meters from the center point in each direction:
@@ -36,9 +36,9 @@ Now we have the street network stored in the variable `G` as a `MultiDiGraph`, j
 
 ## Connected components
 
-One of the first things to check about a network is whether it is **connected**, i.e. whether it is possible to travel from any node of the network to any other node along the edges. A network that is not connected consists of separate parts called **connected components**, between which it is not possible to travel. For instance, an island without any road connection to the mainland forms its own component in a street network, like the island in the south-east corner of the street data that we used in Chapter 8.1.
+One of the first things to check about a network is whether it is connected, i.e. whether it is possible to travel from any node of the network to any other node along the edges. A network that is not connected consists of separate parts called *{term}`connected components <connected component>`*, between which it is not possible to travel. For instance, an island without any road connection to the mainland forms its own component in a street network, like the island in the south-east corner of the street data that we used in Chapter 8.1.
 
-With directed graphs, such as our street network, connectivity can be defined in two ways. A directed graph is **weakly connected** if all of its nodes can be reached from each other when we ignore the directions of the edges, i.e. when we pretend that all streets could be traveled in both directions. It is **strongly connected** if all of its nodes can be reached from each other also when we follow the directions of the edges.
+With directed graphs, such as our street network, connectivity can be defined in two ways. A directed graph is *{term}`weakly connected`* if all of its nodes can be reached from each other when we ignore the directions of the edges, i.e. when we pretend that all streets could be traveled in both directions. It is *{term}`strongly connected`* if all of its nodes can be reached from each other also when we follow the directions of the edges.
 
 For instance, a one-way street that leads to a dead end makes a street network weakly but not strongly connected, because there is no way to drive out of the dead end. Correspondingly, a directed graph consists of weakly and strongly connected components. Let's see how many of both our street network has:
 
@@ -97,7 +97,7 @@ As we can see, the number of nodes is now the same as in the largest strongly co
 
 Thus far in this chapter, we have used networks to represent streets. However, networks are used for many other purposes in GIS as well. For instance, in spatial statistics, the neighbor relationships between areas are often represented as a graph (called spatial weights), and in urban studies, network measures are used to compare the street patterns of different cities. Many phenomena also form networks themselves, and the same network operations can be applied to them. In the rest of this section, we look at two examples: a river network and a power grid.
 
-Because both examples cover large areas, we retrieve them from OpenStreetMap with the `pyrosm` library that we introduced in the previous section. In OpenStreetMap, the type of each feature is described with **tags**, which are key-value pairs such as `highway=residential` for a residential street or `waterway=river` for a river[^osm_tags]. With `pyrosm`, we can retrieve any type of line features as a network by passing a custom filter to the `get_network()` method, which tells which tags the features should have, e.g. `'["waterway"="river"]'` for rivers.
+Because both examples cover large areas, we retrieve them from OpenStreetMap with the `pyrosm` library that we introduced in the previous section. In OpenStreetMap, the type of each feature is described with *{term}`tags <OpenStreetMap tag>`*, which are key-value pairs such as `highway=residential` for a residential street or `waterway=river` for a river[^osm_tags]. With `pyrosm`, we can retrieve any type of line features as a network by passing a custom filter to the `get_network()` method, which tells which tags the features should have, e.g. `'["waterway"="river"]'` for rivers.
 
 
 Rivers form natural networks in which smaller rivers (tributaries) join larger ones, and the water flows from upstream to downstream. Let's examine the rivers in Acre, a state in the western part of the Brazilian Amazon. We download the data with the `get_data_by_geocoding()` function that we used in the previous section, and select the rivers with a custom filter that keeps only the features tagged with `waterway=river`:
@@ -129,7 +129,7 @@ G_river = nx.from_pandas_edgelist(
 )
 ```
 
-In a directed network, a node is **reachable** from another node if there is a path between them that follows the directions of the edges, which is what we checked with the `nx.has_path()` function earlier in this section. In a river network, reachability tells us which parts of the network are located upstream of a given location, i.e. from where the water flows to the location. This is useful, for instance, when assessing where floodwater or pollution could come from (the area from which water flows to a location is called a watershed, which we will discuss in Chapter 12).
+In a directed network, a node is *{term}`reachable <reachability>`* from another node if there is a path between them that follows the directions of the edges, which is what we checked with the `nx.has_path()` function earlier in this section. In a river network, reachability tells us which parts of the network are located upstream of a given location, i.e. from where the water flows to the location. This is useful, for instance, when assessing where floodwater or pollution could come from (the area from which water flows to a location is called a watershed, which we will discuss in Chapter 12).
 
 Let's find the upstream river network of Cruzeiro do Sul, a city on the bank of the Juruá river. We first find the node of the river network that is closest to the city, measuring the distances in meters in a UTM coordinate reference system that we get with the `.estimate_utm_crs()` method. Then we use the `nx.ancestors()` function, which returns all nodes from which there is a path to the given node (the `nx.descendants()` function does the opposite):
 
@@ -157,7 +157,7 @@ As we can see in Figure 8.22, the rivers from which the water flows past Cruzeir
 
 Some edges are critical for keeping a network connected: if such an edge is removed, for instance because a road is closed or a power line fails, the network splits into separate parts. Let's see how we can find such edges in a power grid, which is vulnerable if the failure of a single line, e.g. due to a storm, can cut off a part of the grid from the rest of it.
 
-Electricity is delivered from power plants to consumers through a network of power lines. The lines meet at **substations**, where the electricity is, for instance, transformed from one voltage to another and distributed to the connected lines. The lines with the highest voltages form the transmission grid that carries electricity over long distances.
+Electricity is delivered from power plants to consumers through a network of power lines. The lines meet at substations, where the electricity is, for instance, transformed from one voltage to another and distributed to the connected lines. The lines with the highest voltages form the transmission grid that carries electricity over long distances.
 
 Let's examine the transmission grid of Iceland, an island whose power grid is not connected to other countries. We retrieve the power lines with a custom filter that keeps the features whose `power` tag contains either `line` or `cable` (`~` matches the value as a text pattern, and `|` means "or"), together with their names and voltages. The voltages are stored in volts as text, so we convert them into numbers and keep the lines of at least 66 000 volts (66 kV), which belong to the transmission grid:
 
@@ -226,7 +226,7 @@ G_grid = G_grid.subgraph(max(nx.connected_components(G_grid), key=len)).copy()
 
 ### Finding bridges
 
-An edge whose removal splits a network into two separate parts is called a **bridge**. In a power grid, the bridges are lines without any backup: if such a line fails, all substations behind it lose their connection to the rest of the grid. We can find the bridges with the `nx.bridges()` function, which returns the bridges as pairs of nodes. Let's mark the segments of the power lines that are bridges and plot them in red on top of the grid:
+An edge whose removal splits a network into two separate parts is called a *{term}`bridge`*. In a power grid, the bridges are lines without any backup: if such a line fails, all substations behind it lose their connection to the rest of the grid. We can find the bridges with the `nx.bridges()` function, which returns the bridges as pairs of nodes. Let's mark the segments of the power lines that are bridges and plot them in red on top of the grid:
 
 ```python
 bridges = set(nx.bridges(G_grid))

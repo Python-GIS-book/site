@@ -34,18 +34,36 @@ Aspect
 Assertion
   A statement used in a Python program to check whether a given condition evaluates as `True` when the code is executed. When the condition is not `True`, an `AssertionError` is raised. Assertions are typically used for debugging and testing code.
 
+Betweenness centrality
+  A {term}`centrality` measure that tells how often a node or an edge lies on the shortest paths between all pairs of nodes in a network. In a street network, the streets with high betweenness centrality are the ones that many of the shortest routes go through.
+
 Binary predicate
   See {term}`Spatial predicate`.
 
+Bridge
+  An edge of a network whose removal splits the network into two separate parts, i.e. into two {term}`connected components <connected component>`. In a power grid, for instance, a bridge is a power line without a backup route.
+
 Camel case
   A variable naming convention in which words are joined without spaces by capitalizing the first letter of each word that follows the first. For example, `gpsStationId`.
+
+Centrality
+  A measure of how important a node or an edge is in a network. There is no single definition of importance, and hence there are several centrality measures, such as {term}`degree centrality`, {term}`betweenness centrality` and {term}`closeness centrality`.
+
+Closeness centrality
+  A {term}`centrality` measure that tells how easily a node can be reached from all other nodes in a network. It is calculated as one divided by the average shortest path distance from the other nodes to the node.
 
 Collection
   A group of data types known as containers, where multiple values can be stored together. The built-in container data types in Python are dictionary, list, set, and tuple.
 
 Computer
   We use the definition of a computer given by {cite}`Zelle2017`: "A machine that stores and manipulates information under the control of a changeable program."
-  
+
+Connected component
+  A part of a network in which every node can be reached from every other node along the edges, but from which it is not possible to travel to the rest of the network. A connected network has only one connected component (see {term}`connectivity`).
+
+Connectivity
+  Whether it is possible to travel between the nodes of a network along its edges. A network is connected if every node can be reached from every other node, otherwise it consists of several {term}`connected components <connected component>`. See also {term}`weakly connected` and {term}`strongly connected`.
+
 Coordinate Reference System
   A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth's surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.
   
@@ -79,6 +97,9 @@ DE-9IM
 
 Decimal degrees
   A decimal degree is a method of expressing latitude and longitude geographic coordinates as decimal fractions instead of degrees, minutes, and seconds. It represents the angle between a point on the earth's surface and the equator or prime meridian, respectively, in units of decimal degrees. Decimal degrees provide a more convenient representation of geographic coordinates and make it easier to perform calculations with them.
+
+Degree centrality
+  A {term}`centrality` measure that counts how many other nodes a node is directly connected to, divided by the number of other nodes in the network. See also {term}`node degree`.
 
 Delanay Triangulation
   Delaunay triangulation is a way of dividing a set of points into non-overlapping triangles (in 2D) or tetrahedra (in 3D) such that no point lies inside the circumcircle of any triangle. Delanay triangulation is widely used e.g. in interpolation and computer graphics for creating structured meshes from unstructured points.
@@ -238,11 +259,23 @@ Mutable
 Namespace
   A collection of names and information about the objects to which the names refer. The objects could be variables or methods. There are four namespaces in Python (sorted here in order of {term}`scope` from broadest to narrowest): built-in, global, enclosing, and local.
 
+Network simplification
+  Merging all street segments between two intersections (or dead ends) into a single edge, which removes the nodes that are only in the middle of a street. The shape of the streets is kept in the geometries of the merged edges.
+
+Node degree
+  The number of edges that are connected to a node of a network. In a street network, a node with degree 1 is a dead end, and a node with degree 3 or more is an intersection.
+
+OpenStreetMap tag
+  A key-value pair that describes the type or the attributes of a feature in OpenStreetMap, such as `highway=residential` for a residential street or `waterway=river` for a river.
+
 Optional parameter
   A function {term}`parameter` that does not need to be provided when calling the function in order to use it. Optional parameters will use default function values that are provided in the function definition in such cases.
 
 Parameter
   A variable listed within the parentheses of a function definition. Similar to an {term}`argument`.
+
+PBF
+  Protocolbuffer Binary Format, a compressed file format for OpenStreetMap data. Data providers such as Geofabrik distribute the OpenStreetMap data of countries, regions and cities as PBF files, which can be read for instance with the `pyrosm` library.
 
 Pothole case
   A variable naming convention that utilzes underscore characters (`_`) to separate words in the variable name. For example, `gps_station_id`. Also known as snake case.
@@ -258,6 +291,9 @@ Radiometric resolution
 
 Radius query
   A radius query is a type of spatial query that retrieves all points within a specified distance (radius) from a given query point. The query is performed typically on a {term}`KD-Tree` to efficiently find points that fall within a given distance from the query point. KD-Tree supports only Point objects, i.e. it cannot be used to search other geometric types, such as LineStrings or Polygons.
+
+Reachability
+  In a directed network, a node is reachable from another node if there is a path between them that follows the directions of the edges. In a river network, for instance, the nodes from which water flows to a given location are the nodes from which the location is reachable.
 
 Repository
   A collection of files, in {term}`Git` for example, and the history of their changes. Often referred to informally as a "repo."
@@ -325,6 +361,9 @@ Spatio-temporal data model
 Spectral resolution
   In multispectral satellite data, spectral resolution refers to the ability of a sensor to distinguish between different wavelengths of electromagnetic radiation. It is defined by the number and width of the spectral bands the sensor can capture. Higher spectral resolution means the sensor can detect finer differences in wavelength, allowing for more detailed analysis of surface materials and phenomena.
 
+Strongly connected
+  A directed network is strongly connected if every node can be reached from every other node when the directions of the edges are followed. See also {term}`weakly connected`.
+
 Subplots
   The term used in Matplotlib to refer to individual plots when more than one plot is part of a single figure.
 
@@ -363,7 +402,10 @@ Virtual environment
 
 Watershed
   An area of land where all surface water drains to a common outlet, such as a river, lake, or ocean.
-  
+
+Weakly connected
+  A directed network is weakly connected if every node can be reached from every other node when the directions of the edges are ignored. See also {term}`strongly connected`.
+
 Well-known binary
   Well-known binary (WKB) is a format for representing vector geometry objects in compressed binary format which is useful for computer processing. The human-readable equivalent for WKB is `Well-known text` format. WKB can represent various geometric objects: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, Triangle, PolyhedralSurface, TIN (Triangulated irregular network) and GeometryCollection. Coordinates for the geometries can be represented in 2D, 3D or 4D (x,y,z,m).
 

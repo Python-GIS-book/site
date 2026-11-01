@@ -33,7 +33,7 @@ G = ox.truncate.largest_component(G, strongly=True)
 
 ## Node degree
 
-The **degree** of a node is the number of edges that are connected to it. In a street network, the degree tells how many street segments (i.e. parts of streets between two nodes) meet at a node. For instance, a node with degree 1 is a dead end, a node with degree 3 is an intersection where three street segments meet (such as a T-junction), and a node with degree 4 is an intersection of four street segments (such as a crossroads).
+The *{term}`degree <node degree>`* of a node is the number of edges that are connected to it. In a street network, the degree tells how many street segments (i.e. parts of streets between two nodes) meet at a node. For instance, a node with degree 1 is a dead end, a node with degree 3 is an intersection where three street segments meet (such as a T-junction), and a node with degree 4 is an intersection of four street segments (such as a crossroads).
 
 When calculating the degree, we need to be careful with directed graphs. As we learned in Chapter 8.1, a street that can be traveled in both directions is represented in a directed graph with two edges, one for each direction (called reciprocal edges). Hence, if we calculated the degree directly from our directed graph, each two-way street would be counted twice. To count each street segment only once, we first convert our graph into an undirected graph with the `ox.convert.to_undirected()` function:
 
@@ -74,7 +74,7 @@ As we can see, the nodes with degree 2 are spread along the streets all over the
 
 ## Simplifying the network
 
-We can clean the network by merging all the street elements that are between two intersections into one. This process is called **simplification**, and it is the same step that `pyrosm` did for us automatically in Chapter 8.2.
+We can clean the network by merging all the street elements that are between two intersections into one. This process is called *{term}`simplification <network simplification>`*, and it is the same step that `pyrosm` did for us automatically in Chapter 8.2.
 
 With `osmnx`, we can simplify a graph with the `ox.simplify_graph()` function, which removes the nodes in the middle of the streets and merges the edges connected to them into a single edge. The shape of the streets is not lost, because `osmnx` stores the shape of the merged edges as a `LineString` in the `geometry` attribute of the new edge. Let's simplify our graph and compare the number of nodes and edges before and after the simplification:
 
