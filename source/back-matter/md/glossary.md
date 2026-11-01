@@ -259,6 +259,9 @@ Mutable
 Namespace
   A collection of names and information about the objects to which the names refer. The objects could be variables or methods. There are four namespaces in Python (sorted here in order of {term}`scope` from broadest to narrowest): built-in, global, enclosing, and local.
 
+Network
+  A graph whose nodes and edges have attributes, such as the length and the speed limit of the streets in a street network. A spatial network is a network that is used to represent a real-world system in geographic space. In practice, the terms graph, network and spatial network are often used synonymously.
+
 Network simplification
   Merging all street segments between two intersections (or dead ends) into a single edge, which removes the nodes that are only in the middle of a street. The shape of the streets is kept in the geometries of the merged edges.
 

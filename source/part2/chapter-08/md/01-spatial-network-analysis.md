@@ -25,10 +25,10 @@ algorithm that are commonly used to find shortest paths along transportation net
 
 If you want to conduct network analysis (in any programming language) there are a few basic steps that typically needs to be done before you can start routing. These steps are:
 
- 1. **Retrieve data** (such as street network from OSM or Digiroad + possibly transit data if routing with PT).
- 2. **Modify the network** by adding/calculating edge weights (such as travel times based on speed limit and length of the road segment).
+ 1. **Retrieve data**, such as street network from OSM or Digiroad.
+ 2. **Modify the network** by computing and adding edge weights, such as travel times based on speed limit and length of the road segment.
  3. **Build a routable graph** for the routing tool that you are using (e.g. for NetworkX, igraph or OpenTripPlanner).
- 4. **Conduct network analysis** (such as shortest path analysis) with the routing tool of your choice.
+ 4. **Conduct network analysis**, such as shortest path analysis with the routing tool of your choice.
 
 
 ## Retrieving network data
@@ -69,7 +69,7 @@ ax = nodes.plot(ax=ax, color="red", markersize=3.5)
 _**Figure 8.12.** Drivable streets (edges) and their nodes (in red) in the Helsinki city centre, retrieved from OpenStreetMap._
 
 
-As a result, we have drivable roads as a GeoDataFrame for the Helsinki city centre in which the geometries are presented as `LineString` objects which we have mapped in **Figure 8.12**. The `nodes` GeoDataFrame contains information about the coordinates of each node, as well as a unique id for each node, called `osmid`. These id-values are used for constructing the edges, i.e. the from- and to-ids for each edge in the `edges` GeoDataFrame. To determine the structure and directionality of the network, `osmnx` stores the from-id as `u` in the index, while index level `v` stores the to-id accordingly. The third index level, `key`, is used to separate several edges that connect the same pair of nodes (i.e. reciprocal edge). If you look at the GeoDataFrame, we can see that `osmnx` has also calculated us the `length` of each road segment in meters automatically. Notice that if calculating the length yourself, it is important that your input data is in projected (metric) coordinate system (see Chapter 6.4). As our graph is a directed one, the data should include information about which direction the movement is allowed. In OSM, this information is stored in a column `oneway` (in the Digiroad data that we used in the previous section, the same information was stored in the `direction` column, see Table 8.1). Let's take a look what values do we have in this column:
+As a result, we have drivable roads as a GeoDataFrame for the Helsinki city centre in which the geometries are presented as `LineString` objects which we have mapped in Figure 8.12. The `nodes` GeoDataFrame contains information about the coordinates of each node, as well as a unique id for each node, called `osmid`. These id-values are used for constructing the edges, i.e. the from- and to-ids for each edge in the `edges` GeoDataFrame. To determine the structure and directionality of the network, `osmnx` stores the from-id as `u` in the index, while index level `v` stores the to-id accordingly. The third index level, `key`, is used to separate several edges that connect the same pair of nodes (i.e. reciprocal edge). If you look at the GeoDataFrame, we can see that `osmnx` has also calculated us the `length` of each road segment in meters automatically. Notice that if calculating the length yourself, it is important that your input data is in projected (metric) coordinate system (see Chapter 6.4). As our graph is a directed one, the data should include information about which direction the movement is allowed. In OSM, this information is stored in a column `oneway` (in the Digiroad data that we used in the previous section, the same information was stored in the `direction` column, see Table 8.1). Let's take a look what values do we have in this column:
 
 ```python
 edges["oneway"].unique()
@@ -102,7 +102,7 @@ _**Figure 8.13.** Drivable streets in the Kamppi district of Helsinki, retrieved
 
 ## Modifying the network
 
-At this stage, we have the necessary components to build a routable graph (nodes and edges) based on distance. However, in real life the network distance is not the best cost metric to use, because the shortest path (based on distance) is not necessarily always the optimal route in terms of **travel time**. Time is typically the measure that people value more (plus it is easier to comprehend), so at this stage we want to **add a new cost attribute** to our edges GeoDataFrame that converts the metric distance information to travel time (in seconds). Before we can do this calculation, we need to ensure that all rows in `maxspeed` column have information about the speed limit. Let's check the value counts of the column and also include information about the `NaN` values with `dropna` parameter:
+At this stage, we have the necessary components to build a routable graph (nodes and edges) based on distance. However, in real life the network distance is not the best cost metric to use, because the shortest path (based on distance) is not necessarily always the optimal route in terms of travel time. Time is typically the measure that people value more (plus it is easier to comprehend), so at this stage we want to add a new cost attribute to our edges GeoDataFrame that converts the metric distance information to travel time (in seconds). Before we can do this calculation, we need to ensure that all rows in `maxspeed` column have information about the speed limit. Let's check the value counts of the column and also include information about the `NaN` values with `dropna` parameter:
 
 ```python
 # Count values
@@ -216,9 +216,9 @@ $$
 
 Where:  
 
-- $t$ = travel time in **seconds (s)**  
-- $d$ = distance in **meters (m)**  
-- $v$ = speed limit in **kilometers per hour (km/h)**
+- $t$ = travel time in seconds (s)  
+- $d$ = distance in meters (m)  
+- $v$ = speed limit in kilometers per hour (km/h)
 
 The multiplication of distance by 3.6 is a conversion factor between meters per second and kilometers per hour:
 
@@ -255,7 +255,7 @@ Now we have a similar routable graph as in the beginning, but now the network ed
 Now we have everything we need to start routing with NetworkX (based on driving distance or travel time). Notice that the routing functions of `networkx` work with any graph that has a suitable cost attribute for its edges. Hence, you could conduct the routing in a similar manner also with the Digiroad data that we used in the previous section, by calculating the length and travel time for each street segment and building the graph with our `gdf_to_directed_graph()` function. One of the most widely used real-world use-cases for spatial networks relates to navigation, i.e. how to find a route from a given origin location to a given destination that would be as short (or quick) as possible. There are various approaches and algorithms that can be used to find such routes, but the one we introduce here is one of the most famous ones, called Dijkstra's algorithm, that is widely used to find an optimal least-cost path between given nodes. But first, let's again go through some basics about routing.
 
 
-**Basic logic in routing.** Most (if not all) routing algorithms work more or less in a similar manner. The basic steps for finding an optimal route from A to B are to:
+Most (if not all) routing algorithms work more or less in a similar manner. The basic steps for finding an optimal route from A to B are to:
  1. Find the nearest node for origin location (+ get info about its node-id and distance between origin and node)
  2. Find the nearest node for destination location (+ get info about its node-id and distance between destination and node)
  3. Use a routing algorithm to find the shortest path between A and B
