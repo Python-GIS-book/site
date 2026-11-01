@@ -66,7 +66,7 @@ Connectivity
 
 Coordinate Reference System
   A coordinate reference system (CRS) described how the coordinates or geometries are related to the places on Earth. It typically includes a set of geographic or projected coordinates and a mathematical model that describes the shape of the Earth and the relationship between the coordinates and their positions on the Earth's surface. A CRS is used to locate positions accurately and to enable the exchange of geographic data between different systems and applications.
-  
+
 Coordinate transformation
   See {term}`Map reprojection`.
 
@@ -78,17 +78,17 @@ Curvature
 
 DataFrame
   In pandas library, a DataFrame is a two-dimensional, tabular data structure with labeled rows and columns, similar to an Excel spreadsheet or SQL table. Each column can store data of different types (e.g., integers, floats, strings), and the DataFrame provides methods for data manipulation, including filtering, aggregation, and merging. It is one of the core data structures in pandas, widely used for data analysis and manipulation in Python.
-  
+
 Data model
   A data model is an conceptual (abstract) model that shows how elements of data are organized and how they relate to one another in a standardized manner and how the data relate to properties of real-world entities. Examples of data models are e.g. vector data model consisting of points, lines and areas; and raster data model constituted of a grid-like structure that hold the values for each grid cell.    
 
 Data type
   An attribute defining the characteristics of a value in a program.
   For example, type `int` is an integer (whole number).
-  
+
 DateOffset
   A specific `pandas` object that represents a duration of time using calendar duration standards, such as a week ("W"). 
-  
+
 DatetimeIndex
   An immutable array of datetime64 data that is specified as the index of the DataFrame. Can be used for indexing and grouping data based on time.
 
@@ -103,14 +103,14 @@ Degree centrality
 
 Delanay Triangulation
   Delaunay triangulation is a way of dividing a set of points into non-overlapping triangles (in 2D) or tetrahedra (in 3D) such that no point lies inside the circumcircle of any triangle. Delanay triangulation is widely used e.g. in interpolation and computer graphics for creating structured meshes from unstructured points.
-  
+
 Dependency
   Python packages are often linked to other Python libraries. These other packages (i.e. dependencies) are typically needed to be installed for a given Python package to work. 
 
 Dictionary
   A built-in Python data structure comprising one or more unique "keys" and associated "values". Dictionary keys can be used to access associated values within a dictionary, and keys are typically numbers or character strings. Python dictionaries are enclosed in curly braces (`{` `}`) and dictionary items are listed in the form `key: value` separated by commas.
 
-Dimensionally Extended 9-Intersection Model 
+Dimensionally Extended 9-Intersection Model
   Dimensionally Extended 9-Intersection Model (DE-9IM) is a fundamental framework in GIS used for describing and analyzing spatial relationships between geometric objects. DE-9IM provides a matrix-based approach where the rows and columns represent the interior, boundary, and exterior of two geometric shapes being compared. By examining the intersections of these parts, a detailed characterization of their spatial relationship can be achieved, including spatial predicates such as "touches", "overlaps", and "contains".  
 
 Docstring
@@ -127,16 +127,16 @@ Fork
 
 Function
   A reusable piece of code that performs a single action.
-  
+
 Geocoding
   The process of converting addresses to coordinates / points, or vice versa (called reverse-geocoding). Also see {term}`Georeferencing`.
 
 GeoDataFrame
   GeoDataFrame in geopandas library is similar to pandas {term}`DataFrame` but designed to handle geospatial data. Each row in a GeoDataFrame represents a geometric object (e.g., point, line, polygon) with associated attributes. `GeoDataFrame` bundles various methods that support spatial operations like geometric calculations and spatial joins, making it essential for geospatial analysis in Python.
-  
+
 Geographic coordinate conversion
   See {term}`Map reprojection`.
-  
+
 Georeferencing
   Attaching information about a location to a piece of information is commonly referred as georeferencing, geolocating or geocoding. For example a postal address can be used to specify a location of a place with relatively high spatial accuracy at a level of door/mailbox. 
 
@@ -153,7 +153,7 @@ Git clone
   The command in {term}`Git` used to create a copy of an existing {term}`repository`. Cloning downloads the files, commit history, and branches from the repository.
 
 Git commit
-  Verb: The process of writing or {term}`merging <Git merge>` changes made in the working copy of files in a {term}`repository{term}` of a {term}`version control` system. Noun: A specific instance of changes to files in a {term}`repository` of a {term}`version control` system. Each commit includes a unique ID and a message describing the changes. Similar to {term}`revision` and {term}`version`.
+  Verb: The process of writing or {term}`merging <Git merge>` changes made in the working copy of files in a {term}`repository` of a {term}`version control` system. Noun: A specific instance of changes to files in a {term}`repository` of a {term}`version control` system. Each commit includes a unique ID and a message describing the changes. Similar to {term}`revision` and {term}`version`.
 
 Git merge
   The command in {term}`Git` used to integrate changes from multiple {term}`commits <Git commit>` or branches. Merging combines commit histories and preserves changes both branches. If changes have been made to the same sections of the same file, merging may result in a merge conflict.
@@ -196,7 +196,7 @@ Index
 
 Inner join
   The inner join results in a DataFrame that contains only the rows with matching keys (or binary/spatial predicate) in both original (Geo)DataFrames, excluding all rows in either (Geo)DataFrame that do not have a match in the other. The match can be based on a common key that can be found in both DataFrames (as in table join) or on a spatial predicate in case the data is merged based on the spatial relationship between two spatial data layers.
-  
+
 Integrated Development Environment
   An integrated development environment or IDE is a software program or package that provides a set of tools for writing, testing, and debugging software in a convenient, practical interface.
 
@@ -232,10 +232,10 @@ Lossless compression
 
 Lossy compression
   Lossy compression is a data compression approach that can significantly reduce the file size of a raster dataset with some loss of data quality and precision. Some commonly used lossy compression methods include `JPEG` and `JPEG2000`.
-  
+
 Map projection
   A map projection is a mathematical method to draw a graphical representation of the Earth's surface on a flat surface, i.e. a map. 
-  
+
 Map reprojection
   Map reprojection is a process of converting coordinates described in one coordinate reference system (CRS) to another. The transformation between coordinate systems involves both translation and rotation, and requires knowledge of the shape and size of the earth, as well as its orientation in space.  
 
@@ -243,7 +243,7 @@ Markdown
   A lightweight markup language used to convert plain text input to rich-formatted output.
   Markdown can, for example, be used to create simple documentation with different heading levels, text in bold and/or italics, text in lists, or documentation that includes hyperlinks.
   More information can be found at <https://en.wikipedia.org/wiki/Markdown>.
-  
+
 Metadata
   Metadata refers to data that provides information about other data. It often describes characteristics of the data, such as its content, quality, format, and other relevant characteristics. For example, the metadata of a satellite image may include information about the image's resolution, file size, coordinate reference system, and the date it was taken. 
 
@@ -285,7 +285,7 @@ Pothole case
 
 Program
   A detailed list of step-by-step instructions that tell the computer exactly what to do.
-  
+
 Programming language
   A set of exact and unambiguous instructions that can be understood by the computer.
 
@@ -357,7 +357,7 @@ Spatial resolution
 
 Spatial predicate
   Spatial predicate is an output from {term}`DE-9IM` model that describe the spatial relationship between two geometric objects. Example spatial predicates are within, contains, touches and intersect.
-  
+
 Spatio-temporal data model
   A data model that incorporates time (t) as an additional dimension to the geographical dimension (x, y). 
 
@@ -378,7 +378,7 @@ Temporal resolution
 
 Topological spatial relations
   Topological spatial relations describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as contains, touches and intersects. In GIS, these kind of topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions.
-  
+
 Tuple
   A [tuple](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences) is a Python data structure that consists of a number of values separated by commas. Coordinate pairs are often represented as a tuple, such as: `(60.192059, 24.945831)`. Tuples belong to [sequence data types](https://docs.python.org/3/library/stdtypes.html#typesseq) in Python. Other sequence data types are lists and ranges. Tuples have many similarities with lists and ranges, but they are often used for different purposes. The main difference between tuples and lists is that tuples are [immutable](https://docs.python.org/3/glossary.html#term-immutable), which means that the contents of a tuple cannot be altered (while lists are mutable; you can, for example, add and remove values from lists).
 
@@ -389,7 +389,7 @@ Unary union
   The unary union operation takes multiple geometries and merges them into a single geometry. This is useful when you have a collection of shapes and you want to treat them as a single entity for analysis or visualization.
 
 Unsigned integer
-  A type of integer that represents only non-negative whole numbers, starting from zero. Unlike {term}`signed integers`, unsigned integers do not include a "+" or "-" sign, allowing them to use all their bits for positive values.
+  A type of integer that represents only non-negative whole numbers, starting from zero. Unlike {term}`signed integers <signed integer>`, unsigned integers do not include a "+" or "-" sign, allowing them to use all their bits for positive values.
 
 Variable
   A way of storing values in the memory of the computer using specific names that you define.
