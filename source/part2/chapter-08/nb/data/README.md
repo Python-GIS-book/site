@@ -111,3 +111,35 @@ duplicates, and the same 12 pairs of lines crossing without a node.
 | `geometry` | `LineString`, EPSG:3067 |
 
 Derived from Digiroad (© Finnish Transport Infrastructure Agency, CC BY 4.0).
+
+## Population_grid_2021_HSY.gpkg
+
+Population grid of the Helsinki metropolitan area (Helsinki, Espoo, Vantaa and
+Kauniainen) for 2021, used in Chapter 8.3. 5 853 cells of 250 m × 250 m, EPSG:3879
+(ETRS-GK25), single layer. The file is identical to
+`part2/chapter-06/nb/data/Helsinki/Population_grid_2021_HSY.gpkg`.
+
+### Source
+
+Helsinki Region Environmental Services Authority HSY, population grid
+(`Vaestotietoruudukko_2021`):
+<https://www.hsy.fi/en/environmental-information/open-data/avoin-data---sivut/population-grid-of-helsinki-metropolitan-area/>.
+Licensed under Creative Commons Attribution 4.0 (CC BY 4.0).
+
+### Notes
+
+- Only cells with at least five inhabitants are included (HSY's privacy rule).
+- The last cell (`id` `Vaestotietoruudukko_2021.5853`, 30 427 inhabitants) lies in the
+  Gulf of Finland. HSY places there the institutional population and the residents who
+  cannot be linked to any building. Chapter 8.3 removes it.
+- `occupancy_rate` is 999999999 instead of a percentage for 56 cells; Chapter 8.3 does
+  not use the column.
+
+### Columns
+
+| column | description |
+|---|---|
+| `id` | cell id |
+| `inhabitants` | number of inhabitants in the cell |
+| `occupancy_rate` | occupancy rate as percentage |
+| `geometry` | `Polygon`, EPSG:3879 |
