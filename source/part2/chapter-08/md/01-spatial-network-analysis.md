@@ -247,15 +247,7 @@ G = ox.graph_from_gdfs(gdf_nodes=nodes, gdf_edges=edges)
 G
 ```
 
-Now we have a similar routable graph as in the beginning, but now the network edges contain information about the speed limit and the travel time (`travel_time_seconds`) for all edges, which we can use as the cost when finding routes. We can easily visualize the graph with `osmnx` as follows: 
-
-```python
-import osmnx as ox
-
-ox.plot_graph(G)
-```
-
-_**Figure 8.X.** The routable street network of the Helsinki city centre plotted with `osmnx`._
+Now we have a similar routable graph as in the beginning, but now the network edges contain information about the speed limit and the travel time (`travel_time_seconds`) for all edges, which we can use as the cost when finding routes.
 
 
 ## Shortest path analysis 
@@ -276,7 +268,7 @@ This same logic should be applied always when searching for an optimal route bet
 
 Next, we will learn how to find the shortest path between two locations using Dijkstra's[^dijkstra_algorithm] algorithm. The idea behind Dijkstra's algorithm is quite intuitive. The algorithm starts from the origin and explores the network step by step, always continuing from the node that is closest to the origin at that point (in terms of the chosen cost, such as distance or travel time). For every node it reaches, the algorithm keeps track of the shortest known way to get there, and updates it whenever it finds a shorter one. In this way, the search spreads outwards from the origin, a bit like water flowing along the streets, and once it reaches the destination, the route that it has found is the shortest possible one.
 
-Dijkstra's algorithm is not the only way to find shortest paths. Table 8.4 lists some commonly used shortest path algorithms, what they are suited for, and which `networkx` function implements them.
+Dijkstra's algorithm is not the only way to find shortest paths. Table 8.4 lists some commonly used shortest path algorithms, what they are suited for, and which `networkx` function implements them (if available).
 
 
 : _**Table 8.4**. Commonly used shortest path algorithms and when to use them._
@@ -363,41 +355,35 @@ print(f"Shortest path distance {travel_length: .1f} meters.")
 print(f"Shortest path time {travel_time/60: .1f} minutes.")
 ```
 
-As we can see, the shortest route is roughly one kilometer long, and driving the fastest route takes about two minutes. Let's now see what we got by visualizing the results. For visualization purposes, we can use a handy function again from OSMnx called `ox.plot_graph_route()` that plots the route in a simple map. The function takes the graph and the route as input, and draws the route as a red line on top of the street network. With the other parameters, we can adjust how the map looks: here, we draw the streets as thin (`edge_linewidth`) black (`edge_color`) lines on a white background (`bgcolor`), and hide the nodes of the network by setting their size to zero (`node_size`). Let's start by plotting the shortest route based on distance:
+As we can see, the shortest route is roughly one kilometer long, and driving the fastest route takes about two minutes. Let's now see what we got by visualizing the results. For visualization purposes, we can use a handy function again from OSMnx called `ox.plot_graph_route()` that plots the route in a simple map. The function takes the graph and the route as input, and draws the route as a red line on top of the street network.
+
+To compare our two routes, let's plot them next to each other in a single figure. We create a figure with two subplots with the `plt.subplots()` function (see Chapter 4.3) and pass each subplot to the `osmnx` functions with the `ax` parameter. In this case, `ox.plot_graph_route()` draws only the route, so we first draw the streets with the `ox.plot_graph()` function as thin (`edge_linewidth`) black (`edge_color`) lines on a white background (`bgcolor`), without the nodes (`node_size`). With `show=False` and `close=False`, the figure is shown only after both routes have been drawn:
 
 ```python
-fig, ax = ox.plot_graph_route(
-    G,
-    metric_path,
-    edge_linewidth=0.2,
-    node_size=0,
-    bgcolor="white",
-    edge_color="black",
-    figsize=(14, 10),
-)
+import matplotlib.pyplot as plt
+
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(14, 7))
+for ax, route, title in [
+    (ax1, metric_path, "Shortest route (distance)"),
+    (ax2, time_path, "Fastest route (travel time)"),
+]:
+    ox.plot_graph(
+        G,
+        ax=ax,
+        edge_linewidth=0.2,
+        node_size=0,
+        bgcolor="white",
+        edge_color="black",
+        show=False,
+    )
+    ox.plot_graph_route(G, route, ax=ax, show=False, close=False)
+    ax.set_title(title)
 ```
 
-_**Figure 8.X.** The shortest route between the origin and the destination based on distance._
+_**Figure 8.X.** The shortest route based on distance (left) and the fastest route based on travel time (right) between the origin and the destination._
 
 
-In Figure 8.X, the shortest route starts from our origin at Ruoholahdenkatu and ends at our destination at Annankatu. The circles at both ends of the route show the nodes that are closest to these locations. Next, let's plot the fastest route based on travel time in a similar manner:
-
-```python
-fig, ax = ox.plot_graph_route(
-    G,
-    time_path,
-    edge_linewidth=0.2,
-    node_size=0,
-    bgcolor="white",
-    edge_color="black",
-    figsize=(14, 10),
-)
-```
-
-_**Figure 8.X.** The fastest route between the origin and the destination based on travel time._
-
-
-The routes in the two previous figures look exactly the same. We can confirm this by checking whether the lists of nodes in the two routes are equal:
+In Figure 8.X, both routes start from our origin at Ruoholahdenkatu and end at our destination at Annankatu. The circles at both ends of the routes show the nodes that are closest to these locations. The two routes look exactly the same, which we can confirm by checking whether the lists of nodes in the two routes are equal:
 
 ```python
 metric_path == time_path
