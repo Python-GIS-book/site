@@ -14,17 +14,6 @@ jupyter:
 
 # Connectivity
 
-Contents:
-- Common operations on a network (using the routable graph built in 8.2)
-- Connected components: is the network one connected piece?
-- Node degree (cardinality): how many connections each node has
-- Centrality: which nodes and edges are most important
-  - Degree centrality
-  - Betweenness centrality
-  - Closeness centrality
-- Checking and cleaning network topology
-- Other uses of networks (brief) — morphology, spatial weights, etc.
-
 
 In the previous section, we used a street network to find the shortest routes between locations. Networks can also tell us a lot about the structure of the area that they represent, and checking this structure is a good idea before using a network for any analysis. Is it possible to travel between all parts of the network? How many streets meet at each intersection? Which streets and intersections are the most important ones for moving around in the city?
 
