@@ -77,7 +77,7 @@ ax = edges_simplified.plot(
 )
 ```
 
-_**Figure 8.X.** Betweenness centrality of the streets in the Helsinki city centre._
+_**Figure 8.30.** Betweenness centrality of the streets in the Helsinki city centre._
 
 
 In the map, the streets with high betweenness centrality (in dark red) are the ones that many of the shortest routes between different parts of the area pass through, whereas the light yellow streets are rarely part of the shortest routes between other places. Typically, the streets with the highest values are main streets, because they connect different parts of the city.
@@ -106,7 +106,7 @@ ax = nodes_simplified.plot(
 )
 ```
 
-_**Figure 8.X.** Closeness centrality of the nodes in the street network._
+_**Figure 8.31.** Closeness centrality of the nodes in the street network._
 
 
 As we can see, closeness centrality is highest in the central parts of the street network and decreases towards its edges, as the nodes in the central parts are on average closer to all other nodes. However, part of this pattern is caused by the fact that our data ends at the border of the area, whereas in reality the street network continues beyond it. This is the edge effect that we discussed in Chapter 8.3, and it affects betweenness centrality as well.

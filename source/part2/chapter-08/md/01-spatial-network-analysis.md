@@ -66,10 +66,10 @@ ax = edges.plot()
 ax = nodes.plot(ax=ax, color="red", markersize=3.5)
 ```
 
-_**Figure 8.X.** Drivable streets (edges) and their nodes (in red) in the Helsinki city centre, retrieved from OpenStreetMap._
+_**Figure 8.12.** Drivable streets (edges) and their nodes (in red) in the Helsinki city centre, retrieved from OpenStreetMap._
 
 
-As a result, we have drivable roads as a GeoDataFrame for the Helsinki city centre in which the geometries are presented as `LineString` objects which we have mapped in **Figure 8.X**. The `nodes` GeoDataFrame contains information about the coordinates of each node, as well as a unique id for each node, called `osmid`. These id-values are used for constructing the edges, i.e. the from- and to-ids for each edge in the `edges` GeoDataFrame. To determine the structure and directionality of the network, `osmnx` stores the from-id as `u` in the index, while index level `v` stores the to-id accordingly. The third index level, `key`, is used to separate several edges that connect the same pair of nodes (i.e. reciprocal edge). If you look at the GeoDataFrame, we can see that `osmnx` has also calculated us the `length` of each road segment in meters automatically. Notice that if calculating the length yourself, it is important that your input data is in projected (metric) coordinate system (see Chapter 6.4). As our graph is a directed one, the data should include information about which direction the movement is allowed. In OSM, this information is stored in a column `oneway` (in the Digiroad data that we used in the previous section, the same information was stored in the `direction` column, see Table 8.1). Let's take a look what values do we have in this column:
+As a result, we have drivable roads as a GeoDataFrame for the Helsinki city centre in which the geometries are presented as `LineString` objects which we have mapped in **Figure 8.12**. The `nodes` GeoDataFrame contains information about the coordinates of each node, as well as a unique id for each node, called `osmid`. These id-values are used for constructing the edges, i.e. the from- and to-ids for each edge in the `edges` GeoDataFrame. To determine the structure and directionality of the network, `osmnx` stores the from-id as `u` in the index, while index level `v` stores the to-id accordingly. The third index level, `key`, is used to separate several edges that connect the same pair of nodes (i.e. reciprocal edge). If you look at the GeoDataFrame, we can see that `osmnx` has also calculated us the `length` of each road segment in meters automatically. Notice that if calculating the length yourself, it is important that your input data is in projected (metric) coordinate system (see Chapter 6.4). As our graph is a directed one, the data should include information about which direction the movement is allowed. In OSM, this information is stored in a column `oneway` (in the Digiroad data that we used in the previous section, the same information was stored in the `direction` column, see Table 8.1). Let's take a look what values do we have in this column:
 
 ```python
 edges["oneway"].unique()
@@ -97,7 +97,7 @@ G_kamppi = ox.graph_from_place("Kamppi, Helsinki, Finland", network_type="drive"
 fig, ax = ox.plot_graph(G_kamppi, bgcolor="white", edge_color="black", node_color="red")
 ```
 
-_**Figure 8.X.** Drivable streets in the Kamppi district of Helsinki, retrieved from OpenStreetMap with `osmnx` based on the place name._
+_**Figure 8.13.** Drivable streets in the Kamppi district of Helsinki, retrieved from OpenStreetMap with `osmnx` based on the place name._
 
 
 ## Modifying the network
@@ -203,7 +203,7 @@ edges["maxspeed"] = edges["maxspeed"].astype(int)
 ax = edges.plot(column="maxspeed", figsize=(16, 10), legend=True)
 ```
 
-_**Figure 8.X.** Speed limits (km/h) of the streets after filling in the missing values._
+_**Figure 8.14.** Speed limits (km/h) of the streets after filling in the missing values._
 
 
 We will calculate the travel time it takes to cross a given street segment assuming that the person would be driving according the speed limits. The `maxspeed` column in our data provides information about the speed limit (km per hour) on a given street element. This is very useful information as we can use this to calculate the "free-flow" travel time which indicates the time it takes to cross a specific street segment assuming that a given person would be able to travel as fast as the speed limit allows.
@@ -380,10 +380,10 @@ for ax, route, title in [
     ax.set_title(title)
 ```
 
-_**Figure 8.X.** The shortest route based on distance (left) and the fastest route based on travel time (right) between the origin and the destination._
+_**Figure 8.15.** The shortest route based on distance (left) and the fastest route based on travel time (right) between the origin and the destination._
 
 
-In Figure 8.X, both routes start from our origin at Ruoholahdenkatu and end at our destination at Annankatu. The circles at both ends of the routes show the nodes that are closest to these locations. The two routes look exactly the same, which we can confirm by checking whether the lists of nodes in the two routes are equal:
+In Figure 8.15, both routes start from our origin at Ruoholahdenkatu and end at our destination at Annankatu. The circles at both ends of the routes show the nodes that are closest to these locations. The two routes look exactly the same, which we can confirm by checking whether the lists of nodes in the two routes are equal:
 
 ```python
 metric_path == time_path
@@ -454,7 +454,7 @@ fig, ax = ox.plot_graph_routes(
 )
 ```
 
-_**Figure 8.X.** The fastest route from the origin to the destination (red) and back from the destination to the origin (blue)._
+_**Figure 8.16.** The fastest route from the origin to the destination (red) and back from the destination to the origin (blue)._
 
 
 Where the red and blue routes do not overlap, the route back uses different streets than the route to the destination, because some of the streets along the way can be driven only to one direction. Depending on how long a detour these one-way streets cause, the travel times to the two directions can also differ. With an undirected graph, we could not capture this: the route back could always use the same streets as the route to the destination, and the travel times to both directions would be identical.
@@ -492,7 +492,7 @@ ax = nodes.plot(
 )
 ```
 
-_**Figure 8.X.** Travel time by car (in minutes) from the origin to all nodes in the street network._
+_**Figure 8.17.** Travel time by car (in minutes) from the origin to all nodes in the street network._
 
 
 As we can see, the travel times generally increase the further away the nodes are from the origin. Calculating travel times from one or many origins to all destinations like this is the basis of accessibility analysis, which we will discuss in more detail in Chapter 11.
@@ -529,10 +529,10 @@ ax = pop_grid.plot(
 ax.set_axis_off()
 ```
 
-_**Figure 8.X.** Travel time by car (in minutes) from the origin to the populated 250 x 250 meter grid cells in the Helsinki city centre._
+_**Figure 8.18.** Travel time by car (in minutes) from the origin to the populated 250 x 250 meter grid cells in the Helsinki city centre._
 
 
-As we can see in Figure 8.X, the travel times of the grid cells follow the same pattern as the travel times of the nodes in the previous figure. However, the grid covers only the places where people live, and it tells how many people live in each cell. In Chapter 11, we will use this kind of information to study how easily the people living in different parts of a city can reach the places that they need.
+As we can see in Figure 8.18, the travel times of the grid cells follow the same pattern as the travel times of the nodes in Figure 8.17. However, the grid covers only the places where people live, and it tells how many people live in each cell. In Chapter 11, we will use this kind of information to study how easily the people living in different parts of a city can reach the places that they need.
 
 
 ## Routing in large networks with `pyrosm`
@@ -599,10 +599,10 @@ fig, ax = ox.plot_graph_route(
 )
 ```
 
-_**Figure 8.X.** The fastest route by car from the origin to Helsinki Airport, based on a street network read from a PBF file with `pyrosm`._
+_**Figure 8.19.** The fastest route by car from the origin to Helsinki Airport, based on a street network read from a PBF file with `pyrosm`._
 
 
-Figure 8.X shows the street network that we read with `pyrosm` together with the fastest route to the airport. Finally, let's summarize the route in the same way as earlier by calculating the total length (in meters) and travel time (in seconds) of the trip:
+Figure 8.19 shows the street network that we read with `pyrosm` together with the fastest route to the airport. Finally, let's summarize the route in the same way as earlier by calculating the total length (in meters) and travel time (in seconds) of the trip:
 
 ```python
 route_large_edges = ox.routing.route_to_gdf(G_large, route_large, weight="travel_time")

@@ -66,7 +66,7 @@ ax = nodes.plot(
 )
 ```
 
-_**Figure 8.X.** Nodes of the street network colored by their degree._
+_**Figure 8.25.** Nodes of the street network colored by their degree._
 
 
 As we can see, the nodes with degree 2 are spread along the streets all over the network. Because these nodes are not real intersections, they do not tell much about the structure of the street network, but they make the network larger than necessary. Next, we will see how we can clean the network from such nodes.
@@ -115,7 +115,7 @@ ox.plot_graph(
 ax2.set_title("After simplification");
 ```
 
-_**Figure 8.X.** Nodes of the street network before (left) and after (right) the simplification._
+_**Figure 8.26.** Nodes of the street network before (left) and after (right) the simplification._
 
 
 As we can see, after the simplification the nodes are mainly located at the intersections and at the ends of the streets. Now the nodes of our network describe the actual structure of the street network, and the network is also smaller, which makes the analyses faster.
@@ -136,7 +136,7 @@ streets = gpd.read_file("data/digiroad_topology_errors.gpkg")
 ax = streets.plot(color="black", linewidth=0.5, figsize=(10, 8))
 ```
 
-_**Figure 8.X.** Street data for the Kamppi, Punavuori, Ruoholahti and Jätkäsaari districts of Helsinki, with some added topology errors._
+_**Figure 8.27.** Street data for the Kamppi, Punavuori, Ruoholahti and Jätkäsaari districts of Helsinki, with some added topology errors._
 
 
 As we can see, the errors are not visible on the map. To check the topology, we first convert the lines into a graph with the `gdf_to_graph()` function that we wrote in Chapter 8.1. The function uses the end points of the lines as nodes and the lines as edges, and it creates an undirected `MultiGraph`, which keeps also the duplicate lines as separate edges. Let's define the function again:
@@ -217,10 +217,10 @@ ax = dead_ends.plot(ax=ax, color="black", markersize=8)
 ax = suspicious.plot(ax=ax, color="red", markersize=40)
 ```
 
-_**Figure 8.X.** Dead ends of the street network (in black) and the dead ends that are located within 5 meters from another street (in red)._
+_**Figure 8.28.** Dead ends of the street network (in black) and the dead ends that are located within 5 meters from another street (in red)._
 
 
-Figure 8.X shows 7 suspicious dead ends. Six of them are the errors that we added to the data. The seventh one is an error that was already in our data: Sinebrychoffinkatu crosses Mallaskatu and ends a few meters past it (an overshoot), without a node at the crossing point.
+Figure 8.28 shows 7 suspicious dead ends. Six of them are the errors that we added to the data. The seventh one is an error that was already in our data: Sinebrychoffinkatu crosses Mallaskatu and ends a few meters past it (an overshoot), without a node at the crossing point.
 
 Next, let's check whether the data contain duplicate lines. We can find them with the `.duplicated()` method, which marks every row that is identical to some earlier row. Before the comparison, we convert the geometries into a standard form with the `.normalize()` method, so that the same line is detected as a duplicate even if its coordinates are stored in the opposite order:
 
@@ -275,7 +275,7 @@ for ax, lines, points in [(ax1, streets, nodes), (ax2, streets_fixed, nodes_fixe
     ax.set_ylim(ymin, ymax)
 ```
 
-_**Figure 8.X.** A gap between two streets before (left) and after (right) fixing the topology. The nodes are shown in black and the dead ends in red._
+_**Figure 8.29.** A gap between two streets before (left) and after (right) fixing the topology. The nodes are shown in black and the dead ends in red._
 
 
 On the left, the side street ends before it reaches the street that it should join, and its end is a dead end. On the right, the side street has been extended to the other street, and there is a node where the two streets meet.

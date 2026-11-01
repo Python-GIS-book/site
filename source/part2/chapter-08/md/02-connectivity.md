@@ -70,7 +70,7 @@ ax = edges.plot(color="lightgrey", linewidth=0.5, figsize=(10, 10))
 ax = outside_nodes.plot(ax=ax, color="red", markersize=10)
 ```
 
-_**Figure 8.X.** Nodes that do not belong to the largest strongly connected component of the street network (in red)._
+_**Figure 8.20.** Nodes that do not belong to the largest strongly connected component of the street network (in red)._
 
 
 The red nodes show the places where it is not possible to drive both to and from the rest of the network. Typically, they are located along one-way streets near the border of the area. Let's check whether a route exists between one of these nodes and a node of the largest component with the `nx.has_path()` function:
@@ -115,7 +115,7 @@ river_nodes, rivers = osm_acre.get_network(
 ax = rivers.plot(linewidth=0.5, figsize=(10, 8))
 ```
 
-_**Figure 8.X.** Rivers in the state of Acre in Brazil, based on OpenStreetMap data._
+_**Figure 8.21.** Rivers in the state of Acre in Brazil, based on OpenStreetMap data._
 
 
 As we can see, Acre is covered by a dense network of rivers. Similarly as in the previous section, `pyrosm` printed a warning above the figure, because the downloaded PBF file does not cover the whole boundary polygon of Acre. The missing part is less than 0.1 % of the area and lies along the border of the state, which does not affect our analysis.
@@ -147,10 +147,10 @@ ax = upstream_rivers.plot(ax=ax, color="blue", linewidth=0.8)
 ax = city.plot(ax=ax, color="red", markersize=50)
 ```
 
-_**Figure 8.X.** The rivers upstream of Cruzeiro do Sul (in blue), and the location of the city (in red)._
+_**Figure 8.22.** The rivers upstream of Cruzeiro do Sul (in blue), and the location of the city (in red)._
 
 
-As we can see in Figure 8.X, the rivers from which the water flows past Cruzeiro do Sul cover a large part of western Acre. However, the Juruá river starts in Peru, which means that the actual upstream network of the city is larger than what our data shows. This kind of distortion at the borders of a study area is called an *{term}`edge effect`*, and it is good to keep it in mind when interpreting the results of network analyses.
+As we can see in Figure 8.22, the rivers from which the water flows past Cruzeiro do Sul cover a large part of western Acre. However, the Juruá river starts in Peru, which means that the actual upstream network of the city is larger than what our data shows. This kind of distortion at the borders of a study area is called an *{term}`edge effect`*, and it is good to keep it in mind when interpreting the results of network analyses.
 
 
 ## Critical edges
@@ -178,7 +178,7 @@ ax = power_lines.plot(
 )
 ```
 
-_**Figure 8.X.** The transmission grid of Iceland colored by the voltage of the power lines (in volts)._
+_**Figure 8.23.** The transmission grid of Iceland colored by the voltage of the power lines (in volts)._
 
 
 ### Connecting power lines at substations
@@ -239,7 +239,7 @@ ax = power_lines.plot(color="lightgrey", linewidth=1, figsize=(10, 7))
 ax = power_lines.loc[power_lines["bridge"]].plot(ax=ax, color="red", linewidth=1.5)
 ```
 
-_**Figure 8.X.** The power lines of the transmission grid of Iceland that are bridges (in red), i.e. lines whose failure would cut off a part of the grid._
+_**Figure 8.24.** The power lines of the transmission grid of Iceland that are bridges (in red), i.e. lines whose failure would cut off a part of the grid._
 
 
 As we can see, a large part of the grid forms loops, in which the electricity can take an alternative route if one line fails. However, several parts of the grid are connected to the rest of it through a single line.

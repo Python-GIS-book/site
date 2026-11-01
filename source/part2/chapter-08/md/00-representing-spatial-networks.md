@@ -76,7 +76,7 @@ As we see, the graph contains five nodes. By calling the `.nodes.data()` method,
 nx.draw(G=G, with_labels=True, font_color="white")
 ```
 
-_**Figure 8.1.** Nodes visualized in arbitrary space._
+_**Figure 8.2.** Nodes visualized in arbitrary space._
 
 At the moment the nodes are located arbitrarily in space because we do not have any specific locations defined for our `nodes`. As mentioned earlier, graphs do not necessarily need any information about the exact locations of the nodes to be able to draw a graph structure. However, the plot above is not yet a graph, because we do not have any edges associated with the nodes that would show how they relate or connect to each other. 
 
@@ -101,7 +101,7 @@ As we can see, by accessing the `.edges` we can get a list of node-pairs that co
 nx.draw(G, with_labels=True, font_color="white")
 ```
 
-_**Figure 8.X.** A simple graph with five nodes and edges._
+_**Figure 8.3.** A simple graph with five nodes and edges._
 
 Now we have a very simple graph structure where the nodes are connected to each other as we defined them in the previous step. This kind of graph structure can already be useful for various purposes. If we for example consider that these nodes would represent persons, we could see how those persons are interacting with each other (who knows who). However, as we are mostly interested to study and understand `spatial networks`, let's continue and see how we can present this simple graph in such a way that the locations of the nodes are not in arbitrary space but they have exact locations.
 
@@ -168,7 +168,7 @@ With this information, we can now draw the network using the `nx.draw()` functio
 nx.draw(G, pos=positions, with_labels=True, font_color="white")
 ```
 
-_**Figure 8.X.** A simple spatial network with five nodes and edges._
+_**Figure 8.4.** A simple spatial network with five nodes and edges._
 
 Now we have visualized a simple spatial network where the locations of the nodes are pre-determined by us according the coordinates that we used when constructing the graph. Thus, we can be sure that the network always looks exactly the same when we visualize it (which is important for physical real-world networks), which is not the case if visualizing the network without the node coordinates. In fact, if you run the previous code without using the `pos` parameter multiple times, it is likely that you get a different looking graph each time:
 
@@ -181,7 +181,7 @@ nx.draw(G, with_labels=True, font_color="white", ax=ax3)
 nx.draw(G, pos=positions, with_labels=True, font_color="white", ax=ax4)
 ```
 
-_**Figure 8.X.** Defining the node locations ensures that the graph always looks the same (as in the rightmost subplot)._
+_**Figure 8.5.** Defining the node locations ensures that the graph always looks the same (as in the rightmost subplot)._
 
 
 When we constructed our graph, we also included `edge attributes`. It is also possible to assign colors to edges and/or annotate them according a given edge attribute when visualizing which make it easier to understand the characteristics of our network. To annotate the edges, i.e. show a given edge attribute on top of the edges, we first need to parse the labels that we associate with the edges. We can do this in a very similar manner as how we extracted the node coordinates previously, but in this case we use the `nx.get_edge_attributes()` which returns a `dictionary` containing a tuple of the node-ids of a given edge as a `key` and the edge attribute (here `"weight"`) as the `value`:
@@ -222,7 +222,7 @@ nx.draw_networkx_edge_labels(
 );
 ```
 
-_**Figure 8.X.** A graph with edge labels and colors that are determined by the edge attribute._
+_**Figure 8.6.** A graph with edge labels and colors that are determined by the edge attribute._
 
 
 ### Directed graph
@@ -305,7 +305,7 @@ nx.draw_networkx_edge_labels(
 );
 ```
 
-_**Figure 8.X.** A directed graph with edge labels showing the weight, and colors and arrows indicating the directionality._
+_**Figure 8.7.** A directed graph with edge labels showing the weight, and colors and arrows indicating the directionality._
 
 
 Now our visualized network shows not only the structure of the graph, but also the directionality which we encoded into the graph when constructing it. The small arrows at the end of the lines show the direction how the nodes are connected to each other. As we can see, all edges except the one highlighted with blue color are bidirectional. If we imagine that this network would represent a very simple street network, you could travel the "blue street" only from node `c` to `d` (i.e. a one-way street), whereas all the other streets you can travel to both directions. 
@@ -337,7 +337,7 @@ streets.head()
 streets.plot();
 ```
 
-_**Figure 8.X.** Geographic dataset representing the streets in the Helsinki City Centre area._
+_**Figure 8.8.** Geographic dataset representing the streets in the Helsinki City Centre area._
 
 
 As we can see from the table, we have a few columns that provide useful information related to constructing the graph. The most important one of these is the `geometry` column which represents the `LineString` objects of the roads that can be used to create the network topology. In addition, we have useful information related to transport, such as speed limit (`maxspeed`) and the permitted direction of movement (`direction`) map. The map reveals that we have a quite dense network where the streets zigzag across the area connecting different parts of the city to each other. In the South-East corner of the area, we seem have a small part of the network that is not connected to the rest. This part of the network is on an island which lacks a public road connection to the mainland having only a ferry connection that one can take to reach the island (also by car). 
@@ -429,7 +429,7 @@ streets.iloc[0:1].plot(ax=ax)
 vertices.plot(ax=ax, color=["r", "b", "r"])
 ```
 
-_**Figure 8.X.** Only the nodes (in red) will be used to construct the edge for a given network topology._
+_**Figure 8.9.** Only the nodes (in red) will be used to construct the edge for a given network topology._
 
 Considering only the nodes (ignoring the vertices) has also computational benefits as we ultimately reduce the size of the graph which makes it faster to run any analyses on it. Thus, we only take the first and last coordinate-pair of the edge geometry which we will use as nodes:
 
@@ -513,7 +513,7 @@ nx.draw(
 )
 ```
 
-_**Figure 8.X.** An undirected graph with nodes and edges representing the streets in the Helsinki City Centre area._
+_**Figure 8.10.** An undirected graph with nodes and edges representing the streets in the Helsinki City Centre area._
 
 
 ### Directed graph using a GeoDataFrame
@@ -651,7 +651,7 @@ nx.draw(
 )
 ```
 
-_**Figure 8.X.** A directed graph representing the streets in the Helsinki City Centre area, where the edge colors indicate the permitted direction of travel (blue for two-way streets and red for one-way streets)._
+_**Figure 8.11.** A directed graph representing the streets in the Helsinki City Centre area, where the edge colors indicate the permitted direction of travel (blue for two-way streets and red for one-way streets)._
 
 
 ## Saving a graph to disk
