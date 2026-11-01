@@ -30,7 +30,7 @@ In the following, we will dive deeper to all of these aspects and construct vari
 
 ## Creating a graph from scratch
 
-In the following sections, we will show how you can create a simple 1) undirected and 2) directed graph from scratch without any specific data source and explain the basic concepts, data structures and methods related to `networkx` library.
+In the following sections, we will show how you can create a simple 1) undirected and 2) directed graph from scratch without any specific data source and explain the basic concepts, data structures and methods related to `networkx` library. Small graphs like these are easy to inspect and visualize, which makes them a good starting point before we create graphs from real street data later in this section.
 
 
 ### Undirected graph
@@ -343,11 +343,9 @@ _**Figure 8.8.** Geographic dataset representing the streets in the Helsinki Cit
 As we can see from the table, we have a few columns that provide useful information related to constructing the graph. The most important one of these is the `geometry` column which represents the `LineString` objects of the roads that can be used to create the network topology. In addition, we have useful information related to transport, such as speed limit (`maxspeed`) and the permitted direction of movement (`direction`) map. The map reveals that we have a quite dense network where the streets zigzag across the area connecting different parts of the city to each other. In the South-East corner of the area, we seem have a small part of the network that is not connected to the rest. This part of the network is on an island which lacks a public road connection to the mainland having only a ferry connection that one can take to reach the island (also by car). 
 
 
-In the following, we will see how to create an undirected graph from this geographic data using the same techniques that we learned previously when constructing a graph from scratch.
-
 So far a `Graph` has been enough, because in our small example each pair of nodes was connected by at most one edge. Real street data is messier: occasionally two separate road segments connect the same pair of intersections — for instance a short direct link and a longer parallel stretch of the same street. A `Graph` keeps only one edge between a given pair of nodes, so the second segment would silently overwrite the first and disappear from the network. To keep every segment, we use `nx.MultiGraph()`, which allows several edges between the same pair of nodes.
 
-We will start by introducing a function `gdf_to_graph()` that can be used to turn a `GeoDataFrame` consisting of `LineString` objects into a `nx.MultiGraph` object:
+In the following, we will see how to create an undirected graph from this geographic data using the same techniques that we learned previously when constructing a graph from scratch. We will start by introducing a function `gdf_to_graph()` that can be used to turn a `GeoDataFrame` consisting of `LineString` objects into a `nx.MultiGraph` object:
 
 ```python
 def gdf_to_graph(gdf):
@@ -487,9 +485,7 @@ graph.edges.data()
 graph.nodes.data()
 ```
 
-As we can see, now the ids for the nodes were altered from long coordinate tuples into simple integers (such as `0` and `1`) both for the `edges` and `nodes` which are much easier to understand and use if you e.g. want to select specific node from the graph. 
-
-As a very last thing in our `gdf_to_graph()` function, we add a custom attribute to our graph where we store the coordinate reference system information of the input `GeoDataFrame` which can be useful information when using the given graph for analysis with other datasets:
+As we can see, now the ids for the nodes were altered from long coordinate tuples into simple integers (such as `0` and `1`) both for the `edges` and `nodes` which are much easier to understand and use if you e.g. want to select specific node from the graph. As a very last thing in our `gdf_to_graph()` function, we add a custom attribute to our graph where we store the coordinate reference system information of the input `GeoDataFrame` which can be useful information when using the given graph for analysis with other datasets:
 
 ```python
 graph.graph["crs"] = streets.crs
@@ -546,10 +542,7 @@ Here, the `direction` column includes information about the allowed direction of
 
 
 
-In our small example, a `DiGraph` was enough, but for the same reason as with the undirected graph, we use `nx.MultiDiGraph()` for the street data, which allows several edges between the same pair of nodes in the same direction.
-
-
-Let's start by creating a function called `gdf_to_directed_graph()` which works mostly in a similar manner as our previous function `gdf_to_graph()` but with a few important tweaks that allows us to take into consideration the directionality:
+In our small example, a `DiGraph` was enough, but for the same reason as with the undirected graph, we use `nx.MultiDiGraph()` for the street data, which allows several edges between the same pair of nodes in the same direction. Let's start by creating a function called `gdf_to_directed_graph()` which works mostly in a similar manner as our previous function `gdf_to_graph()` but with a few important tweaks that allows us to take into consideration the directionality:
 
 ```python
 def gdf_to_directed_graph(gdf, direction="direction", both_ways=2, against=3, along=4):
@@ -731,7 +724,7 @@ with open(output_dir / "street_network.json", "w") as f:
     json.dump(nx.node_link_data(G_simple), f)
 ```
 
-Reading these files back into `networkx` works with the matching read functions:
+Note that, unlike Pickle, these formats do not store the street geometries — which is exactly why we simplified the graph before writing it, and why Pickle remains our recommended choice for saving spatial networks. Reading these files back into `networkx` works with the matching read functions:
 
 ```python
 # Read the graph back from each of the formats
@@ -741,8 +734,6 @@ graph_from_gml = nx.read_gml(output_dir / "street_network.gml")
 with open(output_dir / "street_network.json") as f:
     graph_from_json = nx.node_link_graph(json.load(f))
 ```
-
-Note that, unlike Pickle, these formats do not store the street geometries — which is exactly why we simplified the graph before writing it, and why Pickle remains our recommended choice for saving spatial networks.
 
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->

@@ -90,7 +90,7 @@ G = ox.truncate.largest_component(G, strongly=True)
 print("Number of nodes:", G.number_of_nodes())
 ```
 
-As we can see, the number of nodes is now the same as in the largest strongly connected component above, which means that we can drive from every node of the graph to every other node.
+As we can see, the number of nodes is now the same as in the largest strongly connected component above, which means that we can drive from every node of the graph to every other node. In Chapters 8.4 and 8.5, we always keep only the largest strongly connected component of a street network before analyzing it.
 
 
 ## Reachability in directed networks
