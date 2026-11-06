@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.7
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -378,6 +378,9 @@ Temporal resolution
 
 Topological spatial relations
   Topological spatial relations describe how two or more geometric objects relate to each other concerning their position and boundaries. Topological spatial relations can be exemplified by relationships such as contains, touches and intersects. In GIS, these kind of topological relations play a crucial role as they enable queries that are less concerned with the exact coordinates or shapes of geographic entities but more focused on their relative arrangements and positions.
+
+Traceback
+  A report showing the function calls made by a program prior to an error or execption being raised. Tracebacks help identify where a problem was encountered in a program and through which functions the problematic code was executed.
 
 Tuple
   A [tuple](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences) is a Python data structure that consists of a number of values separated by commas. Coordinate pairs are often represented as a tuple, such as: `(60.192059, 24.945831)`. Tuples belong to [sequence data types](https://docs.python.org/3/library/stdtypes.html#typesseq) in Python. Other sequence data types are lists and ranges. Tuples have many similarities with lists and ranges, but they are often used for different purposes. The main difference between tuples and lists is that tuples are [immutable](https://docs.python.org/3/glossary.html#term-immutable), which means that the contents of a tuple cannot be altered (while lists are mutable; you can, for example, add and remove values from lists).
