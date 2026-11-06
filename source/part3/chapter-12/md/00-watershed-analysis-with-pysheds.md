@@ -84,7 +84,7 @@ plt.style.use("bmh")
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Loading the digital elevation data
 
-A mosaic of the data used for this case study has already been created and is provided as a geotiff image online at the address listed with the variable `bucket_dem_fp` below. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. The DEM data is from [version 4.1 of the ALOS World 3D-30m digital surface model](https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm) [^alos] with approximately 30 m spatial resolution (e.g., {cite}`Tadono2014`). Information about how the data have been processed to produce the mosaic we will use can be found in the {doc}`data for New Zealand section </data/New-Zealand-data>` online. We will be using this elevation data to extract and analyze river drainage basins on the western side of the New Zealand Alps.
+A mosaic of the data used for this case study has already been created and is provided as a geotiff image online at the address listed with the variable `bucket_dem_fp` below. This digital elevation model (DEM) covers the central portion of the southern island of New Zealand. The DEM data is from [version 4.1 of the ALOS World 3D-30m digital surface model](https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm) [^alos] with approximately 30 m spatial resolution (e.g., {cite}`Tadono2014`). Information about how the data have been processed to produce the mosaic we will use can be found in the {doc}`data for New Zealand section </online-extras/data/New-Zealand-data>` online. We will be using this elevation data to extract and analyze river drainage basins on the western side of the New Zealand Alps.
 
 To start, we can read in the data using `xarray`.
 <!-- #endregion -->
@@ -161,7 +161,7 @@ Once these steps have been completed, it is possible to delineate a watershed up
 
 At this stage we can begin the DEM processing steps using `pysheds`. The first step is to read in the DEM. To do this, we need to define the elevation data that will be used (`data`), the affine transformation matrix (`affine`), the coordinate reference system (`crs`), and the value used to indicate missing data (`nodata`). As a reminder, the affine transformation matrix and coordinate reference system values were introduced in Sections 7.2 and 7.4. The values used in the case are defined below.
 
-At this point it is worthwhile to note that it is also possible to read geotiff DEMs into `pysheds` directly. However, in this case study the data are read in using `xarray` because we have already seen this in Chapter 7 and {doc}`pre-processing of the data was done to create a mosaic </data/New-Zealand-data>` using `xarray` and `rioxarray`. As a reminder, creating mosaics of raster data was covered in Section 7.3.
+At this point it is worthwhile to note that it is also possible to read geotiff DEMs into `pysheds` directly. However, in this case study the data are read in using `xarray` because we have already seen this in Chapter 7 and {doc}`pre-processing of the data was done to create a mosaic </online-extras/data/New-Zealand-data>` using `xarray` and `rioxarray`. As a reminder, creating mosaics of raster data was covered in Section 7.3.
 <!-- #endregion -->
 
 ```python editable=true slideshow={"slide_type": ""}
