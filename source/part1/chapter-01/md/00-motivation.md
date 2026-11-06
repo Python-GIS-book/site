@@ -5,7 +5,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.16.4
+      jupytext_version: 1.19.5
   kernelspec:
     display_name: Python 3 (ipykernel)
     language: python
@@ -62,7 +62,7 @@ Let's consider another option, plotting temperature anomalies on a map (Figure 1
 
 _**Figure 1.3**. Global temperature anomalies by country from 1900-2017. Visualization by Antti Lipponen (<https://twitter.com/anttilip>). The animation can be viewed by clicking on the image or online at <https://flic.kr/p/293M1oa>._
 
-So, let's look now at some excellent examples of data visualization with Python. We have essentially the same data that were plotted in Figures 1.1 and 1.2, but now we can see how temperatures vary in both space and time. An [animated "pill packet" plot]((https://flic.kr/p/293M1oa)) of temperature anomalies (Figure 1.3) conveys a huge amount of information in a simple form. People can immediately understand what is plotted, and the combination of the plot format, colors and animation are very effective. What even better is the fact that this animation was made using Python!
+So, let's look now at some excellent examples of data visualization with Python. We have essentially the same data that were plotted in Figures 1.1 and 1.2, but now we can see how temperatures vary in both space and time. An [animated "pill packet" plot](https://flic.kr/p/293M1oa) of temperature anomalies (Figure 1.3) conveys a huge amount of information in a simple form. People can immediately understand what is plotted, and the combination of the plot format, colors and animation are very effective. What even better is the fact that this animation was made using Python!
 
 
 ![_**Figure 1.4**. Global temperature anomalies past and future, 1900-2100. Visualization by Antti Lipponen (<https://twitter.com/anttilip>). The animation can be viewed by clicking on the image or online at <https://flic.kr/p/QYnKre>._](../img/lipponen-video-2.jpg)
