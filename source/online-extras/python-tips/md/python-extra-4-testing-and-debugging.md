@@ -51,7 +51,8 @@ When you run this script you encounter a new and longer error message:
 def convert_wind_speed(speed):
     return speed * 1000 / 3600
 
-wind_speed_km = '30'
+
+wind_speed_km = "30"
 wind_speed_ms = convert_wind_speed(wind_speed_km)
 
 print(f"A wind speed of {wind_speed_km} km/hr is {wind_speed_ms} m/s.")
