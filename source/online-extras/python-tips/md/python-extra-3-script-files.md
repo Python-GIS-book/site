@@ -15,7 +15,7 @@ jupyter:
 # Using Python script files
 
 
-Though most of the book content focuses on using Jupyter Notebooks, it is not uncommon to use Python script files for data analysis. We introduced using script files in {doc}`Chapter 2.7 </part1/chapter-02/nb/06-writing-scripts.ipynb>` and here we expand on that with some tips about how to format script files for improved readability and features you may want to include in your script files. In addition, we briefly comment on how to produce command-line interfaces for Python software you may develop.
+Though most of the book content focuses on using Jupyter Notebooks, it is not uncommon to use Python script files for data analysis. We introduced using script files in {doc}`Chapter 2.7 </part1/chapter-02/nb/06-writing-scripts>` and here we expand on that with some tips about how to format script files for improved readability and features you may want to include in your script files. In addition, we briefly comment on how to produce command-line interfaces for Python software you may develop.
 
 
 # GCP 4 - Writing our scripts the "right" way
