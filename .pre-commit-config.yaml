@@ -6,3 +6,4 @@ repos:
         language_version: python3
     -   id: black-jupyter
         language_version: python3
+        exclude: ^source/online-extras/python-tips/nb/python-extra-4-testing-and-debugging\.ipynb$
