@@ -23,9 +23,9 @@ This appendix provides an introduction to version control using Git and some ste
 <!-- #region editable=true raw_mimetype="" slideshow={"slide_type": ""} -->
 ## The problem
 
-![_**Figure A.X**. An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>._](../img/phd101212s.png)
+![An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>.](../img/phd101212s.png)
 
-_**Figure A.X**. An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>._
+*An example of the challenge of tracking versions of a manuscript. Source: <https://phdcomics.com/comics/archive.php?comicid=1531>.*
 
 We've all been in this situation before, and it seems ridiculous to have multiple nearly identical versions of the same document. Some word processors can help us deal with this situation to some extent, by storing past revisions or using Microsoft Word's "Track Changes" feature. However, this can be quite impractical if you would like to see modifications that are older than your previous round of changes. And just like changes to a text document, the same issue can arise when making changes to software. And even worse, sometimes your changes break the program entirely. Luckily there are tools to help avoid this problem.
 <!-- #endregion -->
@@ -33,11 +33,11 @@ We've all been in this situation before, and it seems ridiculous to have multipl
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## What is version control?
 
-*{term}`Version control`* [^versioncontrol] is used to track and store changes in your files without losing the history of your previous changes. Version control systems start with a base version of a document and then save only the changes you make at each step of the way. You can think of it as a tape: if you rewind the tape and start at the base document, then you can play back each change and end up with your latest version.
+*{term}`Version control`* is used to track and store changes in your files without losing the history of your previous changes. Version control systems start with a base version of a document and then save only the changes you make at each step of the way. You can think of it as a tape: if you rewind the tape and start at the base document, then you can play back each change and end up with your latest version.
 
-![_**Figure A.X**. Illustration of committing changes. Source: <https://swcarpentry.github.io/git-novice/01-basics.html>._](../img/play-changes.png)
+![Illustration of committing changes. Source: <https://swcarpentry.github.io/git-novice/01-basics.html>.](../img/play-changes.png)
 
-_**Figure A.X**. Illustration of committing changes. Source: <https://swcarpentry.github.io/git-novice/01-basics.html>._
+*Illustration of committing changes. Source: <https://swcarpentry.github.io/git-novice/01-basics.html>.*
 
 A version control system is a tool that keeps track of these changes for us and helps us version our files ([and even merge different versions, a more advanced topic](https://en.wikipedia.org/wiki/Merge_(version_control))). It allows you to decide which changes should be included the next version, called a commit, and keeps useful metadata about those changes. The complete history of commits for a particular project and their metadata make up a repository (such as our [book material repository](https://github.com/Python-GIS-book/site)). Repositories can be kept in sync between different computers and users facilitating collaboration among different people.
 
@@ -50,24 +50,12 @@ There are multiple different Version Control Systems (VCS; software for doing ve
 ## What is Git?
 <!-- #endregion -->
 
-<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
-![_The Git logo by Jason Long, licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/)._](../img/Git-Logo-2Color.png)
-
-_The Git logo by Jason Long, licensed under the [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/)._
-<!-- #endregion -->
-
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 [Git](https://en.wikipedia.org/wiki/Git_(software)) is a version control software (developed in 2005 by a rather famous Finn named Linus Torvalds, who also created Linux!) that is used to track and store changes in your files (often source code for programs) without losing the history of past changes. Files in Git are stored in a repository, which you can simply think of as a directory containing files (or other directories) related to a single "project". In practice git takes "snapshots" of your files each time you commit changes and follows the idea of [distributed version control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control). Git is widely used by professionals to keep track of what they've done and to collaborate with other people. Git is the version control system that is running behind the scenes and used with GitHub ("Git" + "Hub"!).
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ## What is GitHub?
-<!-- #endregion -->
-
-<!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
-![_The GitHub Logo._](../img/GitHub_Logo.png)
-
-_The GitHub Logo._
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -116,15 +104,15 @@ We use Git to (1) record changes to our files over time and (2) to communicate b
 
 The most common starting point for working with software in Git is creating a copy of the software, or "cloning" it. This can be done using the command `git clone`, for example. For repositories you have already copied, you can download the latest changes using the command using `git pull`, which will fetch (and merge) new changes from GitHub. Finally, the command `git push` publishes any local changes to GitHub. You can find more information about interacting with Git projects on the [Git Source Control Management site](https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Sharing-and-Updating-Projects).
 
-![_**Figure A.X**. Update your Git project using the pull and push commands. Always pull before you push, especially when working in a shared project._](../img/pull-push-illustration.png)
+![Update your Git project using the pull and push commands. Always pull before you push, especially when working in a shared project.](../img/pull-push-illustration.png)
 
-_**Figure A.X**. Update your Git project using the pull and push commands. Always pull before you push, especially when working in a shared project._
+*Update your Git project using the pull and push commands. Always pull before you push, especially when working in a shared project.*
 
 The version control history consists of snapshots of all the files in your project. In order to record changes to your files, we first add changes to a so called staging area (using the command `git add`). The idea is that you can have a (sometimes messy) working directory, and by using `git add` you tell Git precisely which files to include in the next committed snapshot. After this, the command `git commit` can be used to record a permanent snapshot of the staged changes. You can find more information about snapshotting on the [Git Source Control Management site](https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Basic-Snapshotting).
 
-![_**Figure A.X**. Version control steps using Git. Adapted from <https://git-scm.com/about/staging-area>._](../img/Git_illustration.png)
+![Version control steps using Git. Adapted from <https://git-scm.com/about/staging-area>.](../img/Git_illustration.png)
 
-_**Figure A.X**. Version control steps using Git. Adapted from <https://git-scm.com/about/staging-area>._
+*Version control steps using Git. Adapted from <https://git-scm.com/about/staging-area>.*
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -142,9 +130,9 @@ Before we continue, open a new JupyterLab session if you do not already have one
 
 We will start by creating a Personal Access Token for our GitHub account that will allow you to save changes you make to files in GitHub. A Personal Access Token can be used for many things, but it is required when trying to push changes or access files in private repositories to which you have access rights, for example. For our use, the token will enable us to both push and pull files to/from GitHub.
 
-You can find detailed instructions about how to create a Personal Access Token in the [GitHub documentation](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) [^token]. However, we note a few things below that may be helpful in the process.
+You can find detailed instructions about how to create a Personal Access Token in the [GitHub documentation](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token). However, we note a few things below that may be helpful in the process.
 
-- You will need to verify your email address for your GitHub account to create a Personal Access Token. See [GitHub email verification](https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address) [^email] for details.
+- You will need to verify your email address for your GitHub account to create a Personal Access Token. See [GitHub email verification](https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address) for details.
 - We are creating a "classic" token using **Generate new token (classic)**.
 - You can name your token whatever you like, but a name like "PythonGIS" might make sense.
 - The expiration date will be short by default. We recommend an expiration date of one year.
@@ -154,11 +142,11 @@ You can find detailed instructions about how to create a Personal Access Token i
 <!-- #region editable=true slideshow={"slide_type": ""} -->
 ### Creating a fork of the book notebooks
 
-In order to make a copy of the book notebooks that you can access and edit, we will create a *{term}`fork`* of the student version of the book materials. You can create your fork by visiting <https://github.com/Python-GIS-book/student-notebooks> and clicking on the **Fork** button on the top left side of the page (Figure A.X).
+In order to make a copy of the book notebooks that you can access and edit, we will create a *{term}`fork`* of the student version of the book materials. You can create your fork by visiting <https://github.com/Python-GIS-book/student-notebooks> and clicking on the **Fork** button on the top left side of the page.
 
-![_**Figure A.X**. Creating a for in GitHub._](../img/fork-repo.png)
+![Creating a fork in GitHub.](../img/fork-repo.png)
 
-_**Figure A.X**. Creating a for in GitHub._
+*Creating a fork in GitHub.*
 
 After clicking on the **Fork** button, you can leave everything as it is on the Create a new fork page and simply click **Create fork**. This will create your personal copy, which can be found in GitHub at `https://github.com/[your GitHub username]/student-notebooks`. For example, `https://github.com/davewhipp/student-notebooks`.
 
@@ -172,11 +160,11 @@ Our next task is to create a copy of your fork on your own computer by cloning t
 
 ### Cloning a repository
 
-You can start by navigating to a directory in the JupyterLab file browser, where you would like to store your copy of the book materials. Once there, create a directory for the book materials, such as `PythonGIS`. Double click on the new directory to enter it in the JupyterLab file browser. Next, click on the Git extension button to activate it, and then click on **Clone a repository** (Figure A.X).
+You can start by navigating to a directory in the JupyterLab file browser, where you would like to store your copy of the book materials. Once there, create a directory for the book materials, such as `PythonGIS`. Double click on the new directory to enter it in the JupyterLab file browser. Next, click on the Git extension button to activate it, and then click on **Clone a repository**.
 
-![_**Figure A.X**. Using the JupyterLab Git extension._](../img/git-plugin.png)
+![Using the JupyterLab Git extension.](../img/git-plugin.png)
 
-_**Figure A.X**. Using the JupyterLab Git extension._
+*Using the JupyterLab Git extension.*
 
 Once the Clone a repo dialog box appears, paste in the URL to your fork of the book materials and click **Clone**. You can leave the checkboxes ticked as they are. This is equivalent to the `git clone` command in a terminal.
 
@@ -184,33 +172,33 @@ If cloning was successful you should now see a directory titled `student-noteboo
 
 ### Checking the Git status
 
-You can now double click on the `student-notebooks` directory to enter it, and then activate the Git extension once again to view some basic information. This includes which repository you're working in, the branch you are in within the repository, and whether any files have changed or are ready to be committed in Git, for example (Figure A.X). This is the equivalent of running the `git status` command in a terminal.
+You can now double click on the `student-notebooks` directory to enter it, and then activate the Git extension once again to view some basic information. This includes which repository you're working in, the branch you are in within the repository, and whether any files have changed or are ready to be committed in Git, for example. This is the equivalent of running the `git status` command in a terminal.
 
-![_**Figure A.X**. Checking the repository status in the JupyterLab Git extension._](../img/git-status.png)
+![Checking the repository status in the JupyterLab Git extension.](../img/git-status.png)
 
-_**Figure A.X**. Checking the repository status in the JupyterLab Git extension._
+*Checking the repository status in the JupyterLab Git extension.*
 
 ### Making changes
 
 Now we can make our first change to one of the repository files. Return to the JupyterLab file browser and double click to open the `README.md` file. In the tab that opens in JupyterLab, make a small change to the file, such as adding the text "I like Python!" at the end of the document. Once you finish editing, save your changes.
 
-![_**Figure A.X**. Making a change to a file._](../img/changing-a-file.png)
+![Making a change to a file.](../img/changing-a-file.png)
 
-_**Figure A.X**. Making a change to a file._
+*Making a change to a file.*
 
 After saving, return to the Git extension to check the status of the repository. You should see `README.md` listed under **Changed** files. Note that you can ignore temporary checkpoint files, such as `README-checkpoint.md`, which are automatically generated backup copies of files in JupyterLab.
 
-![_**Figure A.X**. Changed file status in the JupyterLab extension._](../img/changed-file.png)
+![Changed file status in the JupyterLab extension.](../img/changed-file.png)
 
-_**Figure A.X**. Changed file status in the JupyterLab extension._
+*Changed file status in the JupyterLab extension.*
 
 ### Staging changed file(s)
 
 These changes are not yet staged for commit, which means that we need to add them first to the list of files we intend to save in a permanent snapshot in Git (i.e., the staging area). To add a file to the staging area, right click on the file in the JupyterLab Git extension and then click **+ Stage**. You should now see the file under **Staged** files. This is the equivalent of running the `git add` command in a terminal.
 
-![_**Figure A.X**. Staging a file in the JupyterLab extension._](../img/stage-file.png)
+![Staging a file in the JupyterLab extension.](../img/stage-file.png)
 
-_**Figure A.X**. Staging a file in the JupyterLab extension._
+*Staging a file in the JupyterLab extension.*
 
 If you accidentally stage a file or wish to remove it for any reason, simply right click on a staged file and select **- Unstage** to return it to the **Changed** list.
 
@@ -218,25 +206,25 @@ If you accidentally stage a file or wish to remove it for any reason, simply rig
 
 Now that the changed file is in the staging area, we can create we can create a permanent snapshot by committing the changes. It is important to always remember to write a short, informative commit message to accompany your changes so you document how the file(s) have changed! Type a message into the commit message text box and then click **COMMIT** to save a permanent snapshot of your changes. This is the equivalent of running `git commit -m "commit message"` in a terminal.
 
-![_**Figure A.X**. Committing a change in the JupyterLab extension._](../img/commit-change.png)
+![Committing a change in the JupyterLab extension.](../img/commit-change.png)
 
-_**Figure A.X**. Committing a change in the JupyterLab extension._
+*Committing a change in the JupyterLab extension.*
 
-Once you click **COMMIT**, the Git extension will most likely ask you to enter your name and email address. This is because every commit in Git needs to record not only what has changed, but also who made the change (including their email address!). You can use the same information you used when creating your GitHub account.
+Once you click **COMMIT**, the Git extension will most likely ask you to enter your name and email address (if this is the first time you have used this extension). This is because every commit in Git needs to record not only what has changed, but also who made the change (including their email address!). You can use the same information you used when creating your GitHub account.
 
 Once the commit succeeds, you should see the latest set of changes in the History tab of the JupyterLab Git extension. The output here is the equivalent of running `git log` in a terminal.
 
-![_**Figure A.X**. Repository history in the JupyterLab extension._](../img/commit-history.png)
+![Repository history in the JupyterLab extension.](../img/commit-history.png)
 
-_**Figure A.X**. Repository history in the JupyterLab extension._
+*Repository history in the JupyterLab extension.*
 
 Note that you will also see earlier changes that have been made to the files in your repository. Remember, Git will record all changes since the Git repository was created!
 
 ### Pushing changes to GitHub
 
-Our last step is to synchronize our local changes with the remote repository hosted on GitHub. To do this we will first pull changes from GitHub and then push our modified files to GitHub. It is always good to pull changes before pushing to ensure that any remote changes do not conflict with the changes you are trying to push. You may have already noticed that there is an orange dot that appears in the JuptyerLab git extension indicating we have changes that have not yet been pushed (e.g., Figure A.X).
+Our last step is to synchronize our local changes with the remote repository hosted on GitHub. To do this we will (1) pull changes from GitHub and then (2) push our modified files to GitHub. It is always good to pull changes before pushing to ensure that any remote changes do not conflict with the changes you are trying to push. You may have already noticed that there is an orange dot that appears in the JuptyerLab git extension indicating we have changes that have not yet been pushed.
 
-We can pull any changes from GitHub by clicking on the cloud icon with an arrow pointing downwards (Figure A.X). If everything is OK, you should see "Successfully pulled" in the bottom right corner of the JupyterLab window shortly after clicking. Now you can push the changes to GitHub by clicking the cloud icon with an arrow pointing upwards (Figure A.X). This is the equivalent of running the `git push` command in a terminal.
+We can pull any changes from GitHub by clicking on the cloud icon with an arrow pointing downwards. If everything is OK, you should see "Successfully pulled" in the bottom right corner of the JupyterLab window shortly after clicking. Now you can push the changes to GitHub by clicking the cloud icon with an arrow pointing upwards. This is the equivalent of running the `git push` command in a terminal.
 
 Most likely, you will now be prompted to enter your GitHub user credentials. When the Git credentials required dialog box appears, enter your GitHub username, your Personal Access Token, and then click **Ok**. You GitHub credentials can be managed in a terminal using the command `git config`.
 
@@ -250,7 +238,7 @@ Although it is likely easiest to use Git from the JupyterLab Git extension, we a
 
 ### Essential command line tools
 
-You will need to know a couple of basic command-line commands in order to use Git from the command line. Code Academy's [list of command line commands](https://www.codecademy.com/articles/command-line-commands) [^command_line] provides a good overview of commonly used commands for navigating through files on the command line. For using Git on the command line, you should at least be familiar with the following commands.
+You will need to know a couple of basic command-line commands in order to use Git from the command line. Code Academy's [list of command line commands](https://www.codecademy.com/articles/command-line-commands) provides a good overview of commonly used commands for navigating through files on the command line. For using Git on the command line, you should at least be familiar with the following commands.
 
 - `ls`: List the contents of the current directory.
 - `ls -a`: List the contents of the current directory including hidden files.
@@ -266,22 +254,22 @@ You can open a terminal window in JuptyerLab by going to **File** -> **New** -> 
 You can configure Git to remember your identity using the `git config` command. You (hopefully) only need to do this once if working on your own computer. The basic credential commands to define your Git username and email address are:
 
 ``` bash
-git config --global user.name "[firstname lastname]"
-git config --global user.email "[email@example.com]"
+git config --global user.name "firstname lastname"
+git config --global user.email "email@example.com"
 ```
 
 ### Basic Git commands
 
-The basic workflow of cloning a repository, adding changes to the staging area, committing, and pushing the changes can be completed using these command-line commands below:
+The basic workflow of cloning a repository, adding changes to the staging area, committing, and pushing the changes can be completed using these command-line commands below. These are more or less equivalent to the set of steps listed above for working with the JupyterLab Git extension.
 
 - `git clone [URL]`: Retrieve a repository from a remote location (often from GitHub).
 - `git status`: Check the status of your repository (use this command often!).
 - `git add [file(s)]`: Add files to the staging area (so they are ready for the next commit).
-- `git commit -m "[descriptive message]"`: Commit staged files as a new snapshot.
+- `git commit -m "descriptive message"`: Commit staged files as a new snapshot.
 - `git pull`: Bring the local branch up to date (fetch and merge changes from the remote).
 - `git push`: Transmit local commits to the remote repository.
 
-You can find some other useful Git commands from the [GitHub GIT CHEAT SHEET](https://education.github.com/git-cheat-sheet-education.pdf) [^cheat_sheet].
+You can find some other useful Git commands from the [GitHub GIT CHEAT SHEET](https://education.github.com/git-cheat-sheet-education.pdf).
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} -->
@@ -289,21 +277,21 @@ You can find some other useful Git commands from the [GitHub GIT CHEAT SHEET](ht
 
 ### Managing remote repositories
 
-*{term}`Remote repositories <Git remote>`* are versions of your project that are hosted on a network server system (such as GitHub). When you clone a repository using `git clone`, Git will automatically start tracking the remote repository from where the project was cloned. You can use the command `git remote -v` in a terminal, for example, to check which remote repository your local repository is tracking. Using this command you could, for instance, confirm that you are working with your own copy of the student notebooks as the command should show the location of the fork you created if you did so earlier. This can be quite important because you may have problems with permissions if you clone a repository that you do not have permission to push changes to! You can find more information about managing remotes in the [Git Source Control Management documentation](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes) [^remotes].
+*{term}`Remote repositories <Git remote>`* are versions of your project that are hosted on a network server system (such as GitHub). When you clone a repository using `git clone`, Git will automatically start tracking the remote repository from where the project was cloned. You can use the command `git remote -v` in a terminal, for example, to check which remote repository your local repository is tracking. Using this command you could, for instance, confirm that you are working with your own copy of the student notebooks as the command should show the location of the fork you created if you did so earlier. This can be quite important because you may have problems with permissions if you clone a repository that you do not have permission to push changes to! You can find more information about managing remotes in the [Git Source Control Management documentation](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes).
 
 ### Branches
 
-*{term}`Branches <Git branch>`* are parallel versions of code in a repository that start from a specific snapshot and can develop independently without affecting the original files used to make the branch. In the repositories that we are using most of the time, the base branch is called `main`, so you may see references to that under "Current branch" in the JupyterLab Git extension, for example. When pushing changes to the `main` branch of a Git repository in a terminal, we can type `git push`, however the complete syntax for the command is actually `git push origin main`. The complete command indicates changes should be pushed to the remote repository `origin` and to the branch `main`. The remote called `origin` would typically be the one shown when checking the remotes using the command `git remote -v`. You can find more about branches in Git in the [Git Source Control Management documentation](https://git-scm.com/docs/git-branch) [^branch].
+*{term}`Branches <Git branch>`* are parallel versions of code in a repository that start from a specific snapshot and can develop independently without affecting the original files used to make the branch. In the repositories that we are using most of the time, the base branch is called `main`, so you may see references to that under "Current branch" in the JupyterLab Git extension, for example. When pushing changes to the `main` branch of a Git repository in a terminal, we can type `git push`, however the complete syntax for the command is actually `git push origin main`. The complete command indicates changes should be pushed to the remote repository `origin` and to the branch `main`. The remote called `origin` would typically be the one shown when checking the remotes using the command `git remote -v`. You can find more about branches in Git in the [Git Source Control Management documentation](https://git-scm.com/docs/git-branch).
 
 ### Resolving conflicts
 
-When merging files in Git it is sometimes the case that you encounter a *{term}`merge conflict <Git merge conflict>`*. A merge conflict might happen if two users have edited the same content in a Git repository, or if you yourself have edited the same content both on GitHub and locally without properly synchronizing the changes. In short, Git will tell you that it is not able to figure out how to combine the changes by announcing a merge conflict. You will then have the task of manually editing together the changed sections of the file(s) to resolve the conflict. You can find more about merge conflicts in the [Git Source Control Management documentation](https://git-scm.com/docs/git-merge#_how_to_resolve_conflicts) [^merge_conflicts].
+When merging files in Git it is sometimes the case that you encounter a *{term}`merge conflict <Git merge conflict>`*. A merge conflict might happen if two users have edited the same content in a Git repository, or if you yourself have edited the same content both on GitHub and locally without properly synchronizing the changes. In short, Git will tell you that it is not able to figure out how to combine the changes by announcing a merge conflict. You will then have the task of manually editing together the changed sections of the file(s) to resolve the conflict. You can find more about merge conflicts in the [Git Source Control Management documentation](https://git-scm.com/docs/git-merge#_how_to_resolve_conflicts).
 
 The key thing to remember with merge conflicts is: Don't panic! It might be a bit frustrating to manually merge changes, but Git nicely identifies the sections of the file(s) that conflict and you can then decide which changes to keep and which to discard. After resolving the conflict you can then commit and push the merged files to get back in sync. A good way to limit the changes of a merge conflict is to always pull before you push!
 
-![_**Figure A.X**. The occasional reality of using Git. Source: <https://xkcd.com/1597>._](../img/git-xkcd.png)
+![The occasional reality of using Git. Source: <https://xkcd.com/1597>.](../img/git-xkcd.png)
 
-_**Figure A.X**. The occasional reality of using Git. Source: <https://xkcd.com/1597>._
+*The occasional reality of using Git. Source: <https://xkcd.com/1597>.*
 <!-- #endregion -->
 
 <!-- #region editable=true slideshow={"slide_type": ""} tags=["remove_book_cell"] -->
@@ -315,17 +303,4 @@ More information about using Git and GitHub can be found at the following links:
 - [Git and GitHub learning resources](https://help.github.com/articles/good-resources-for-learning-git-and-github/)
 - [Tutorial on additional features of GitHub not covered in this appendix](https://guides.github.com/activities/hello-world/)
 - [GeeksForGeeks post: "What is GitHub and How to Use It?"](https://www.geeksforgeeks.org/what-is-github-and-how-to-use-it/)
-<!-- #endregion -->
-
-<!-- #region editable=true slideshow={"slide_type": ""} -->
-## Footnotes
-
-[^branch]: <https://git-scm.com/docs/git-branch>
-[^cheat_sheet]: <https://education.github.com/git-cheat-sheet-education.pdf>
-[^command_line]: <https://www.codecademy.com/articles/command-line-commands>
-[^email]: <https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address>
-[^merge_conflicts]: <https://git-scm.com/docs/git-merge#_how_to_resolve_conflicts>
-[^remotes]: <https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes>
-[^token]: <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token>
-[^versioncontrol]: <https://en.wikipedia.org/wiki/Version_control>
 <!-- #endregion -->
